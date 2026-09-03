@@ -30,8 +30,8 @@ if __name__ == "__main__":
     print("=" * 60)
     uvicorn.run(
         "app:app",
-        host=settings.HOST,
-        port=settings.PORT,
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 8000)),
         reload=settings.DEBUG,
         reload_dirs=[BACKEND_DIR] if settings.DEBUG else None,
     )
