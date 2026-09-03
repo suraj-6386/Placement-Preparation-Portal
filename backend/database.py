@@ -7,8 +7,10 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 from config import settings
 
 # Create SQLAlchemy engine with connection pool pre-ping
+# Includes PyMySQL-compatible SSL options for Aiven
 engine = create_engine(
     settings.sync_database_url,
+    connect_args=settings.get_database_ssl_options(),
     pool_pre_ping=True,
     pool_recycle=3600,
 )
