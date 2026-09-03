@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interview - Placement Preparation Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Placement Preparation Portal</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="aptitude.html">Aptitude</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="coding.html">Coding</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="interview.html">Interview</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="profile.html">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="help.html">Help</a>
+            </li>
+            <li class="nav-item">
+              <button
+                class="btn nav-link theme-toggle"
+                id="themeToggle"
+                onclick="toggleTheme()"
+                title="Toggle Dark/Light Mode"
+              >
+                <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+              </button>
+            </li>
+            <li class="nav-item" id="authNav"></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container my-5">
+      <h2 class="mb-4">Interview Preparation</h2>
+
+      <!-- Tabs -->
+      <ul class="nav nav-tabs mb-4" id="interviewTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="hr-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#hr"
+            type="button"
+          >
+            HR Interview
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="technical-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#technical"
+            type="button"
+          >
+            Technical Interview
+          </button>
+        </li>
+      </ul>
+
+      <!-- Tab Content -->
+      <div class="tab-content" id="interviewTabContent">
+        <!-- HR Tab -->
+        <div class="tab-pane fade show active" id="hr" role="tabpanel">
+          <h4 class="mb-3">HR Interview Questions</h4>
+          <div id="hrQuestions" class="accordion"></div>
+        </div>
+
+        <!-- Technical Tab -->
+        <div class="tab-pane fade" id="technical" role="tabpanel">
+          <div class="mb-4">
+            <h4 class="mb-3">Technical Interview Questions</h4>
+            <p class="text-muted">
+              Select a technology to view interview questions in a new window
+            </p>
+          </div>
+
+          <div id="technicalSubjects" class="row mb-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+      <p class="mb-0">
+        &copy; 2024 Placement Preparation Portal. All rights reserved.
+      </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+    <script src="assets/js/main.js"></script>
+    <script>
+      // Load auth modals
+      loadAuthModals();
+    </script>
+    <style>
+      .technical-subject-card {
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid #e9ecef;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      }
+
+      .technical-subject-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        border-color: #4f46e5;
+      }
+
+      .technical-subject-card .card-body {
+        padding: 1.5rem;
+      }
+
+      .technical-subject-card .card-title {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        color: #2c3e50;
+      }
+
+      .question-header {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border: none;
+        padding: 1rem 1.5rem;
+        font-weight: 500;
+        color: #2c3e50;
+      }
+
+      .accordion-button:not(.collapsed) {
+        background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+        color: white;
+      }
+
+      .accordion-button:focus {
+        box-shadow: none;
+        border-color: #4f46e5;
+      }
+
+      .accordion-item {
+        border: 1px solid #e9ecef;
+        margin-bottom: 0.5rem;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .badge-count {
+        background: #4f46e5;
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+    </style>
+    <script>
+      checkAuth();
+      loadInterviewData();
+
+      async function loadInterviewData() {
+        // Load HR questions
+        const hrData = await fetchAPI("/api/interview/hr");
+        const hrContainer = document.getElementById("hrQuestions");
+        hrContainer.innerHTML = "";
+        hrData.forEach((question, idx) => {
+          hrContainer.innerHTML += `
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed question-header" type="button" data-bs-toggle="collapse" data-bs-target="#hr${idx}">
+                                <strong>${idx + 1}.</strong>&nbsp;${question}
+                            </button>
+                        </h2>
+                        <div id="hr${idx}" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <p class="text-muted mb-2"><i class="bi bi-lightbulb"></i> <strong>Tip:</strong></p>
+                                <p>Think about this question and prepare your answer. Practice makes perfect! Consider using the STAR method (Situation, Task, Action, Result) for behavioral questions.</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+        });
+
+        // Load Technical questions
+        const technicalData = await fetchAPI("/api/interview/technical");
+        const technicalSubjects = document.getElementById("technicalSubjects");
+        technicalSubjects.innerHTML = "";
+
+        const subjectIcons = {
+          C: "⚙️",
+          "C++": "🔧",
+          Java: "☕",
+          Python: "🐍",
+          JavaScript: "🟨",
+          PHP: "🐘",
+          "C#": "#️⃣",
+          Go: "🔵",
+          SQL: "🗄️",
+          "HTML/CSS": "🎨",
+          "Data Structures": "📊",
+          DBMS: "💾",
+          "Operating Systems": "🖥️",
+          Networking: "🌐",
+        };
+
+        for (const subject of Object.keys(technicalData)) {
+          const icon = subjectIcons[subject] || "📚";
+          technicalSubjects.innerHTML += `
+            <div class="col-md-6 col-lg-4 col-xl-3 mb-3">
+              <a href="interview-technical-questions.html?subject=${encodeURIComponent(
+                subject
+              )}" class="text-decoration-none">
+                <div class="card h-100 technical-subject-card">
+                  <div class="card-body text-center">
+                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">${icon}</div>
+                    <h5 class="card-title">${subject}</h5>
+                    <span class="badge-count">${
+                      technicalData[subject].length
+                    } Questions</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          `;
+        }
+      }
+    </script>
+  </body>
+</html>

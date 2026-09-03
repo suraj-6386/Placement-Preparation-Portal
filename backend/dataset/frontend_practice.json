@@ -1,0 +1,2210 @@
+{
+  "HTML": [
+    {
+      "id": "html_e_1",
+      "question": "What is basic syntax element 1 in HTML?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_2",
+      "question": "What is basic syntax element 2 in HTML?",
+      "options": [
+        "None",
+        "Invalid",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_3",
+      "question": "What is basic syntax element 3 in HTML?",
+      "options": [
+        "Error",
+        "None",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_4",
+      "question": "What is basic syntax element 4 in HTML?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_5",
+      "question": "What is basic syntax element 5 in HTML?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_6",
+      "question": "What is basic syntax element 6 in HTML?",
+      "options": [
+        "Invalid",
+        "None",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_7",
+      "question": "What is basic syntax element 7 in HTML?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_8",
+      "question": "What is basic syntax element 8 in HTML?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_9",
+      "question": "What is basic syntax element 9 in HTML?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_10",
+      "question": "What is basic syntax element 10 in HTML?",
+      "options": [
+        "Invalid",
+        "None",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_11",
+      "question": "What is basic syntax element 11 in HTML?",
+      "options": [
+        "Error",
+        "None",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_12",
+      "question": "What is basic syntax element 12 in HTML?",
+      "options": [
+        "None",
+        "Invalid",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_13",
+      "question": "What is basic syntax element 13 in HTML?",
+      "options": [
+        "Error",
+        "Invalid",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_14",
+      "question": "What is basic syntax element 14 in HTML?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_15",
+      "question": "What is basic syntax element 15 in HTML?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_16",
+      "question": "What is basic syntax element 16 in HTML?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_17",
+      "question": "What is basic syntax element 17 in HTML?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_18",
+      "question": "What is basic syntax element 18 in HTML?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_19",
+      "question": "What is basic syntax element 19 in HTML?",
+      "options": [
+        "Invalid",
+        "Error",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_e_20",
+      "question": "What is basic syntax element 20 in HTML?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_m_21",
+      "question": "What is basic syntax element 21 in HTML?",
+      "options": [
+        "Invalid",
+        "Error",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_m_22",
+      "question": "What is basic syntax element 22 in HTML?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_m_23",
+      "question": "What is basic syntax element 23 in HTML?",
+      "options": [
+        "None",
+        "Invalid",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_m_24",
+      "question": "What is basic syntax element 24 in HTML?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_m_25",
+      "question": "What is basic syntax element 25 in HTML?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_m_26",
+      "question": "What is basic syntax element 26 in HTML?",
+      "options": [
+        "None",
+        "Invalid",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_m_27",
+      "question": "What is basic syntax element 27 in HTML?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_m_28",
+      "question": "What is basic syntax element 28 in HTML?",
+      "options": [
+        "None",
+        "Error",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_m_29",
+      "question": "What is basic syntax element 29 in HTML?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_m_30",
+      "question": "What is basic syntax element 30 in HTML?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_m_31",
+      "question": "What is basic syntax element 31 in HTML?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_m_32",
+      "question": "What is basic syntax element 32 in HTML?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_m_33",
+      "question": "What is basic syntax element 33 in HTML?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_m_34",
+      "question": "What is basic syntax element 34 in HTML?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_m_35",
+      "question": "What is basic syntax element 35 in HTML?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "html_h_36",
+      "question": "Which HTML tag defines a semantic section?",
+      "options": [
+        "<div>",
+        "<article>",
+        "<section>",
+        "<span>"
+      ],
+      "answer": "<section>"
+    },
+    {
+      "id": "html_h_37",
+      "question": "Which HTML tag defines a semantic section?",
+      "options": [
+        "<section>",
+        "<article>",
+        "<span>",
+        "<div>"
+      ],
+      "answer": "<section>"
+    },
+    {
+      "id": "html_h_38",
+      "question": "Which HTML tag defines a semantic section?",
+      "options": [
+        "<div>",
+        "<span>",
+        "<section>",
+        "<article>"
+      ],
+      "answer": "<section>"
+    },
+    {
+      "id": "html_h_39",
+      "question": "Which HTML tag defines a semantic section?",
+      "options": [
+        "<article>",
+        "<div>",
+        "<span>",
+        "<section>"
+      ],
+      "answer": "<section>"
+    },
+    {
+      "id": "html_h_40",
+      "question": "Which HTML tag defines a semantic section?",
+      "options": [
+        "<span>",
+        "<div>",
+        "<article>",
+        "<section>"
+      ],
+      "answer": "<section>"
+    },
+    {
+      "id": "html_h_41",
+      "question": "Which HTML tag defines a semantic section?",
+      "options": [
+        "<section>",
+        "<article>",
+        "<div>",
+        "<span>"
+      ],
+      "answer": "<section>"
+    },
+    {
+      "id": "html_h_42",
+      "question": "Which HTML tag defines a semantic section?",
+      "options": [
+        "<article>",
+        "<span>",
+        "<section>",
+        "<div>"
+      ],
+      "answer": "<section>"
+    },
+    {
+      "id": "html_h_43",
+      "question": "Which HTML tag defines a semantic section?",
+      "options": [
+        "<span>",
+        "<section>",
+        "<div>",
+        "<article>"
+      ],
+      "answer": "<section>"
+    },
+    {
+      "id": "html_h_44",
+      "question": "Which HTML tag defines a semantic section?",
+      "options": [
+        "<article>",
+        "<section>",
+        "<span>",
+        "<div>"
+      ],
+      "answer": "<section>"
+    },
+    {
+      "id": "html_h_45",
+      "question": "Which HTML tag defines a semantic section?",
+      "options": [
+        "<div>",
+        "<span>",
+        "<section>",
+        "<article>"
+      ],
+      "answer": "<section>"
+    },
+    {
+      "id": "html_h_46",
+      "question": "Which HTML tag defines a semantic section?",
+      "options": [
+        "<span>",
+        "<section>",
+        "<div>",
+        "<article>"
+      ],
+      "answer": "<section>"
+    },
+    {
+      "id": "html_h_47",
+      "question": "Which HTML tag defines a semantic section?",
+      "options": [
+        "<article>",
+        "<span>",
+        "<div>",
+        "<section>"
+      ],
+      "answer": "<section>"
+    },
+    {
+      "id": "html_h_48",
+      "question": "Which HTML tag defines a semantic section?",
+      "options": [
+        "<span>",
+        "<section>",
+        "<article>",
+        "<div>"
+      ],
+      "answer": "<section>"
+    },
+    {
+      "id": "html_h_49",
+      "question": "Which HTML tag defines a semantic section?",
+      "options": [
+        "<section>",
+        "<span>",
+        "<div>",
+        "<article>"
+      ],
+      "answer": "<section>"
+    },
+    {
+      "id": "html_h_50",
+      "question": "Which HTML tag defines a semantic section?",
+      "options": [
+        "<section>",
+        "<span>",
+        "<div>",
+        "<article>"
+      ],
+      "answer": "<section>"
+    }
+  ],
+  "CSS": [
+    {
+      "id": "css_e_1",
+      "question": "What is basic syntax element 1 in CSS?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_2",
+      "question": "What is basic syntax element 2 in CSS?",
+      "options": [
+        "None",
+        "Invalid",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_3",
+      "question": "What is basic syntax element 3 in CSS?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_4",
+      "question": "What is basic syntax element 4 in CSS?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_5",
+      "question": "What is basic syntax element 5 in CSS?",
+      "options": [
+        "Invalid",
+        "Error",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_6",
+      "question": "What is basic syntax element 6 in CSS?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_7",
+      "question": "What is basic syntax element 7 in CSS?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_8",
+      "question": "What is basic syntax element 8 in CSS?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_9",
+      "question": "What is basic syntax element 9 in CSS?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_10",
+      "question": "What is basic syntax element 10 in CSS?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_11",
+      "question": "What is basic syntax element 11 in CSS?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_12",
+      "question": "What is basic syntax element 12 in CSS?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_13",
+      "question": "What is basic syntax element 13 in CSS?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_14",
+      "question": "What is basic syntax element 14 in CSS?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_15",
+      "question": "What is basic syntax element 15 in CSS?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_16",
+      "question": "What is basic syntax element 16 in CSS?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_17",
+      "question": "What is basic syntax element 17 in CSS?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_18",
+      "question": "What is basic syntax element 18 in CSS?",
+      "options": [
+        "None",
+        "Error",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_19",
+      "question": "What is basic syntax element 19 in CSS?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_e_20",
+      "question": "What is basic syntax element 20 in CSS?",
+      "options": [
+        "Error",
+        "None",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_m_21",
+      "question": "What is basic syntax element 21 in CSS?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_m_22",
+      "question": "What is basic syntax element 22 in CSS?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_m_23",
+      "question": "What is basic syntax element 23 in CSS?",
+      "options": [
+        "None",
+        "Invalid",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_m_24",
+      "question": "What is basic syntax element 24 in CSS?",
+      "options": [
+        "Invalid",
+        "None",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_m_25",
+      "question": "What is basic syntax element 25 in CSS?",
+      "options": [
+        "None",
+        "Invalid",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_m_26",
+      "question": "What is basic syntax element 26 in CSS?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_m_27",
+      "question": "What is basic syntax element 27 in CSS?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_m_28",
+      "question": "What is basic syntax element 28 in CSS?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_m_29",
+      "question": "What is basic syntax element 29 in CSS?",
+      "options": [
+        "None",
+        "Invalid",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_m_30",
+      "question": "What is basic syntax element 30 in CSS?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_m_31",
+      "question": "What is basic syntax element 31 in CSS?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_m_32",
+      "question": "What is basic syntax element 32 in CSS?",
+      "options": [
+        "Invalid",
+        "Error",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_m_33",
+      "question": "What is basic syntax element 33 in CSS?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_m_34",
+      "question": "What is basic syntax element 34 in CSS?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_m_35",
+      "question": "What is basic syntax element 35 in CSS?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "css_h_36",
+      "question": "What does flex:1 do in CSS Flexbox?",
+      "options": [
+        "Centers item",
+        "Sets margin",
+        "Item grows",
+        "Removes flex property"
+      ],
+      "answer": "Item grows"
+    },
+    {
+      "id": "css_h_37",
+      "question": "What does flex:1 do in CSS Flexbox?",
+      "options": [
+        "Item grows",
+        "Centers item",
+        "Sets margin",
+        "Removes flex property"
+      ],
+      "answer": "Item grows"
+    },
+    {
+      "id": "css_h_38",
+      "question": "What does flex:1 do in CSS Flexbox?",
+      "options": [
+        "Removes flex property",
+        "Sets margin",
+        "Item grows",
+        "Centers item"
+      ],
+      "answer": "Item grows"
+    },
+    {
+      "id": "css_h_39",
+      "question": "What does flex:1 do in CSS Flexbox?",
+      "options": [
+        "Centers item",
+        "Item grows",
+        "Removes flex property",
+        "Sets margin"
+      ],
+      "answer": "Item grows"
+    },
+    {
+      "id": "css_h_40",
+      "question": "What does flex:1 do in CSS Flexbox?",
+      "options": [
+        "Sets margin",
+        "Centers item",
+        "Item grows",
+        "Removes flex property"
+      ],
+      "answer": "Item grows"
+    },
+    {
+      "id": "css_h_41",
+      "question": "What does flex:1 do in CSS Flexbox?",
+      "options": [
+        "Item grows",
+        "Sets margin",
+        "Removes flex property",
+        "Centers item"
+      ],
+      "answer": "Item grows"
+    },
+    {
+      "id": "css_h_42",
+      "question": "What does flex:1 do in CSS Flexbox?",
+      "options": [
+        "Sets margin",
+        "Item grows",
+        "Centers item",
+        "Removes flex property"
+      ],
+      "answer": "Item grows"
+    },
+    {
+      "id": "css_h_43",
+      "question": "What does flex:1 do in CSS Flexbox?",
+      "options": [
+        "Item grows",
+        "Sets margin",
+        "Centers item",
+        "Removes flex property"
+      ],
+      "answer": "Item grows"
+    },
+    {
+      "id": "css_h_44",
+      "question": "What does flex:1 do in CSS Flexbox?",
+      "options": [
+        "Sets margin",
+        "Item grows",
+        "Centers item",
+        "Removes flex property"
+      ],
+      "answer": "Item grows"
+    },
+    {
+      "id": "css_h_45",
+      "question": "What does flex:1 do in CSS Flexbox?",
+      "options": [
+        "Item grows",
+        "Centers item",
+        "Removes flex property",
+        "Sets margin"
+      ],
+      "answer": "Item grows"
+    },
+    {
+      "id": "css_h_46",
+      "question": "What does flex:1 do in CSS Flexbox?",
+      "options": [
+        "Item grows",
+        "Sets margin",
+        "Centers item",
+        "Removes flex property"
+      ],
+      "answer": "Item grows"
+    },
+    {
+      "id": "css_h_47",
+      "question": "What does flex:1 do in CSS Flexbox?",
+      "options": [
+        "Removes flex property",
+        "Sets margin",
+        "Centers item",
+        "Item grows"
+      ],
+      "answer": "Item grows"
+    },
+    {
+      "id": "css_h_48",
+      "question": "What does flex:1 do in CSS Flexbox?",
+      "options": [
+        "Sets margin",
+        "Item grows",
+        "Centers item",
+        "Removes flex property"
+      ],
+      "answer": "Item grows"
+    },
+    {
+      "id": "css_h_49",
+      "question": "What does flex:1 do in CSS Flexbox?",
+      "options": [
+        "Centers item",
+        "Sets margin",
+        "Item grows",
+        "Removes flex property"
+      ],
+      "answer": "Item grows"
+    },
+    {
+      "id": "css_h_50",
+      "question": "What does flex:1 do in CSS Flexbox?",
+      "options": [
+        "Sets margin",
+        "Centers item",
+        "Item grows",
+        "Removes flex property"
+      ],
+      "answer": "Item grows"
+    }
+  ],
+  "JavaScript": [
+    {
+      "id": "js_e_1",
+      "question": "What is basic syntax element 1 in JavaScript?",
+      "options": [
+        "None",
+        "Error",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_2",
+      "question": "What is basic syntax element 2 in JavaScript?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_3",
+      "question": "What is basic syntax element 3 in JavaScript?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_4",
+      "question": "What is basic syntax element 4 in JavaScript?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_5",
+      "question": "What is basic syntax element 5 in JavaScript?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_6",
+      "question": "What is basic syntax element 6 in JavaScript?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_7",
+      "question": "What is basic syntax element 7 in JavaScript?",
+      "options": [
+        "Error",
+        "None",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_8",
+      "question": "What is basic syntax element 8 in JavaScript?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_9",
+      "question": "What is basic syntax element 9 in JavaScript?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_10",
+      "question": "What is basic syntax element 10 in JavaScript?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_11",
+      "question": "What is basic syntax element 11 in JavaScript?",
+      "options": [
+        "Invalid",
+        "None",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_12",
+      "question": "What is basic syntax element 12 in JavaScript?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_13",
+      "question": "What is basic syntax element 13 in JavaScript?",
+      "options": [
+        "Error",
+        "Invalid",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_14",
+      "question": "What is basic syntax element 14 in JavaScript?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_15",
+      "question": "What is basic syntax element 15 in JavaScript?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_16",
+      "question": "What is basic syntax element 16 in JavaScript?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_17",
+      "question": "What is basic syntax element 17 in JavaScript?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_18",
+      "question": "What is basic syntax element 18 in JavaScript?",
+      "options": [
+        "Invalid",
+        "Error",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_19",
+      "question": "What is basic syntax element 19 in JavaScript?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_e_20",
+      "question": "What is basic syntax element 20 in JavaScript?",
+      "options": [
+        "Error",
+        "Invalid",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_m_21",
+      "question": "What is basic syntax element 21 in JavaScript?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_m_22",
+      "question": "What is basic syntax element 22 in JavaScript?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_m_23",
+      "question": "What is basic syntax element 23 in JavaScript?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_m_24",
+      "question": "What is basic syntax element 24 in JavaScript?",
+      "options": [
+        "Error",
+        "Invalid",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_m_25",
+      "question": "What is basic syntax element 25 in JavaScript?",
+      "options": [
+        "Error",
+        "Invalid",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_m_26",
+      "question": "What is basic syntax element 26 in JavaScript?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_m_27",
+      "question": "What is basic syntax element 27 in JavaScript?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_m_28",
+      "question": "What is basic syntax element 28 in JavaScript?",
+      "options": [
+        "Error",
+        "None",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_m_29",
+      "question": "What is basic syntax element 29 in JavaScript?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_m_30",
+      "question": "What is basic syntax element 30 in JavaScript?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_m_31",
+      "question": "What is basic syntax element 31 in JavaScript?",
+      "options": [
+        "Invalid",
+        "None",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_m_32",
+      "question": "What is basic syntax element 32 in JavaScript?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_m_33",
+      "question": "What is basic syntax element 33 in JavaScript?",
+      "options": [
+        "Invalid",
+        "None",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_m_34",
+      "question": "What is basic syntax element 34 in JavaScript?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_m_35",
+      "question": "What is basic syntax element 35 in JavaScript?",
+      "options": [
+        "Error",
+        "Invalid",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "js_h_36",
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "Loop structure",
+        "Function with preserved scope",
+        "Class instance",
+        "Async event"
+      ],
+      "answer": "Function with preserved scope"
+    },
+    {
+      "id": "js_h_37",
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "Class instance",
+        "Async event",
+        "Loop structure",
+        "Function with preserved scope"
+      ],
+      "answer": "Function with preserved scope"
+    },
+    {
+      "id": "js_h_38",
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "Function with preserved scope",
+        "Loop structure",
+        "Async event",
+        "Class instance"
+      ],
+      "answer": "Function with preserved scope"
+    },
+    {
+      "id": "js_h_39",
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "Function with preserved scope",
+        "Class instance",
+        "Loop structure",
+        "Async event"
+      ],
+      "answer": "Function with preserved scope"
+    },
+    {
+      "id": "js_h_40",
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "Class instance",
+        "Loop structure",
+        "Async event",
+        "Function with preserved scope"
+      ],
+      "answer": "Function with preserved scope"
+    },
+    {
+      "id": "js_h_41",
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "Function with preserved scope",
+        "Async event",
+        "Class instance",
+        "Loop structure"
+      ],
+      "answer": "Function with preserved scope"
+    },
+    {
+      "id": "js_h_42",
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "Class instance",
+        "Function with preserved scope",
+        "Async event",
+        "Loop structure"
+      ],
+      "answer": "Function with preserved scope"
+    },
+    {
+      "id": "js_h_43",
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "Function with preserved scope",
+        "Class instance",
+        "Async event",
+        "Loop structure"
+      ],
+      "answer": "Function with preserved scope"
+    },
+    {
+      "id": "js_h_44",
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "Class instance",
+        "Async event",
+        "Function with preserved scope",
+        "Loop structure"
+      ],
+      "answer": "Function with preserved scope"
+    },
+    {
+      "id": "js_h_45",
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "Function with preserved scope",
+        "Loop structure",
+        "Class instance",
+        "Async event"
+      ],
+      "answer": "Function with preserved scope"
+    },
+    {
+      "id": "js_h_46",
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "Async event",
+        "Class instance",
+        "Function with preserved scope",
+        "Loop structure"
+      ],
+      "answer": "Function with preserved scope"
+    },
+    {
+      "id": "js_h_47",
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "Loop structure",
+        "Async event",
+        "Function with preserved scope",
+        "Class instance"
+      ],
+      "answer": "Function with preserved scope"
+    },
+    {
+      "id": "js_h_48",
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "Class instance",
+        "Loop structure",
+        "Async event",
+        "Function with preserved scope"
+      ],
+      "answer": "Function with preserved scope"
+    },
+    {
+      "id": "js_h_49",
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "Function with preserved scope",
+        "Class instance",
+        "Async event",
+        "Loop structure"
+      ],
+      "answer": "Function with preserved scope"
+    },
+    {
+      "id": "js_h_50",
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "Class instance",
+        "Function with preserved scope",
+        "Loop structure",
+        "Async event"
+      ],
+      "answer": "Function with preserved scope"
+    }
+  ],
+  "React": [
+    {
+      "id": "react_e_1",
+      "question": "What is basic syntax element 1 in React?",
+      "options": [
+        "Invalid",
+        "Error",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_2",
+      "question": "What is basic syntax element 2 in React?",
+      "options": [
+        "None",
+        "Error",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_3",
+      "question": "What is basic syntax element 3 in React?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_4",
+      "question": "What is basic syntax element 4 in React?",
+      "options": [
+        "Invalid",
+        "Error",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_5",
+      "question": "What is basic syntax element 5 in React?",
+      "options": [
+        "None",
+        "Invalid",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_6",
+      "question": "What is basic syntax element 6 in React?",
+      "options": [
+        "Invalid",
+        "Error",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_7",
+      "question": "What is basic syntax element 7 in React?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_8",
+      "question": "What is basic syntax element 8 in React?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_9",
+      "question": "What is basic syntax element 9 in React?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_10",
+      "question": "What is basic syntax element 10 in React?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_11",
+      "question": "What is basic syntax element 11 in React?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_12",
+      "question": "What is basic syntax element 12 in React?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_13",
+      "question": "What is basic syntax element 13 in React?",
+      "options": [
+        "Error",
+        "None",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_14",
+      "question": "What is basic syntax element 14 in React?",
+      "options": [
+        "Invalid",
+        "None",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_15",
+      "question": "What is basic syntax element 15 in React?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_16",
+      "question": "What is basic syntax element 16 in React?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_17",
+      "question": "What is basic syntax element 17 in React?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_18",
+      "question": "What is basic syntax element 18 in React?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_19",
+      "question": "What is basic syntax element 19 in React?",
+      "options": [
+        "Error",
+        "None",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_e_20",
+      "question": "What is basic syntax element 20 in React?",
+      "options": [
+        "None",
+        "Invalid",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_m_21",
+      "question": "What is basic syntax element 21 in React?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_m_22",
+      "question": "What is basic syntax element 22 in React?",
+      "options": [
+        "Invalid",
+        "Error",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_m_23",
+      "question": "What is basic syntax element 23 in React?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_m_24",
+      "question": "What is basic syntax element 24 in React?",
+      "options": [
+        "None",
+        "Invalid",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_m_25",
+      "question": "What is basic syntax element 25 in React?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_m_26",
+      "question": "What is basic syntax element 26 in React?",
+      "options": [
+        "Error",
+        "Invalid",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_m_27",
+      "question": "What is basic syntax element 27 in React?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_m_28",
+      "question": "What is basic syntax element 28 in React?",
+      "options": [
+        "Invalid",
+        "Error",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_m_29",
+      "question": "What is basic syntax element 29 in React?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_m_30",
+      "question": "What is basic syntax element 30 in React?",
+      "options": [
+        "Invalid",
+        "None",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_m_31",
+      "question": "What is basic syntax element 31 in React?",
+      "options": [
+        "Error",
+        "Invalid",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_m_32",
+      "question": "What is basic syntax element 32 in React?",
+      "options": [
+        "Invalid",
+        "Error",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_m_33",
+      "question": "What is basic syntax element 33 in React?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_m_34",
+      "question": "What is basic syntax element 34 in React?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_m_35",
+      "question": "What is basic syntax element 35 in React?",
+      "options": [
+        "Invalid",
+        "Error",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "react_h_36",
+      "question": "Which React hook manages component state?",
+      "options": [
+        "useEffect",
+        "useMemo",
+        "useState",
+        "useRef"
+      ],
+      "answer": "useState"
+    },
+    {
+      "id": "react_h_37",
+      "question": "Which React hook manages component state?",
+      "options": [
+        "useMemo",
+        "useEffect",
+        "useState",
+        "useRef"
+      ],
+      "answer": "useState"
+    },
+    {
+      "id": "react_h_38",
+      "question": "Which React hook manages component state?",
+      "options": [
+        "useEffect",
+        "useRef",
+        "useState",
+        "useMemo"
+      ],
+      "answer": "useState"
+    },
+    {
+      "id": "react_h_39",
+      "question": "Which React hook manages component state?",
+      "options": [
+        "useEffect",
+        "useMemo",
+        "useRef",
+        "useState"
+      ],
+      "answer": "useState"
+    },
+    {
+      "id": "react_h_40",
+      "question": "Which React hook manages component state?",
+      "options": [
+        "useEffect",
+        "useMemo",
+        "useState",
+        "useRef"
+      ],
+      "answer": "useState"
+    },
+    {
+      "id": "react_h_41",
+      "question": "Which React hook manages component state?",
+      "options": [
+        "useRef",
+        "useEffect",
+        "useState",
+        "useMemo"
+      ],
+      "answer": "useState"
+    },
+    {
+      "id": "react_h_42",
+      "question": "Which React hook manages component state?",
+      "options": [
+        "useMemo",
+        "useState",
+        "useEffect",
+        "useRef"
+      ],
+      "answer": "useState"
+    },
+    {
+      "id": "react_h_43",
+      "question": "Which React hook manages component state?",
+      "options": [
+        "useRef",
+        "useMemo",
+        "useState",
+        "useEffect"
+      ],
+      "answer": "useState"
+    },
+    {
+      "id": "react_h_44",
+      "question": "Which React hook manages component state?",
+      "options": [
+        "useEffect",
+        "useMemo",
+        "useRef",
+        "useState"
+      ],
+      "answer": "useState"
+    },
+    {
+      "id": "react_h_45",
+      "question": "Which React hook manages component state?",
+      "options": [
+        "useMemo",
+        "useRef",
+        "useEffect",
+        "useState"
+      ],
+      "answer": "useState"
+    },
+    {
+      "id": "react_h_46",
+      "question": "Which React hook manages component state?",
+      "options": [
+        "useState",
+        "useMemo",
+        "useRef",
+        "useEffect"
+      ],
+      "answer": "useState"
+    },
+    {
+      "id": "react_h_47",
+      "question": "Which React hook manages component state?",
+      "options": [
+        "useRef",
+        "useMemo",
+        "useEffect",
+        "useState"
+      ],
+      "answer": "useState"
+    },
+    {
+      "id": "react_h_48",
+      "question": "Which React hook manages component state?",
+      "options": [
+        "useState",
+        "useEffect",
+        "useMemo",
+        "useRef"
+      ],
+      "answer": "useState"
+    },
+    {
+      "id": "react_h_49",
+      "question": "Which React hook manages component state?",
+      "options": [
+        "useEffect",
+        "useState",
+        "useMemo",
+        "useRef"
+      ],
+      "answer": "useState"
+    },
+    {
+      "id": "react_h_50",
+      "question": "Which React hook manages component state?",
+      "options": [
+        "useMemo",
+        "useEffect",
+        "useRef",
+        "useState"
+      ],
+      "answer": "useState"
+    }
+  ]
+}

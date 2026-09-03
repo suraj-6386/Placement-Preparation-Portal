@@ -1,0 +1,45 @@
+{
+  "easy": {
+    "sets": [
+      [
+        {"id":"c_e1_q1","question":"What is the output of: print(1 + 1)","options":["1","2","11","0"],"answer":"2"},
+        {"id":"c_e1_q2","question":"Which data type stores text?","options":["int","float","string","boolean"],"answer":"string"},
+        {"id":"c_e1_q3","question":"What symbol is used for comments in Python?","options":["//","#","/*","--"],"answer":"#"},
+        {"id":"c_e1_q4","question":"What is 10 % 3 in most programming languages?","options":["0","1","3","10"],"answer":"1"},
+        {"id":"c_e1_q5","question":"Which loop runs at least once?","options":["for","while","do-while","foreach"],"answer":"do-while"},
+        {"id":"c_e1_q6","question":"What does '==' operator do?","options":["Assignment","Comparison","Addition","Concatenation"],"answer":"Comparison"},
+        {"id":"c_e1_q7","question":"Which is not a primitive data type?","options":["int","float","array","char"],"answer":"array"},
+        {"id":"c_e1_q8","question":"What is the index of first element in array?","options":["-1","0","1","Depends"],"answer":"0"},
+        {"id":"c_e1_q9","question":"Which symbol is used for AND operation?","options":["&","&&","|","||"],"answer":"&&"},
+        {"id":"c_e1_q10","question":"What is recursion?","options":["Loop","Function calling itself","Error","None"],"answer":"Function calling itself"}
+      ],
+      [
+        {"id":"c_e2_q1","question":"What does IDE stand for?","options":["Integrated Development Environment","Internet Development Environment","Internal Development Engine","Integrated Design Environment"],"answer":"Integrated Development Environment"},
+        {"id":"c_e2_q2","question":"Which is a valid variable name?","options":["1variable","variable_1","variable-1","variable 1"],"answer":"variable_1"},
+        {"id":"c_e2_q3","question":"What is the result of true && false?","options":["true","false","1","0"],"answer":"false"},
+        {"id":"c_e2_q4","question":"Which keyword is used to exit a loop?","options":["exit","stop","break","end"],"answer":"break"},
+        {"id":"c_e2_q5","question":"What is NULL?","options":["0","Empty string","No value","Error"],"answer":"No value"}
+      ]
+    ]
+  },
+  "medium": {
+    "sets": [
+      [
+        {"id":"c_m1_q1","question":"What is Big O notation used for?","options":["Memory usage","Time complexity","Code length","Error handling"],"answer":"Time complexity"},
+        {"id":"c_m1_q2","question":"Which data structure uses LIFO?","options":["Queue","Stack","Tree","Graph"],"answer":"Stack"},
+        {"id":"c_m1_q3","question":"What is the time complexity of binary search?","options":["O(n)","O(log n)","O(n^2)","O(1)"],"answer":"O(log n)"},
+        {"id":"c_m1_q4","question":"Which sorting algorithm has best average case?","options":["Bubble Sort","Quick Sort","Selection Sort","Insertion Sort"],"answer":"Quick Sort"},
+        {"id":"c_m1_q5","question":"What is a pointer?","options":["Variable","Address of variable","Function","Data type"],"answer":"Address of variable"}
+      ]
+    ]
+  },
+  "hard": {
+    "sets": [
+      [
+        {"id":"c_h1_q1","question":"What is the space complexity of merge sort?","options":["O(1)","O(log n)","O(n)","O(n^2)"],"answer":"O(n)"},
+        {"id":"c_h1_q2","question":"Which is true about virtual functions in C++?","options":["Static binding","Dynamic binding","No binding","Compile time binding"],"answer":"Dynamic binding"},
+        {"id":"c_h1_q3","question":"What is a closure in programming?","options":["Function with private variables","Class","Loop","Error handler"],"answer":"Function with private variables"}
+      ]
+    ]
+  }
+}

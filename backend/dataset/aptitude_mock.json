@@ -1,0 +1,76 @@
+{
+  "easy": {
+    "sets": [
+      [
+        {"id":"e1_q1","question":"What is 2 + 2?","options":["3","4","5","6"],"answer":"4"},
+        {"id":"e1_q2","question":"What is 5 - 2?","options":["3","2","1","4"],"answer":"3"},
+        {"id":"e1_q3","question":"What is 3 × 4?","options":["10","11","12","13"],"answer":"12"},
+        {"id":"e1_q4","question":"What is 10 ÷ 2?","options":["3","4","5","6"],"answer":"5"},
+        {"id":"e1_q5","question":"What is 10% of 100?","options":["5","10","15","20"],"answer":"10"},
+        {"id":"e1_q6","question":"What is 50% of 80?","options":["30","35","40","45"],"answer":"40"},
+        {"id":"e1_q7","question":"Which is even?","options":["11","13","14","15"],"answer":"14"},
+        {"id":"e1_q8","question":"Which is odd?","options":["10","12","13","14"],"answer":"13"},
+        {"id":"e1_q9","question":"Next in series: 2, 4, 6, ?","options":["7","8","9","10"],"answer":"8"},
+        {"id":"e1_q10","question":"7 + 3 = ?","options":["9","10","11","12"],"answer":"10"}
+      ],
+      [
+        {"id":"e2_q1","question":"What is 3 + 3?","options":["5","6","7","8"],"answer":"6"},
+        {"id":"e2_q2","question":"What is 8 - 3?","options":["4","5","6","7"],"answer":"5"},
+        {"id":"e2_q3","question":"What is 5 × 5?","options":["20","25","30","35"],"answer":"25"},
+        {"id":"e2_q4","question":"What is 20 ÷ 4?","options":["4","5","6","7"],"answer":"5"},
+        {"id":"e2_q5","question":"What is 25% of 200?","options":["40","45","50","55"],"answer":"50"},
+        {"id":"e2_q6","question":"Which is prime?","options":["8","9","10","11"],"answer":"11"},
+        {"id":"e2_q7","question":"LCM of 4 and 6?","options":["10","12","14","16"],"answer":"12"},
+        {"id":"e2_q8","question":"HCF of 8 and 12?","options":["2","4","6","8"],"answer":"4"},
+        {"id":"e2_q9","question":"Next: 5, 10, 15, ?","options":["18","20","22","25"],"answer":"20"},
+        {"id":"e2_q10","question":"12 - 5 = ?","options":["6","7","8","9"],"answer":"7"}
+      ],
+      [
+        {"id":"e3_q1","question":"What is 10 ÷ 2?","options":["3","4","5","6"],"answer":"5"},
+        {"id":"e3_q2","question":"What is 6 × 7?","options":["40","42","44","46"],"answer":"42"},
+        {"id":"e3_q3","question":"What is 15 + 5?","options":["18","19","20","21"],"answer":"20"},
+        {"id":"e3_q4","question":"What is 30 - 12?","options":["16","17","18","19"],"answer":"18"},
+        {"id":"e3_q5","question":"20% of 150?","options":["25","30","35","40"],"answer":"30"},
+        {"id":"e3_q6","question":"Square of 8?","options":["56","60","64","68"],"answer":"64"},
+        {"id":"e3_q7","question":"Cube of 3?","options":["9","18","27","36"],"answer":"27"},
+        {"id":"e3_q8","question":"Which is even: 17, 19, 20, 21?","options":["17","19","20","21"],"answer":"20"},
+        {"id":"e3_q9","question":"Next: 1, 4, 9, 16, ?","options":["20","23","25","30"],"answer":"25"},
+        {"id":"e3_q10","question":"Sum of angles in triangle?","options":["90","120","180","360"],"answer":"180"}
+      ]
+    ]
+  },
+  "medium": {
+    "sets": [
+      [
+        {"id":"m1_q1","question":"If 3x + 5 = 20, what is x?","options":["3","4","5","6"],"answer":"5"},
+        {"id":"m1_q2","question":"A train 100m long crosses pole in 10s. Speed?","options":["10 m/s","15 m/s","20 m/s","25 m/s"],"answer":"10 m/s"},
+        {"id":"m1_q3","question":"SI on Rs.1000 at 5% for 2 years?","options":["50","75","100","125"],"answer":"100"},
+        {"id":"m1_q4","question":"CP=500, SP=600. Profit %?","options":["15%","20%","25%","30%"],"answer":"20%"},
+        {"id":"m1_q5","question":"Average of 10, 20, 30, 40?","options":["20","25","30","35"],"answer":"25"},
+        {"id":"m1_q6","question":"Probability of getting head in coin toss?","options":["0.25","0.5","0.75","1"],"answer":"0.5"},
+        {"id":"m1_q7","question":"If A:B = 2:3 and B:C = 4:5, then A:C?","options":["8:15","2:5","6:15","10:15"],"answer":"8:15"},
+        {"id":"m1_q8","question":"Compound interest formula uses?","options":["P(1+r)^n","P*r*t","P+rt","P/r"],"answer":"P(1+r)^n"},
+        {"id":"m1_q9","question":"Sum of first 10 natural numbers?","options":["45","50","55","60"],"answer":"55"},
+        {"id":"m1_q10","question":"Area of circle with radius 7?","options":["154","140","168","180"],"answer":"154"}
+      ],
+      [
+        {"id":"m2_q1","question":"Solve: 2x - 3 = 11","options":["5","6","7","8"],"answer":"7"},
+        {"id":"m2_q2","question":"A can do work in 12 days, B in 18 days. Together?","options":["6 days","7.2 days","8 days","9 days"],"answer":"7.2 days"},
+        {"id":"m2_q3","question":"Speed of 72 km/h in m/s?","options":["15","18","20","22"],"answer":"20"},
+        {"id":"m2_q4","question":"Selling price is 120% of CP. If SP=600, CP?","options":["450","480","500","520"],"answer":"500"},
+        {"id":"m2_q5","question":"Median of 3,7,5,9,11?","options":["5","7","9","11"],"answer":"7"}
+      ]
+    ]
+  },
+  "hard": {
+    "sets": [
+      [
+        {"id":"h1_q1","question":"If f(x) = 2x^2 + 3x - 5, what is f(2)?","options":["9","11","13","15"],"answer":"9"},
+        {"id":"h1_q2","question":"A boat goes downstream 30 km in 2h, upstream 20 km in 2h. Speed of stream?","options":["2.5 km/h","3 km/h","3.5 km/h","4 km/h"],"answer":"2.5 km/h"},
+        {"id":"h1_q3","question":"Pipes A fills tank in 6h, B in 8h, C empties in 12h. All open, time to fill?","options":["6h","7h","8h","9h"],"answer":"8h"},
+        {"id":"h1_q4","question":"CI on 10000 at 10% p.a. for 2 years (compounded annually)?","options":["2000","2100","2200","2300"],"answer":"2100"},
+        {"id":"h1_q5","question":"Two numbers are in ratio 3:4. If LCM is 180, what is HCF?","options":["12","15","18","20"],"answer":"15"}
+      ]
+    ]
+  }
+}

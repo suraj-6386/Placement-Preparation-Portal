@@ -1,0 +1,3314 @@
+{
+  "Python": [
+    {
+      "id": "py_e_1",
+      "question": "What is basic syntax element 1 in Python?",
+      "options": [
+        "Error",
+        "Invalid",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_2",
+      "question": "What is basic syntax element 2 in Python?",
+      "options": [
+        "Error",
+        "Invalid",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_3",
+      "question": "What is basic syntax element 3 in Python?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_4",
+      "question": "What is basic syntax element 4 in Python?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_5",
+      "question": "What is basic syntax element 5 in Python?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_6",
+      "question": "What is basic syntax element 6 in Python?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_7",
+      "question": "What is basic syntax element 7 in Python?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_8",
+      "question": "What is basic syntax element 8 in Python?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_9",
+      "question": "What is basic syntax element 9 in Python?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_10",
+      "question": "What is basic syntax element 10 in Python?",
+      "options": [
+        "Error",
+        "Invalid",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_11",
+      "question": "What is basic syntax element 11 in Python?",
+      "options": [
+        "None",
+        "Invalid",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_12",
+      "question": "What is basic syntax element 12 in Python?",
+      "options": [
+        "None",
+        "Invalid",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_13",
+      "question": "What is basic syntax element 13 in Python?",
+      "options": [
+        "Invalid",
+        "Error",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_14",
+      "question": "What is basic syntax element 14 in Python?",
+      "options": [
+        "Invalid",
+        "None",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_15",
+      "question": "What is basic syntax element 15 in Python?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_16",
+      "question": "What is basic syntax element 16 in Python?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_17",
+      "question": "What is basic syntax element 17 in Python?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_18",
+      "question": "What is basic syntax element 18 in Python?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_19",
+      "question": "What is basic syntax element 19 in Python?",
+      "options": [
+        "None",
+        "Invalid",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_e_20",
+      "question": "What is basic syntax element 20 in Python?",
+      "options": [
+        "Error",
+        "Invalid",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_m_21",
+      "question": "What is basic syntax element 21 in Python?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_m_22",
+      "question": "What is basic syntax element 22 in Python?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_m_23",
+      "question": "What is basic syntax element 23 in Python?",
+      "options": [
+        "Invalid",
+        "Error",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_m_24",
+      "question": "What is basic syntax element 24 in Python?",
+      "options": [
+        "None",
+        "Invalid",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_m_25",
+      "question": "What is basic syntax element 25 in Python?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_m_26",
+      "question": "What is basic syntax element 26 in Python?",
+      "options": [
+        "Error",
+        "Invalid",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_m_27",
+      "question": "What is basic syntax element 27 in Python?",
+      "options": [
+        "Error",
+        "None",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_m_28",
+      "question": "What is basic syntax element 28 in Python?",
+      "options": [
+        "None",
+        "Error",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_m_29",
+      "question": "What is basic syntax element 29 in Python?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_m_30",
+      "question": "What is basic syntax element 30 in Python?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_m_31",
+      "question": "What is basic syntax element 31 in Python?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_m_32",
+      "question": "What is basic syntax element 32 in Python?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_m_33",
+      "question": "What is basic syntax element 33 in Python?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_m_34",
+      "question": "What is basic syntax element 34 in Python?",
+      "options": [
+        "None",
+        "Invalid",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_m_35",
+      "question": "What is basic syntax element 35 in Python?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "py_h_36",
+      "question": "Time complexity of binary search?",
+      "options": [
+        "O(1)",
+        "O(n)",
+        "O(log n)",
+        "O(n log n)"
+      ],
+      "answer": "O(log n)"
+    },
+    {
+      "id": "py_h_37",
+      "question": "Time complexity of binary search?",
+      "options": [
+        "O(n log n)",
+        "O(log n)",
+        "O(n)",
+        "O(1)"
+      ],
+      "answer": "O(log n)"
+    },
+    {
+      "id": "py_h_38",
+      "question": "Time complexity of binary search?",
+      "options": [
+        "O(log n)",
+        "O(n)",
+        "O(1)",
+        "O(n log n)"
+      ],
+      "answer": "O(log n)"
+    },
+    {
+      "id": "py_h_39",
+      "question": "Time complexity of binary search?",
+      "options": [
+        "O(1)",
+        "O(log n)",
+        "O(n log n)",
+        "O(n)"
+      ],
+      "answer": "O(log n)"
+    },
+    {
+      "id": "py_h_40",
+      "question": "Time complexity of binary search?",
+      "options": [
+        "O(log n)",
+        "O(n log n)",
+        "O(1)",
+        "O(n)"
+      ],
+      "answer": "O(log n)"
+    },
+    {
+      "id": "py_h_41",
+      "question": "Time complexity of binary search?",
+      "options": [
+        "O(n)",
+        "O(log n)",
+        "O(1)",
+        "O(n log n)"
+      ],
+      "answer": "O(log n)"
+    },
+    {
+      "id": "py_h_42",
+      "question": "Time complexity of binary search?",
+      "options": [
+        "O(1)",
+        "O(n)",
+        "O(n log n)",
+        "O(log n)"
+      ],
+      "answer": "O(log n)"
+    },
+    {
+      "id": "py_h_43",
+      "question": "Time complexity of binary search?",
+      "options": [
+        "O(n)",
+        "O(1)",
+        "O(n log n)",
+        "O(log n)"
+      ],
+      "answer": "O(log n)"
+    },
+    {
+      "id": "py_h_44",
+      "question": "Time complexity of binary search?",
+      "options": [
+        "O(n)",
+        "O(n log n)",
+        "O(1)",
+        "O(log n)"
+      ],
+      "answer": "O(log n)"
+    },
+    {
+      "id": "py_h_45",
+      "question": "Time complexity of binary search?",
+      "options": [
+        "O(log n)",
+        "O(n)",
+        "O(1)",
+        "O(n log n)"
+      ],
+      "answer": "O(log n)"
+    },
+    {
+      "id": "py_h_46",
+      "question": "Time complexity of binary search?",
+      "options": [
+        "O(1)",
+        "O(log n)",
+        "O(n)",
+        "O(n log n)"
+      ],
+      "answer": "O(log n)"
+    },
+    {
+      "id": "py_h_47",
+      "question": "Time complexity of binary search?",
+      "options": [
+        "O(1)",
+        "O(log n)",
+        "O(n log n)",
+        "O(n)"
+      ],
+      "answer": "O(log n)"
+    },
+    {
+      "id": "py_h_48",
+      "question": "Time complexity of binary search?",
+      "options": [
+        "O(log n)",
+        "O(n)",
+        "O(n log n)",
+        "O(1)"
+      ],
+      "answer": "O(log n)"
+    },
+    {
+      "id": "py_h_49",
+      "question": "Time complexity of binary search?",
+      "options": [
+        "O(log n)",
+        "O(1)",
+        "O(n log n)",
+        "O(n)"
+      ],
+      "answer": "O(log n)"
+    },
+    {
+      "id": "py_h_50",
+      "question": "Time complexity of binary search?",
+      "options": [
+        "O(n log n)",
+        "O(log n)",
+        "O(1)",
+        "O(n)"
+      ],
+      "answer": "O(log n)"
+    }
+  ],
+  "Java": [
+    {
+      "id": "java_e_1",
+      "question": "What is basic syntax element 1 in Java?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_2",
+      "question": "What is basic syntax element 2 in Java?",
+      "options": [
+        "Invalid",
+        "None",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_3",
+      "question": "What is basic syntax element 3 in Java?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_4",
+      "question": "What is basic syntax element 4 in Java?",
+      "options": [
+        "None",
+        "Error",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_5",
+      "question": "What is basic syntax element 5 in Java?",
+      "options": [
+        "Invalid",
+        "Error",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_6",
+      "question": "What is basic syntax element 6 in Java?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_7",
+      "question": "What is basic syntax element 7 in Java?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_8",
+      "question": "What is basic syntax element 8 in Java?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_9",
+      "question": "What is basic syntax element 9 in Java?",
+      "options": [
+        "Error",
+        "Invalid",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_10",
+      "question": "What is basic syntax element 10 in Java?",
+      "options": [
+        "None",
+        "Error",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_11",
+      "question": "What is basic syntax element 11 in Java?",
+      "options": [
+        "Invalid",
+        "Error",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_12",
+      "question": "What is basic syntax element 12 in Java?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_13",
+      "question": "What is basic syntax element 13 in Java?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_14",
+      "question": "What is basic syntax element 14 in Java?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_15",
+      "question": "What is basic syntax element 15 in Java?",
+      "options": [
+        "Error",
+        "Invalid",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_16",
+      "question": "What is basic syntax element 16 in Java?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_17",
+      "question": "What is basic syntax element 17 in Java?",
+      "options": [
+        "None",
+        "Error",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_18",
+      "question": "What is basic syntax element 18 in Java?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_19",
+      "question": "What is basic syntax element 19 in Java?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_e_20",
+      "question": "What is basic syntax element 20 in Java?",
+      "options": [
+        "Error",
+        "None",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_m_21",
+      "question": "What is basic syntax element 21 in Java?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_m_22",
+      "question": "What is basic syntax element 22 in Java?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_m_23",
+      "question": "What is basic syntax element 23 in Java?",
+      "options": [
+        "None",
+        "Error",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_m_24",
+      "question": "What is basic syntax element 24 in Java?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_m_25",
+      "question": "What is basic syntax element 25 in Java?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_m_26",
+      "question": "What is basic syntax element 26 in Java?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_m_27",
+      "question": "What is basic syntax element 27 in Java?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_m_28",
+      "question": "What is basic syntax element 28 in Java?",
+      "options": [
+        "Error",
+        "Invalid",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_m_29",
+      "question": "What is basic syntax element 29 in Java?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_m_30",
+      "question": "What is basic syntax element 30 in Java?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_m_31",
+      "question": "What is basic syntax element 31 in Java?",
+      "options": [
+        "None",
+        "Invalid",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_m_32",
+      "question": "What is basic syntax element 32 in Java?",
+      "options": [
+        "Invalid",
+        "None",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_m_33",
+      "question": "What is basic syntax element 33 in Java?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_m_34",
+      "question": "What is basic syntax element 34 in Java?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_m_35",
+      "question": "What is basic syntax element 35 in Java?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "java_h_36",
+      "question": "Which keyword is used for inheritance in Java?",
+      "options": [
+        "instanceof",
+        "inherits",
+        "super",
+        "extends"
+      ],
+      "answer": "extends"
+    },
+    {
+      "id": "java_h_37",
+      "question": "Which keyword is used for inheritance in Java?",
+      "options": [
+        "super",
+        "extends",
+        "instanceof",
+        "inherits"
+      ],
+      "answer": "extends"
+    },
+    {
+      "id": "java_h_38",
+      "question": "Which keyword is used for inheritance in Java?",
+      "options": [
+        "super",
+        "instanceof",
+        "extends",
+        "inherits"
+      ],
+      "answer": "extends"
+    },
+    {
+      "id": "java_h_39",
+      "question": "Which keyword is used for inheritance in Java?",
+      "options": [
+        "super",
+        "extends",
+        "instanceof",
+        "inherits"
+      ],
+      "answer": "extends"
+    },
+    {
+      "id": "java_h_40",
+      "question": "Which keyword is used for inheritance in Java?",
+      "options": [
+        "inherits",
+        "extends",
+        "instanceof",
+        "super"
+      ],
+      "answer": "extends"
+    },
+    {
+      "id": "java_h_41",
+      "question": "Which keyword is used for inheritance in Java?",
+      "options": [
+        "inherits",
+        "extends",
+        "instanceof",
+        "super"
+      ],
+      "answer": "extends"
+    },
+    {
+      "id": "java_h_42",
+      "question": "Which keyword is used for inheritance in Java?",
+      "options": [
+        "super",
+        "instanceof",
+        "inherits",
+        "extends"
+      ],
+      "answer": "extends"
+    },
+    {
+      "id": "java_h_43",
+      "question": "Which keyword is used for inheritance in Java?",
+      "options": [
+        "super",
+        "instanceof",
+        "inherits",
+        "extends"
+      ],
+      "answer": "extends"
+    },
+    {
+      "id": "java_h_44",
+      "question": "Which keyword is used for inheritance in Java?",
+      "options": [
+        "extends",
+        "inherits",
+        "super",
+        "instanceof"
+      ],
+      "answer": "extends"
+    },
+    {
+      "id": "java_h_45",
+      "question": "Which keyword is used for inheritance in Java?",
+      "options": [
+        "extends",
+        "instanceof",
+        "super",
+        "inherits"
+      ],
+      "answer": "extends"
+    },
+    {
+      "id": "java_h_46",
+      "question": "Which keyword is used for inheritance in Java?",
+      "options": [
+        "inherits",
+        "super",
+        "instanceof",
+        "extends"
+      ],
+      "answer": "extends"
+    },
+    {
+      "id": "java_h_47",
+      "question": "Which keyword is used for inheritance in Java?",
+      "options": [
+        "instanceof",
+        "super",
+        "extends",
+        "inherits"
+      ],
+      "answer": "extends"
+    },
+    {
+      "id": "java_h_48",
+      "question": "Which keyword is used for inheritance in Java?",
+      "options": [
+        "instanceof",
+        "inherits",
+        "extends",
+        "super"
+      ],
+      "answer": "extends"
+    },
+    {
+      "id": "java_h_49",
+      "question": "Which keyword is used for inheritance in Java?",
+      "options": [
+        "instanceof",
+        "inherits",
+        "super",
+        "extends"
+      ],
+      "answer": "extends"
+    },
+    {
+      "id": "java_h_50",
+      "question": "Which keyword is used for inheritance in Java?",
+      "options": [
+        "inherits",
+        "instanceof",
+        "extends",
+        "super"
+      ],
+      "answer": "extends"
+    }
+  ],
+  "PHP": [
+    {
+      "id": "php_e_1",
+      "question": "What is basic syntax element 1 in PHP?",
+      "options": [
+        "Error",
+        "Invalid",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_2",
+      "question": "What is basic syntax element 2 in PHP?",
+      "options": [
+        "None",
+        "Invalid",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_3",
+      "question": "What is basic syntax element 3 in PHP?",
+      "options": [
+        "Invalid",
+        "Error",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_4",
+      "question": "What is basic syntax element 4 in PHP?",
+      "options": [
+        "None",
+        "Error",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_5",
+      "question": "What is basic syntax element 5 in PHP?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_6",
+      "question": "What is basic syntax element 6 in PHP?",
+      "options": [
+        "Invalid",
+        "Error",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_7",
+      "question": "What is basic syntax element 7 in PHP?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_8",
+      "question": "What is basic syntax element 8 in PHP?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_9",
+      "question": "What is basic syntax element 9 in PHP?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_10",
+      "question": "What is basic syntax element 10 in PHP?",
+      "options": [
+        "None",
+        "Error",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_11",
+      "question": "What is basic syntax element 11 in PHP?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_12",
+      "question": "What is basic syntax element 12 in PHP?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_13",
+      "question": "What is basic syntax element 13 in PHP?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_14",
+      "question": "What is basic syntax element 14 in PHP?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_15",
+      "question": "What is basic syntax element 15 in PHP?",
+      "options": [
+        "Invalid",
+        "Error",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_16",
+      "question": "What is basic syntax element 16 in PHP?",
+      "options": [
+        "None",
+        "Error",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_17",
+      "question": "What is basic syntax element 17 in PHP?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_18",
+      "question": "What is basic syntax element 18 in PHP?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_19",
+      "question": "What is basic syntax element 19 in PHP?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_e_20",
+      "question": "What is basic syntax element 20 in PHP?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_m_21",
+      "question": "What is basic syntax element 21 in PHP?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_m_22",
+      "question": "What is basic syntax element 22 in PHP?",
+      "options": [
+        "Error",
+        "None",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_m_23",
+      "question": "What is basic syntax element 23 in PHP?",
+      "options": [
+        "Error",
+        "Invalid",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_m_24",
+      "question": "What is basic syntax element 24 in PHP?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_m_25",
+      "question": "What is basic syntax element 25 in PHP?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_m_26",
+      "question": "What is basic syntax element 26 in PHP?",
+      "options": [
+        "Error",
+        "None",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_m_27",
+      "question": "What is basic syntax element 27 in PHP?",
+      "options": [
+        "None",
+        "Error",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_m_28",
+      "question": "What is basic syntax element 28 in PHP?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_m_29",
+      "question": "What is basic syntax element 29 in PHP?",
+      "options": [
+        "Error",
+        "None",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_m_30",
+      "question": "What is basic syntax element 30 in PHP?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_m_31",
+      "question": "What is basic syntax element 31 in PHP?",
+      "options": [
+        "Error",
+        "None",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_m_32",
+      "question": "What is basic syntax element 32 in PHP?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_m_33",
+      "question": "What is basic syntax element 33 in PHP?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_m_34",
+      "question": "What is basic syntax element 34 in PHP?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_m_35",
+      "question": "What is basic syntax element 35 in PHP?",
+      "options": [
+        "Invalid",
+        "Error",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "php_h_36",
+      "question": "Which symbol defines a PHP variable?",
+      "options": [
+        "#",
+        "%",
+        "@",
+        "$"
+      ],
+      "answer": "$"
+    },
+    {
+      "id": "php_h_37",
+      "question": "Which symbol defines a PHP variable?",
+      "options": [
+        "#",
+        "$",
+        "@",
+        "%"
+      ],
+      "answer": "$"
+    },
+    {
+      "id": "php_h_38",
+      "question": "Which symbol defines a PHP variable?",
+      "options": [
+        "%",
+        "@",
+        "$",
+        "#"
+      ],
+      "answer": "$"
+    },
+    {
+      "id": "php_h_39",
+      "question": "Which symbol defines a PHP variable?",
+      "options": [
+        "%",
+        "$",
+        "@",
+        "#"
+      ],
+      "answer": "$"
+    },
+    {
+      "id": "php_h_40",
+      "question": "Which symbol defines a PHP variable?",
+      "options": [
+        "#",
+        "@",
+        "%",
+        "$"
+      ],
+      "answer": "$"
+    },
+    {
+      "id": "php_h_41",
+      "question": "Which symbol defines a PHP variable?",
+      "options": [
+        "#",
+        "@",
+        "%",
+        "$"
+      ],
+      "answer": "$"
+    },
+    {
+      "id": "php_h_42",
+      "question": "Which symbol defines a PHP variable?",
+      "options": [
+        "#",
+        "%",
+        "@",
+        "$"
+      ],
+      "answer": "$"
+    },
+    {
+      "id": "php_h_43",
+      "question": "Which symbol defines a PHP variable?",
+      "options": [
+        "%",
+        "$",
+        "#",
+        "@"
+      ],
+      "answer": "$"
+    },
+    {
+      "id": "php_h_44",
+      "question": "Which symbol defines a PHP variable?",
+      "options": [
+        "$",
+        "#",
+        "@",
+        "%"
+      ],
+      "answer": "$"
+    },
+    {
+      "id": "php_h_45",
+      "question": "Which symbol defines a PHP variable?",
+      "options": [
+        "#",
+        "$",
+        "%",
+        "@"
+      ],
+      "answer": "$"
+    },
+    {
+      "id": "php_h_46",
+      "question": "Which symbol defines a PHP variable?",
+      "options": [
+        "#",
+        "%",
+        "@",
+        "$"
+      ],
+      "answer": "$"
+    },
+    {
+      "id": "php_h_47",
+      "question": "Which symbol defines a PHP variable?",
+      "options": [
+        "#",
+        "@",
+        "%",
+        "$"
+      ],
+      "answer": "$"
+    },
+    {
+      "id": "php_h_48",
+      "question": "Which symbol defines a PHP variable?",
+      "options": [
+        "#",
+        "%",
+        "@",
+        "$"
+      ],
+      "answer": "$"
+    },
+    {
+      "id": "php_h_49",
+      "question": "Which symbol defines a PHP variable?",
+      "options": [
+        "%",
+        "$",
+        "@",
+        "#"
+      ],
+      "answer": "$"
+    },
+    {
+      "id": "php_h_50",
+      "question": "Which symbol defines a PHP variable?",
+      "options": [
+        "#",
+        "$",
+        "%",
+        "@"
+      ],
+      "answer": "$"
+    }
+  ],
+  "C#": [
+    {
+      "id": "cs_e_1",
+      "question": "What is basic syntax element 1 in C#?",
+      "options": [
+        "Error",
+        "Invalid",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_2",
+      "question": "What is basic syntax element 2 in C#?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_3",
+      "question": "What is basic syntax element 3 in C#?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_4",
+      "question": "What is basic syntax element 4 in C#?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_5",
+      "question": "What is basic syntax element 5 in C#?",
+      "options": [
+        "Error",
+        "Invalid",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_6",
+      "question": "What is basic syntax element 6 in C#?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_7",
+      "question": "What is basic syntax element 7 in C#?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_8",
+      "question": "What is basic syntax element 8 in C#?",
+      "options": [
+        "Error",
+        "None",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_9",
+      "question": "What is basic syntax element 9 in C#?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_10",
+      "question": "What is basic syntax element 10 in C#?",
+      "options": [
+        "Error",
+        "Invalid",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_11",
+      "question": "What is basic syntax element 11 in C#?",
+      "options": [
+        "Invalid",
+        "Error",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_12",
+      "question": "What is basic syntax element 12 in C#?",
+      "options": [
+        "Invalid",
+        "Error",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_13",
+      "question": "What is basic syntax element 13 in C#?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_14",
+      "question": "What is basic syntax element 14 in C#?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_15",
+      "question": "What is basic syntax element 15 in C#?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_16",
+      "question": "What is basic syntax element 16 in C#?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_17",
+      "question": "What is basic syntax element 17 in C#?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_18",
+      "question": "What is basic syntax element 18 in C#?",
+      "options": [
+        "None",
+        "Error",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_19",
+      "question": "What is basic syntax element 19 in C#?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_e_20",
+      "question": "What is basic syntax element 20 in C#?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_m_21",
+      "question": "What is basic syntax element 21 in C#?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_m_22",
+      "question": "What is basic syntax element 22 in C#?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_m_23",
+      "question": "What is basic syntax element 23 in C#?",
+      "options": [
+        "None",
+        "Error",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_m_24",
+      "question": "What is basic syntax element 24 in C#?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_m_25",
+      "question": "What is basic syntax element 25 in C#?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_m_26",
+      "question": "What is basic syntax element 26 in C#?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_m_27",
+      "question": "What is basic syntax element 27 in C#?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_m_28",
+      "question": "What is basic syntax element 28 in C#?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_m_29",
+      "question": "What is basic syntax element 29 in C#?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_m_30",
+      "question": "What is basic syntax element 30 in C#?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_m_31",
+      "question": "What is basic syntax element 31 in C#?",
+      "options": [
+        "Invalid",
+        "Error",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_m_32",
+      "question": "What is basic syntax element 32 in C#?",
+      "options": [
+        "None",
+        "Error",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_m_33",
+      "question": "What is basic syntax element 33 in C#?",
+      "options": [
+        "Invalid",
+        "Error",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_m_34",
+      "question": "What is basic syntax element 34 in C#?",
+      "options": [
+        "None",
+        "Error",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_m_35",
+      "question": "What is basic syntax element 35 in C#?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "cs_h_36",
+      "question": "What is LINQ used for in C#?",
+      "options": [
+        "Memory cleanup",
+        "Querying data",
+        "Debugging",
+        "Styling UI"
+      ],
+      "answer": "Querying data"
+    },
+    {
+      "id": "cs_h_37",
+      "question": "What is LINQ used for in C#?",
+      "options": [
+        "Styling UI",
+        "Memory cleanup",
+        "Debugging",
+        "Querying data"
+      ],
+      "answer": "Querying data"
+    },
+    {
+      "id": "cs_h_38",
+      "question": "What is LINQ used for in C#?",
+      "options": [
+        "Debugging",
+        "Styling UI",
+        "Memory cleanup",
+        "Querying data"
+      ],
+      "answer": "Querying data"
+    },
+    {
+      "id": "cs_h_39",
+      "question": "What is LINQ used for in C#?",
+      "options": [
+        "Styling UI",
+        "Querying data",
+        "Memory cleanup",
+        "Debugging"
+      ],
+      "answer": "Querying data"
+    },
+    {
+      "id": "cs_h_40",
+      "question": "What is LINQ used for in C#?",
+      "options": [
+        "Memory cleanup",
+        "Styling UI",
+        "Querying data",
+        "Debugging"
+      ],
+      "answer": "Querying data"
+    },
+    {
+      "id": "cs_h_41",
+      "question": "What is LINQ used for in C#?",
+      "options": [
+        "Querying data",
+        "Memory cleanup",
+        "Styling UI",
+        "Debugging"
+      ],
+      "answer": "Querying data"
+    },
+    {
+      "id": "cs_h_42",
+      "question": "What is LINQ used for in C#?",
+      "options": [
+        "Memory cleanup",
+        "Querying data",
+        "Styling UI",
+        "Debugging"
+      ],
+      "answer": "Querying data"
+    },
+    {
+      "id": "cs_h_43",
+      "question": "What is LINQ used for in C#?",
+      "options": [
+        "Querying data",
+        "Styling UI",
+        "Memory cleanup",
+        "Debugging"
+      ],
+      "answer": "Querying data"
+    },
+    {
+      "id": "cs_h_44",
+      "question": "What is LINQ used for in C#?",
+      "options": [
+        "Debugging",
+        "Querying data",
+        "Styling UI",
+        "Memory cleanup"
+      ],
+      "answer": "Querying data"
+    },
+    {
+      "id": "cs_h_45",
+      "question": "What is LINQ used for in C#?",
+      "options": [
+        "Querying data",
+        "Debugging",
+        "Memory cleanup",
+        "Styling UI"
+      ],
+      "answer": "Querying data"
+    },
+    {
+      "id": "cs_h_46",
+      "question": "What is LINQ used for in C#?",
+      "options": [
+        "Debugging",
+        "Querying data",
+        "Memory cleanup",
+        "Styling UI"
+      ],
+      "answer": "Querying data"
+    },
+    {
+      "id": "cs_h_47",
+      "question": "What is LINQ used for in C#?",
+      "options": [
+        "Debugging",
+        "Querying data",
+        "Memory cleanup",
+        "Styling UI"
+      ],
+      "answer": "Querying data"
+    },
+    {
+      "id": "cs_h_48",
+      "question": "What is LINQ used for in C#?",
+      "options": [
+        "Querying data",
+        "Debugging",
+        "Styling UI",
+        "Memory cleanup"
+      ],
+      "answer": "Querying data"
+    },
+    {
+      "id": "cs_h_49",
+      "question": "What is LINQ used for in C#?",
+      "options": [
+        "Memory cleanup",
+        "Debugging",
+        "Querying data",
+        "Styling UI"
+      ],
+      "answer": "Querying data"
+    },
+    {
+      "id": "cs_h_50",
+      "question": "What is LINQ used for in C#?",
+      "options": [
+        "Debugging",
+        "Styling UI",
+        "Querying data",
+        "Memory cleanup"
+      ],
+      "answer": "Querying data"
+    }
+  ],
+  "SQL": [
+    {
+      "id": "sql_e_1",
+      "question": "What is basic syntax element 1 in SQL?",
+      "options": [
+        "Error",
+        "Invalid",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_2",
+      "question": "What is basic syntax element 2 in SQL?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_3",
+      "question": "What is basic syntax element 3 in SQL?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_4",
+      "question": "What is basic syntax element 4 in SQL?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_5",
+      "question": "What is basic syntax element 5 in SQL?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_6",
+      "question": "What is basic syntax element 6 in SQL?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_7",
+      "question": "What is basic syntax element 7 in SQL?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_8",
+      "question": "What is basic syntax element 8 in SQL?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_9",
+      "question": "What is basic syntax element 9 in SQL?",
+      "options": [
+        "Error",
+        "Invalid",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_10",
+      "question": "What is basic syntax element 10 in SQL?",
+      "options": [
+        "Error",
+        "Invalid",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_11",
+      "question": "What is basic syntax element 11 in SQL?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_12",
+      "question": "What is basic syntax element 12 in SQL?",
+      "options": [
+        "Invalid",
+        "Error",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_13",
+      "question": "What is basic syntax element 13 in SQL?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_14",
+      "question": "What is basic syntax element 14 in SQL?",
+      "options": [
+        "Invalid",
+        "Error",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_15",
+      "question": "What is basic syntax element 15 in SQL?",
+      "options": [
+        "Invalid",
+        "Error",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_16",
+      "question": "What is basic syntax element 16 in SQL?",
+      "options": [
+        "Invalid",
+        "None",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_17",
+      "question": "What is basic syntax element 17 in SQL?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_18",
+      "question": "What is basic syntax element 18 in SQL?",
+      "options": [
+        "None",
+        "Invalid",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_19",
+      "question": "What is basic syntax element 19 in SQL?",
+      "options": [
+        "Invalid",
+        "None",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_e_20",
+      "question": "What is basic syntax element 20 in SQL?",
+      "options": [
+        "None",
+        "Error",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_m_21",
+      "question": "What is basic syntax element 21 in SQL?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_m_22",
+      "question": "What is basic syntax element 22 in SQL?",
+      "options": [
+        "None",
+        "Error",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_m_23",
+      "question": "What is basic syntax element 23 in SQL?",
+      "options": [
+        "Invalid",
+        "Error",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_m_24",
+      "question": "What is basic syntax element 24 in SQL?",
+      "options": [
+        "Invalid",
+        "Error",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_m_25",
+      "question": "What is basic syntax element 25 in SQL?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_m_26",
+      "question": "What is basic syntax element 26 in SQL?",
+      "options": [
+        "Invalid",
+        "None",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_m_27",
+      "question": "What is basic syntax element 27 in SQL?",
+      "options": [
+        "Invalid",
+        "Error",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_m_28",
+      "question": "What is basic syntax element 28 in SQL?",
+      "options": [
+        "None",
+        "Error",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_m_29",
+      "question": "What is basic syntax element 29 in SQL?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_m_30",
+      "question": "What is basic syntax element 30 in SQL?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_m_31",
+      "question": "What is basic syntax element 31 in SQL?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_m_32",
+      "question": "What is basic syntax element 32 in SQL?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_m_33",
+      "question": "What is basic syntax element 33 in SQL?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_m_34",
+      "question": "What is basic syntax element 34 in SQL?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_m_35",
+      "question": "What is basic syntax element 35 in SQL?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "sql_h_36",
+      "question": "What does SELECT COUNT(*) return?",
+      "options": [
+        "Number of rows",
+        "0",
+        "NULL",
+        "Error"
+      ],
+      "answer": "Number of rows"
+    },
+    {
+      "id": "sql_h_37",
+      "question": "What does SELECT COUNT(*) return?",
+      "options": [
+        "NULL",
+        "Number of rows",
+        "Error",
+        "0"
+      ],
+      "answer": "Number of rows"
+    },
+    {
+      "id": "sql_h_38",
+      "question": "What does SELECT COUNT(*) return?",
+      "options": [
+        "0",
+        "Number of rows",
+        "Error",
+        "NULL"
+      ],
+      "answer": "Number of rows"
+    },
+    {
+      "id": "sql_h_39",
+      "question": "What does SELECT COUNT(*) return?",
+      "options": [
+        "NULL",
+        "Number of rows",
+        "Error",
+        "0"
+      ],
+      "answer": "Number of rows"
+    },
+    {
+      "id": "sql_h_40",
+      "question": "What does SELECT COUNT(*) return?",
+      "options": [
+        "NULL",
+        "Error",
+        "Number of rows",
+        "0"
+      ],
+      "answer": "Number of rows"
+    },
+    {
+      "id": "sql_h_41",
+      "question": "What does SELECT COUNT(*) return?",
+      "options": [
+        "0",
+        "Error",
+        "Number of rows",
+        "NULL"
+      ],
+      "answer": "Number of rows"
+    },
+    {
+      "id": "sql_h_42",
+      "question": "What does SELECT COUNT(*) return?",
+      "options": [
+        "Number of rows",
+        "Error",
+        "NULL",
+        "0"
+      ],
+      "answer": "Number of rows"
+    },
+    {
+      "id": "sql_h_43",
+      "question": "What does SELECT COUNT(*) return?",
+      "options": [
+        "Number of rows",
+        "0",
+        "Error",
+        "NULL"
+      ],
+      "answer": "Number of rows"
+    },
+    {
+      "id": "sql_h_44",
+      "question": "What does SELECT COUNT(*) return?",
+      "options": [
+        "0",
+        "Error",
+        "NULL",
+        "Number of rows"
+      ],
+      "answer": "Number of rows"
+    },
+    {
+      "id": "sql_h_45",
+      "question": "What does SELECT COUNT(*) return?",
+      "options": [
+        "NULL",
+        "Number of rows",
+        "0",
+        "Error"
+      ],
+      "answer": "Number of rows"
+    },
+    {
+      "id": "sql_h_46",
+      "question": "What does SELECT COUNT(*) return?",
+      "options": [
+        "NULL",
+        "Error",
+        "0",
+        "Number of rows"
+      ],
+      "answer": "Number of rows"
+    },
+    {
+      "id": "sql_h_47",
+      "question": "What does SELECT COUNT(*) return?",
+      "options": [
+        "Number of rows",
+        "NULL",
+        "0",
+        "Error"
+      ],
+      "answer": "Number of rows"
+    },
+    {
+      "id": "sql_h_48",
+      "question": "What does SELECT COUNT(*) return?",
+      "options": [
+        "Number of rows",
+        "NULL",
+        "Error",
+        "0"
+      ],
+      "answer": "Number of rows"
+    },
+    {
+      "id": "sql_h_49",
+      "question": "What does SELECT COUNT(*) return?",
+      "options": [
+        "0",
+        "NULL",
+        "Number of rows",
+        "Error"
+      ],
+      "answer": "Number of rows"
+    },
+    {
+      "id": "sql_h_50",
+      "question": "What does SELECT COUNT(*) return?",
+      "options": [
+        "Number of rows",
+        "0",
+        "Error",
+        "NULL"
+      ],
+      "answer": "Number of rows"
+    }
+  ],
+  "Node.js": [
+    {
+      "id": "node_e_1",
+      "question": "What is basic syntax element 1 in Node.js?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_2",
+      "question": "What is basic syntax element 2 in Node.js?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_3",
+      "question": "What is basic syntax element 3 in Node.js?",
+      "options": [
+        "None",
+        "Error",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_4",
+      "question": "What is basic syntax element 4 in Node.js?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_5",
+      "question": "What is basic syntax element 5 in Node.js?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_6",
+      "question": "What is basic syntax element 6 in Node.js?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_7",
+      "question": "What is basic syntax element 7 in Node.js?",
+      "options": [
+        "None",
+        "Error",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_8",
+      "question": "What is basic syntax element 8 in Node.js?",
+      "options": [
+        "Invalid",
+        "Error",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_9",
+      "question": "What is basic syntax element 9 in Node.js?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_10",
+      "question": "What is basic syntax element 10 in Node.js?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_11",
+      "question": "What is basic syntax element 11 in Node.js?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_12",
+      "question": "What is basic syntax element 12 in Node.js?",
+      "options": [
+        "Invalid",
+        "None",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_13",
+      "question": "What is basic syntax element 13 in Node.js?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_14",
+      "question": "What is basic syntax element 14 in Node.js?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_15",
+      "question": "What is basic syntax element 15 in Node.js?",
+      "options": [
+        "Error",
+        "Invalid",
+        "Syntax Element",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_16",
+      "question": "What is basic syntax element 16 in Node.js?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_17",
+      "question": "What is basic syntax element 17 in Node.js?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "Error",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_18",
+      "question": "What is basic syntax element 18 in Node.js?",
+      "options": [
+        "Invalid",
+        "Syntax Element",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_19",
+      "question": "What is basic syntax element 19 in Node.js?",
+      "options": [
+        "Syntax Element",
+        "Error",
+        "Invalid",
+        "None"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_e_20",
+      "question": "What is basic syntax element 20 in Node.js?",
+      "options": [
+        "None",
+        "Invalid",
+        "Error",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_m_21",
+      "question": "What is basic syntax element 21 in Node.js?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Invalid",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_m_22",
+      "question": "What is basic syntax element 22 in Node.js?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_m_23",
+      "question": "What is basic syntax element 23 in Node.js?",
+      "options": [
+        "Invalid",
+        "None",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_m_24",
+      "question": "What is basic syntax element 24 in Node.js?",
+      "options": [
+        "Syntax Element",
+        "None",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_m_25",
+      "question": "What is basic syntax element 25 in Node.js?",
+      "options": [
+        "None",
+        "Syntax Element",
+        "Error",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_m_26",
+      "question": "What is basic syntax element 26 in Node.js?",
+      "options": [
+        "Invalid",
+        "Error",
+        "None",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_m_27",
+      "question": "What is basic syntax element 27 in Node.js?",
+      "options": [
+        "None",
+        "Invalid",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_m_28",
+      "question": "What is basic syntax element 28 in Node.js?",
+      "options": [
+        "None",
+        "Invalid",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_m_29",
+      "question": "What is basic syntax element 29 in Node.js?",
+      "options": [
+        "None",
+        "Invalid",
+        "Syntax Element",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_m_30",
+      "question": "What is basic syntax element 30 in Node.js?",
+      "options": [
+        "Error",
+        "None",
+        "Invalid",
+        "Syntax Element"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_m_31",
+      "question": "What is basic syntax element 31 in Node.js?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_m_32",
+      "question": "What is basic syntax element 32 in Node.js?",
+      "options": [
+        "None",
+        "Error",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_m_33",
+      "question": "What is basic syntax element 33 in Node.js?",
+      "options": [
+        "Syntax Element",
+        "Invalid",
+        "None",
+        "Error"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_m_34",
+      "question": "What is basic syntax element 34 in Node.js?",
+      "options": [
+        "Error",
+        "None",
+        "Syntax Element",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_m_35",
+      "question": "What is basic syntax element 35 in Node.js?",
+      "options": [
+        "Error",
+        "Syntax Element",
+        "None",
+        "Invalid"
+      ],
+      "answer": "Syntax Element"
+    },
+    {
+      "id": "node_h_36",
+      "question": "Which HTTP method is idempotent?",
+      "options": [
+        "PATCH",
+        "CONNECT",
+        "GET",
+        "POST"
+      ],
+      "answer": "GET"
+    },
+    {
+      "id": "node_h_37",
+      "question": "Which HTTP method is idempotent?",
+      "options": [
+        "PATCH",
+        "POST",
+        "GET",
+        "CONNECT"
+      ],
+      "answer": "GET"
+    },
+    {
+      "id": "node_h_38",
+      "question": "Which HTTP method is idempotent?",
+      "options": [
+        "CONNECT",
+        "PATCH",
+        "POST",
+        "GET"
+      ],
+      "answer": "GET"
+    },
+    {
+      "id": "node_h_39",
+      "question": "Which HTTP method is idempotent?",
+      "options": [
+        "GET",
+        "CONNECT",
+        "PATCH",
+        "POST"
+      ],
+      "answer": "GET"
+    },
+    {
+      "id": "node_h_40",
+      "question": "Which HTTP method is idempotent?",
+      "options": [
+        "PATCH",
+        "POST",
+        "CONNECT",
+        "GET"
+      ],
+      "answer": "GET"
+    },
+    {
+      "id": "node_h_41",
+      "question": "Which HTTP method is idempotent?",
+      "options": [
+        "GET",
+        "POST",
+        "PATCH",
+        "CONNECT"
+      ],
+      "answer": "GET"
+    },
+    {
+      "id": "node_h_42",
+      "question": "Which HTTP method is idempotent?",
+      "options": [
+        "PATCH",
+        "CONNECT",
+        "GET",
+        "POST"
+      ],
+      "answer": "GET"
+    },
+    {
+      "id": "node_h_43",
+      "question": "Which HTTP method is idempotent?",
+      "options": [
+        "POST",
+        "GET",
+        "CONNECT",
+        "PATCH"
+      ],
+      "answer": "GET"
+    },
+    {
+      "id": "node_h_44",
+      "question": "Which HTTP method is idempotent?",
+      "options": [
+        "CONNECT",
+        "GET",
+        "PATCH",
+        "POST"
+      ],
+      "answer": "GET"
+    },
+    {
+      "id": "node_h_45",
+      "question": "Which HTTP method is idempotent?",
+      "options": [
+        "POST",
+        "GET",
+        "CONNECT",
+        "PATCH"
+      ],
+      "answer": "GET"
+    },
+    {
+      "id": "node_h_46",
+      "question": "Which HTTP method is idempotent?",
+      "options": [
+        "PATCH",
+        "GET",
+        "POST",
+        "CONNECT"
+      ],
+      "answer": "GET"
+    },
+    {
+      "id": "node_h_47",
+      "question": "Which HTTP method is idempotent?",
+      "options": [
+        "POST",
+        "CONNECT",
+        "GET",
+        "PATCH"
+      ],
+      "answer": "GET"
+    },
+    {
+      "id": "node_h_48",
+      "question": "Which HTTP method is idempotent?",
+      "options": [
+        "GET",
+        "CONNECT",
+        "PATCH",
+        "POST"
+      ],
+      "answer": "GET"
+    },
+    {
+      "id": "node_h_49",
+      "question": "Which HTTP method is idempotent?",
+      "options": [
+        "POST",
+        "CONNECT",
+        "PATCH",
+        "GET"
+      ],
+      "answer": "GET"
+    },
+    {
+      "id": "node_h_50",
+      "question": "Which HTTP method is idempotent?",
+      "options": [
+        "PATCH",
+        "GET",
+        "POST",
+        "CONNECT"
+      ],
+      "answer": "GET"
+    }
+  ]
+}

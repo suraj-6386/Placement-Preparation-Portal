@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding - Placement Preparation Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/practice-tab.css" />
+    <link rel="stylesheet" href="assets/css/coding-challenges.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Placement Preparation Portal</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="aptitude.html">Aptitude</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="coding.html">Coding</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="interview.html">Interview</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="profile.html">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="help.html">Help</a>
+            </li>
+            <li class="nav-item">
+              <button
+                class="btn nav-link theme-toggle"
+                id="themeToggle"
+                onclick="toggleTheme()"
+                title="Toggle Dark/Light Mode"
+              >
+                <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+              </button>
+            </li>
+            <li class="nav-item" id="authNav"></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container my-5">
+      <h2 class="mb-4">Coding Preparation</h2>
+
+      <!-- Tabs -->
+      <ul class="nav nav-tabs mb-4" id="codingTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="learn-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#learn"
+            type="button"
+          >
+            Learn
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="practice-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#practice"
+            type="button"
+          >
+            Practice
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="challenges-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#challenges"
+            type="button"
+          >
+            Coding Challenges
+          </button>
+        </li>
+      </ul>
+
+      <!-- Tab Content -->
+      <div class="tab-content" id="codingTabContent">
+        <!-- Learn Tab -->
+        <div class="tab-pane fade show active" id="learn" role="tabpanel">
+          <h4 class="mb-3">Programming Languages</h4>
+          <div id="learnContent" class="row"></div>
+        </div>
+
+        <!-- Practice Tab -->
+        <div class="tab-pane fade" id="practice" role="tabpanel">
+          <!-- Chapter Cards View -->
+          <div id="codingPracticeChapterCardsView">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <div>
+                <h4 class="mb-1">Coding Practice</h4>
+                <p class="text-muted mb-0">
+                  Select a language to start practicing
+                </p>
+              </div>
+              <button
+                class="btn btn-outline-primary btn-sm"
+                onclick="refreshCodingPractice()"
+              >
+                <i class="bi bi-arrow-clockwise"></i> Refresh
+              </button>
+            </div>
+
+            <div id="codingPracticeChapterCards" class="row g-4">
+              <!-- Chapter cards will be loaded here dynamically -->
+            </div>
+          </div>
+
+          <!-- Chapter Details View (hidden by default) -->
+          <div id="codingPracticeChapterDetailsView" style="display: none">
+            <div class="mb-3">
+              <button
+                class="btn btn-outline-secondary btn-sm"
+                onclick="backToCodingPracticeChapters()"
+              >
+                <i class="bi bi-arrow-left"></i> Back to Languages
+              </button>
+            </div>
+
+            <div class="mb-4">
+              <h4 id="codingPracticeChapterTitle" class="mb-3"></h4>
+
+              <!-- Search and Filter Controls -->
+              <div class="row g-3 mb-3">
+                <div class="col-md-8">
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="bi bi-search"></i>
+                    </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="codingPracticeSearchInput"
+                      placeholder="Search questions..."
+                      aria-label="Search coding practice questions"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <select
+                    class="form-select"
+                    id="codingPracticeDifficultyFilter"
+                    aria-label="Filter by difficulty"
+                  >
+                    <option value="all">All Difficulties</option>
+                    <option value="easy">Easy</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="hard">Hard</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Question Count -->
+              <div class="mb-3">
+                <span class="badge bg-primary" id="codingPracticeQuestionCount"
+                  >0 Questions</span
+                >
+              </div>
+            </div>
+
+            <!-- Questions List -->
+            <div id="codingPracticeQuestionsList">
+              <!-- Questions will be loaded here -->
+            </div>
+
+            <!-- Pagination -->
+            <nav
+              aria-label="Question pagination"
+              id="codingPracticePaginationContainer"
+              style="display: none"
+            >
+              <ul
+                class="pagination justify-content-center"
+                id="codingPracticePagination"
+              >
+                <!-- Pagination will be rendered here -->
+              </ul>
+            </nav>
+          </div>
+
+          <!-- Question Modal -->
+          <div
+            class="modal fade"
+            id="codingPracticeQuestionModal"
+            tabindex="-1"
+            aria-labelledby="codingPracticeQuestionModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="codingPracticeQuestionModalLabel">
+                    Question
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div id="codingPracticeQuestionContent">
+                    <!-- Question content will be loaded here -->
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-info"
+                    id="codingPracticeShowAnswerBtn"
+                    onclick="showCodingPracticeAnswer()"
+                  >
+                    Show Answer
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="codingPracticeSubmitBtn"
+                    onclick="checkCodingPracticeAnswer()"
+                  >
+                    Submit Answer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coding Challenges Tab -->
+        <div class="tab-pane fade" id="challenges" role="tabpanel">
+          <!-- Chapter Cards View -->
+          <div
+            id="challengeChaptersView"
+            style="width: 100%; overflow: visible"
+          >
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h4 class="mb-0">Choose Your Language</h4>
+              <button
+                class="btn btn-outline-primary btn-sm"
+                onclick="loadChallenges()"
+              >
+                <i class="bi bi-arrow-clockwise"></i> Refresh
+              </button>
+            </div>
+
+            <div id="challengeChaptersGrid" style="width: 100%">
+              <!-- Chapter cards will be loaded here dynamically -->
+            </div>
+          </div>
+
+          <!-- Challenge Details View (hidden by default) -->
+          <div id="challengeDetailsView" style="display: none">
+            <div class="mb-3">
+              <button
+                class="btn btn-outline-secondary btn-sm"
+                onclick="backToChallengeChapters()"
+              >
+                <i class="bi bi-arrow-left"></i> Back to Languages
+              </button>
+            </div>
+
+            <!-- Difficulty Filter -->
+            <div class="mb-4">
+              <h5 id="challengeChapterTitle" class="mb-3"></h5>
+              <div class="btn-group" role="group">
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="challengeDifficulty"
+                  id="diffAll"
+                  value="all"
+                  checked
+                />
+                <label class="btn btn-outline-primary" for="diffAll">All</label>
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="challengeDifficulty"
+                  id="diffEasy"
+                  value="easy"
+                />
+                <label class="btn btn-outline-success" for="diffEasy"
+                  >Easy</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="challengeDifficulty"
+                  id="diffModerate"
+                  value="moderate"
+                />
+                <label class="btn btn-outline-warning" for="diffModerate"
+                  >Moderate</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="challengeDifficulty"
+                  id="diffHard"
+                  value="hard"
+                />
+                <label class="btn btn-outline-danger" for="diffHard"
+                  >Hard</label
+                >
+              </div>
+            </div>
+
+            <!-- Problems List -->
+            <div id="challengeProblemsList">
+              <!-- Problems will be loaded here -->
+            </div>
+          </div>
+
+          <!-- Compiler View (hidden by default) -->
+          <div id="compilerView" style="display: none">
+            <div class="mb-3">
+              <button
+                class="btn btn-outline-secondary btn-sm"
+                onclick="backToProblems()"
+              >
+                <i class="bi bi-arrow-left"></i> Back to Problems
+              </button>
+            </div>
+
+            <div class="row">
+              <!-- Problem Description -->
+              <div class="col-lg-5">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 id="problemTitle" class="mb-0"></h5>
+                    <span id="problemDifficulty" class="badge"></span>
+                  </div>
+                  <div
+                    class="card-body"
+                    style="max-height: 600px; overflow-y: auto"
+                  >
+                    <div id="problemDescription"></div>
+                    <div id="problemTags" class="mt-3"></div>
+                    <div id="problemTestCases" class="mt-3"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Code Editor and Output -->
+              <div class="col-lg-7">
+                <div class="card mb-3">
+                  <div
+                    class="card-header d-flex justify-content-between align-items-center"
+                  >
+                    <span>Code Editor</span>
+                    <div>
+                      <button
+                        class="btn btn-sm btn-success"
+                        onclick="runCode()"
+                      >
+                        <i class="bi bi-play-fill"></i> Run Code
+                      </button>
+                      <button
+                        class="btn btn-sm btn-primary"
+                        onclick="submitCode()"
+                      >
+                        <i class="bi bi-check2"></i> Submit
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card-body p-0">
+                    <textarea
+                      id="codeEditor"
+                      class="form-control"
+                      style="
+                        font-family: 'Courier New', monospace;
+                        min-height: 400px;
+                        border: none;
+                        resize: none;
+                      "
+                    ></textarea>
+                  </div>
+                </div>
+
+                <!-- Output Console -->
+                <div class="card">
+                  <div class="card-header">
+                    <strong>Output</strong>
+                  </div>
+                  <div class="card-body">
+                    <pre
+                      id="codeOutput"
+                      style="max-height: 150px; overflow-y: auto; margin: 0"
+                    ></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+      <p class="mb-0">
+        &copy; 2024 Placement Preparation Portal. All rights reserved.
+      </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/coding-practice-tab.js"></script>
+    <script src="assets/js/coding-challenges.js"></script>
+    <script>
+      // Load auth modals and check authentication
+      loadAuthModals();
+      checkAuth();
+      loadCodingData();
+
+      // Initialize coding challenges tab handler
+      document.addEventListener("DOMContentLoaded", () => {
+        const challengesTab = document.getElementById("challenges-tab");
+        if (challengesTab) {
+          challengesTab.addEventListener("click", () => {
+            // Small delay to ensure tab is shown
+            setTimeout(() => {
+              const grid = document.getElementById("challengeChaptersGrid");
+              // Only load if grid is empty (no cards loaded yet)
+              if (
+                grid &&
+                grid.children.length === 0 &&
+                typeof loadChallenges === "function"
+              ) {
+                console.log("Tab clicked, loading challenges...");
+                loadChallenges();
+              }
+            }, 100);
+          });
+        }
+      });
+
+      let currentMockQuestions = [];
+      let currentAnswers = [];
+
+      async function loadCodingData() {
+        // Load Learn data
+        const learnData = await fetchAPI("/api/coding/learn");
+        const learnContent = document.getElementById("learnContent");
+        learnContent.innerHTML = "";
+        for (const [language, url] of Object.entries(learnData)) {
+          learnContent.innerHTML += `
+                    <div class="col-md-6 col-lg-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">${language}</h5>
+                                <a href="${url}" target="_blank" class="btn btn-primary btn-sm">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+        }
+
+        // Load Practice data
+        const practiceData = await fetchAPI("/api/coding/practice");
+        const practiceLanguages = document.getElementById("practiceLanguages");
+        practiceLanguages.innerHTML = "";
+
+        for (const language of Object.keys(practiceData)) {
+          practiceLanguages.innerHTML += `
+            <div class="col-md-6 col-lg-4 mb-3">
+              <div class="card h-100 practice-language-card" style="cursor: pointer;" onclick="displayPracticeQuestions('${language}')">
+                <div class="card-body">
+                  <h5 class="card-title">${language}</h5>
+                  <p class="text-muted mb-0">${practiceData[language].length} questions</p>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        // Store practice data globally
+        window.practiceData = practiceData;
+      }
+
+      function displayPracticeQuestions(language) {
+        const questions = window.practiceData[language];
+        const container = document.getElementById("practiceQuestions");
+
+        if (!questions || questions.length === 0) {
+          container.innerHTML =
+            '<p class="text-muted">No questions available for this language.</p>';
+          return;
+        }
+
+        container.innerHTML = `<h5 class="mb-3">${language}</h5><div class="question-list">`;
+        questions.forEach((q, idx) => {
+          container.innerHTML += `
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h6>Q${idx + 1}. ${q.question}</h6>
+                            ${q.options
+                              .map(
+                                (opt, i) => `
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="q${q.id}" id="${q.id}_${i}" value="${opt}">
+                                    <label class="form-check-label" for="${q.id}_${i}">${opt}</label>
+                                </div>
+                            `
+                              )
+                              .join("")}
+                            <button class="btn btn-sm btn-primary mt-2" onclick="checkAnswer('${
+                              q.id
+                            }', '${q.answer}')">Check Answer</button>
+                            <div id="result_${q.id}" class="mt-2"></div>
+                        </div>
+                    </div>
+                `;
+        });
+        container.innerHTML += "</div>";
+      }
+
+      function checkAnswer(qid, correctAnswer) {
+        const selected = document.querySelector(
+          `input[name="q${qid}"]:checked`
+        );
+        const resultDiv = document.getElementById(`result_${qid}`);
+        if (!selected) {
+          resultDiv.innerHTML =
+            '<span class="text-warning">Please select an answer</span>';
+          return;
+        }
+        if (selected.value === correctAnswer) {
+          resultDiv.innerHTML = '<span class="text-success">✓ Correct!</span>';
+        } else {
+          resultDiv.innerHTML = `<span class="text-danger">✗ Wrong! Correct answer: ${correctAnswer}</span>`;
+        }
+      }
+
+      async function startMockTest(level) {
+        const mockData = await fetchAPI("/api/coding/mock");
+        const sets = mockData[level]?.sets || [];
+        if (sets.length === 0) {
+          alert("No mock tests available for this level");
+          return;
+        }
+
+        const randomSet = sets[Math.floor(Math.random() * sets.length)];
+        currentMockQuestions = randomSet;
+        currentAnswers = new Array(randomSet.length).fill(null);
+
+        document.getElementById("mockSelection").style.display = "none";
+        document.getElementById("mockResult").style.display = "none";
+        const mockTestDiv = document.getElementById("mockTest");
+        mockTestDiv.style.display = "block";
+        mockTestDiv.innerHTML = `<h5 class="mb-3">Coding Mock Test - ${level.toUpperCase()}</h5>`;
+
+        randomSet.forEach((q, idx) => {
+          mockTestDiv.innerHTML += `
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h6>Q${idx + 1}. ${q.question}</h6>
+                            ${q.options
+                              .map(
+                                (opt, i) => `
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="mock_${idx}" value="${opt}" onchange="saveMockAnswer(${idx}, '${opt}')">
+                                    <label class="form-check-label">${opt}</label>
+                                </div>
+                            `
+                              )
+                              .join("")}
+                        </div>
+                    </div>
+                `;
+        });
+
+        mockTestDiv.innerHTML +=
+          '<button class="btn btn-primary" onclick="submitMockTest()">Submit Test</button>';
+      }
+
+      function saveMockAnswer(idx, answer) {
+        currentAnswers[idx] = answer;
+      }
+
+      function submitMockTest() {
+        let correct = 0;
+        currentMockQuestions.forEach((q, idx) => {
+          if (currentAnswers[idx] === q.answer) correct++;
+        });
+
+        const total = currentMockQuestions.length;
+        const percentage = ((correct / total) * 100).toFixed(2);
+
+        document.getElementById("mockTest").style.display = "none";
+        const resultDiv = document.getElementById("mockResult");
+        resultDiv.style.display = "block";
+        resultDiv.innerHTML = `
+                <div class="alert alert-info">
+                    <h4>Test Results</h4>
+                    <p><strong>Total Questions:</strong> ${total}</p>
+                    <p><strong>Correct Answers:</strong> ${correct}</p>
+                    <p><strong>Wrong Answers:</strong> ${total - correct}</p>
+                    <p><strong>Score:</strong> ${percentage}%</p>
+                </div>
+                <button class="btn btn-primary" onclick="location.reload()">Take Another Test</button>
+            `;
+      }
+    </script>
+  </body>
+</html>

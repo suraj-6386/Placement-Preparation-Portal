@@ -1,0 +1,42 @@
+[
+  {
+    "q": "How do I reset my password?",
+    "a": "Use the profile page to update your password. Go to Profile > Edit > Change Password."
+  },
+  {
+    "q": "How to contact support?",
+    "a": "Use the contact form on the Help page. Fill in your details and our team will respond within 24 hours."
+  },
+  {
+    "q": "How many practice questions are available?",
+    "a": "We have thousands of practice questions across aptitude, coding, and interview categories, regularly updated."
+  },
+  {
+    "q": "Can I retake mock tests?",
+    "a": "Yes! You can take mock tests as many times as you want. Each attempt selects questions randomly."
+  },
+  {
+    "q": "How do I upload my resume?",
+    "a": "Go to Profile page and click on 'Upload Resume' button. Supported formats: PDF, DOC, DOCX."
+  },
+  {
+    "q": "Is my data secure?",
+    "a": "Yes, all your data is securely stored and encrypted. We follow industry-standard security practices."
+  },
+  {
+    "q": "Can I download my test results?",
+    "a": "Currently, test results are displayed on screen. Download feature will be available in future updates."
+  },
+  {
+    "q": "How often is content updated?",
+    "a": "We update our question bank and learning resources monthly based on latest trends and feedback."
+  },
+  {
+    "q": "Can I suggest new features?",
+    "a": "Absolutely! Use the contact form to share your suggestions. We value user feedback."
+  },
+  {
+    "q": "Is there a mobile app?",
+    "a": "Currently, we offer a web-based platform. A mobile app is under development and coming soon!"
+  }
+]

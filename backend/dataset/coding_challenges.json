@@ -1,0 +1,2663 @@
+{
+  "Python": {
+    "icon": "🐍",
+    "color": "#3776AB",
+    "easy": [
+      {
+        "id": "py_e_1",
+        "title": "Two Sum",
+        "description": "Given an array of integers nums and an integer target, return indices of the two numbers that add up to target.",
+        "difficulty": "Easy",
+        "tags": [
+          "Array",
+          "Hash Table"
+        ],
+        "starterCode": "def two_sum(nums, target):\n    # Write your code here\n    pass\n\n# Test\nprint(two_sum([2,7,11,15], 9))",
+        "testCases": [
+          {
+            "input": "[2,7,11,15], 9",
+            "output": "[0,1]"
+          }
+        ]
+      },
+      {
+        "id": "py_e_2",
+        "title": "Reverse String",
+        "description": "Write a function that reverses a string.",
+        "difficulty": "Easy",
+        "tags": [
+          "String",
+          "Two Pointers"
+        ],
+        "starterCode": "def reverse_string(s):\n    # Write your code here\n    pass",
+        "testCases": [
+          {
+            "input": "'hello'",
+            "output": "'olleh'"
+          }
+        ]
+      },
+      {
+        "id": "py_e_3",
+        "title": "Valid Palindrome",
+        "description": "Determine if a string is a palindrome, considering only alphanumeric characters.",
+        "difficulty": "Easy",
+        "tags": [
+          "String"
+        ],
+        "starterCode": "def is_palindrome(s):\n    # Write your code here\n    pass",
+        "testCases": [
+          {
+            "input": "'A man, a plan, a canal: Panama'",
+            "output": "True"
+          }
+        ]
+      },
+      {
+        "id": "py_e_4",
+        "title": "FizzBuzz",
+        "description": "Return 'Fizz' for multiples of 3, 'Buzz' for multiples of 5, 'FizzBuzz' for both.",
+        "difficulty": "Easy",
+        "tags": [
+          "Math"
+        ],
+        "starterCode": "def fizz_buzz(n):\n    # Write your code here\n    pass",
+        "testCases": [
+          {
+            "input": "15",
+            "output": "['1','2','Fizz',...,'FizzBuzz']"
+          }
+        ]
+      },
+      {
+        "id": "py_e_5",
+        "title": "Maximum Subarray",
+        "description": "Find the contiguous subarray with the largest sum.",
+        "difficulty": "Easy",
+        "tags": [
+          "Array",
+          "Dynamic Programming"
+        ],
+        "starterCode": "def max_subarray(nums):\n    # Write your code here\n    pass",
+        "testCases": [
+          {
+            "input": "[-2,1,-3,4,-1,2,1,-5,4]",
+            "output": "6"
+          }
+        ]
+      }
+    ],
+    "moderate": [
+      {
+        "id": "py_m_1",
+        "title": "Longest Substring Without Repeating Characters",
+        "description": "Find the length of the longest substring without repeating characters.",
+        "difficulty": "Moderate",
+        "tags": [
+          "Hash Table",
+          "String",
+          "Sliding Window"
+        ],
+        "starterCode": "def length_of_longest_substring(s):\n    # Write your code here\n    pass",
+        "testCases": [
+          {
+            "input": "'abcabcbb'",
+            "output": "3"
+          }
+        ]
+      },
+      {
+        "id": "py_m_2",
+        "title": "3Sum",
+        "description": "Find all triplets that sum to zero.",
+        "difficulty": "Moderate",
+        "tags": [
+          "Array",
+          "Two Pointers"
+        ],
+        "starterCode": "def three_sum(nums):\n    # Write your code here\n    pass",
+        "testCases": [
+          {
+            "input": "[-1,0,1,2,-1,-4]",
+            "output": "[[-1,-1,2],[-1,0,1]]"
+          }
+        ]
+      },
+      {
+        "id": "py_m_3",
+        "title": "Container With Most Water",
+        "description": "Find two lines that form a container with maximum water.",
+        "difficulty": "Moderate",
+        "tags": [
+          "Array",
+          "Two Pointers"
+        ],
+        "starterCode": "def max_area(height):\n    # Write your code here\n    pass",
+        "testCases": [
+          {
+            "input": "[1,8,6,2,5,4,8,3,7]",
+            "output": "49"
+          }
+        ]
+      },
+      {
+        "id": "py_m_4",
+        "title": "Group Anagrams",
+        "description": "Group strings that are anagrams of each other.",
+        "difficulty": "Moderate",
+        "tags": [
+          "Hash Table",
+          "String"
+        ],
+        "starterCode": "def group_anagrams(strs):\n    # Write your code here\n    pass",
+        "testCases": [
+          {
+            "input": "['eat','tea','tan','ate','nat','bat']",
+            "output": "[['eat','tea','ate'],['tan','nat'],['bat']]"
+          }
+        ]
+      },
+      {
+        "id": "py_m_5",
+        "title": "Product of Array Except Self",
+        "description": "Return array where each element is the product of all others.",
+        "difficulty": "Moderate",
+        "tags": [
+          "Array"
+        ],
+        "starterCode": "def product_except_self(nums):\n    # Write your code here\n    pass",
+        "testCases": [
+          {
+            "input": "[1,2,3,4]",
+            "output": "[24,12,8,6]"
+          }
+        ]
+      }
+    ],
+    "hard": [
+      {
+        "id": "py_h_1",
+        "title": "Median of Two Sorted Arrays",
+        "description": "Find the median of two sorted arrays.",
+        "difficulty": "Hard",
+        "tags": [
+          "Array",
+          "Binary Search"
+        ],
+        "starterCode": "def find_median_sorted_arrays(nums1, nums2):\n    # Write your code here\n    pass",
+        "testCases": [
+          {
+            "input": "[1,3], [2]",
+            "output": "2.0"
+          }
+        ]
+      },
+      {
+        "id": "py_h_2",
+        "title": "Trapping Rain Water",
+        "description": "Calculate how much water can be trapped after raining.",
+        "difficulty": "Hard",
+        "tags": [
+          "Array",
+          "Two Pointers"
+        ],
+        "starterCode": "def trap(height):\n    # Write your code here\n    pass",
+        "testCases": [
+          {
+            "input": "[0,1,0,2,1,0,1,3,2,1,2,1]",
+            "output": "6"
+          }
+        ]
+      },
+      {
+        "id": "py_h_3",
+        "title": "Longest Valid Parentheses",
+        "description": "Find the length of longest valid parentheses substring.",
+        "difficulty": "Hard",
+        "tags": [
+          "String",
+          "Dynamic Programming"
+        ],
+        "starterCode": "def longest_valid_parentheses(s):\n    # Write your code here\n    pass",
+        "testCases": [
+          {
+            "input": "'(()'",
+            "output": "2"
+          }
+        ]
+      },
+      {
+        "id": "py_h_4",
+        "title": "Regular Expression Matching",
+        "description": "Implement regular expression matching with '.' and '*'.",
+        "difficulty": "Hard",
+        "tags": [
+          "String",
+          "Dynamic Programming"
+        ],
+        "starterCode": "def is_match(s, p):\n    # Write your code here\n    pass",
+        "testCases": [
+          {
+            "input": "'aa', 'a*'",
+            "output": "True"
+          }
+        ]
+      },
+      {
+        "id": "py_h_5",
+        "title": "Merge k Sorted Lists",
+        "description": "Merge k sorted linked lists into one sorted list.",
+        "difficulty": "Hard",
+        "tags": [
+          "Linked List",
+          "Heap"
+        ],
+        "starterCode": "def merge_k_lists(lists):\n    # Write your code here\n    pass",
+        "testCases": [
+          {
+            "input": "[[1,4,5],[1,3,4],[2,6]]",
+            "output": "[1,1,2,3,4,4,5,6]"
+          }
+        ]
+      }
+    ]
+  },
+  "Java": {
+    "icon": "☕",
+    "color": "#007396",
+    "easy": [
+      {
+        "id": "java_e_1",
+        "title": "Java Easy Problem 1",
+        "description": "Sample easy problem for Java",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your Java code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "java_e_2",
+        "title": "Java Easy Problem 2",
+        "description": "Sample easy problem for Java",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your Java code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "java_e_3",
+        "title": "Java Easy Problem 3",
+        "description": "Sample easy problem for Java",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your Java code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "java_e_4",
+        "title": "Java Easy Problem 4",
+        "description": "Sample easy problem for Java",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your Java code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "java_e_5",
+        "title": "Java Easy Problem 5",
+        "description": "Sample easy problem for Java",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your Java code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "moderate": [
+      {
+        "id": "java_m_1",
+        "title": "Java Moderate Problem 1",
+        "description": "Sample moderate problem for Java",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your Java code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "java_m_2",
+        "title": "Java Moderate Problem 2",
+        "description": "Sample moderate problem for Java",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your Java code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "java_m_3",
+        "title": "Java Moderate Problem 3",
+        "description": "Sample moderate problem for Java",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your Java code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "java_m_4",
+        "title": "Java Moderate Problem 4",
+        "description": "Sample moderate problem for Java",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your Java code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "java_m_5",
+        "title": "Java Moderate Problem 5",
+        "description": "Sample moderate problem for Java",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your Java code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "hard": [
+      {
+        "id": "java_h_1",
+        "title": "Java Hard Problem 1",
+        "description": "Sample hard problem for Java",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your Java code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "java_h_2",
+        "title": "Java Hard Problem 2",
+        "description": "Sample hard problem for Java",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your Java code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "java_h_3",
+        "title": "Java Hard Problem 3",
+        "description": "Sample hard problem for Java",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your Java code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "java_h_4",
+        "title": "Java Hard Problem 4",
+        "description": "Sample hard problem for Java",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your Java code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "java_h_5",
+        "title": "Java Hard Problem 5",
+        "description": "Sample hard problem for Java",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your Java code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ]
+  },
+  "C": {
+    "icon": "©️",
+    "color": "#A8B9CC",
+    "easy": [
+      {
+        "id": "c_e_1",
+        "title": "C Easy Problem 1",
+        "description": "Sample easy problem for C",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c_e_2",
+        "title": "C Easy Problem 2",
+        "description": "Sample easy problem for C",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c_e_3",
+        "title": "C Easy Problem 3",
+        "description": "Sample easy problem for C",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c_e_4",
+        "title": "C Easy Problem 4",
+        "description": "Sample easy problem for C",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c_e_5",
+        "title": "C Easy Problem 5",
+        "description": "Sample easy problem for C",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "moderate": [
+      {
+        "id": "c_m_1",
+        "title": "C Moderate Problem 1",
+        "description": "Sample moderate problem for C",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c_m_2",
+        "title": "C Moderate Problem 2",
+        "description": "Sample moderate problem for C",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c_m_3",
+        "title": "C Moderate Problem 3",
+        "description": "Sample moderate problem for C",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c_m_4",
+        "title": "C Moderate Problem 4",
+        "description": "Sample moderate problem for C",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c_m_5",
+        "title": "C Moderate Problem 5",
+        "description": "Sample moderate problem for C",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "hard": [
+      {
+        "id": "c_h_1",
+        "title": "C Hard Problem 1",
+        "description": "Sample hard problem for C",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c_h_2",
+        "title": "C Hard Problem 2",
+        "description": "Sample hard problem for C",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c_h_3",
+        "title": "C Hard Problem 3",
+        "description": "Sample hard problem for C",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c_h_4",
+        "title": "C Hard Problem 4",
+        "description": "Sample hard problem for C",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c_h_5",
+        "title": "C Hard Problem 5",
+        "description": "Sample hard problem for C",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ]
+  },
+  "C++": {
+    "icon": "⚡",
+    "color": "#00599C",
+    "easy": [
+      {
+        "id": "c++_e_1",
+        "title": "C++ Easy Problem 1",
+        "description": "Sample easy problem for C++",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C++ code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c++_e_2",
+        "title": "C++ Easy Problem 2",
+        "description": "Sample easy problem for C++",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C++ code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c++_e_3",
+        "title": "C++ Easy Problem 3",
+        "description": "Sample easy problem for C++",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C++ code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c++_e_4",
+        "title": "C++ Easy Problem 4",
+        "description": "Sample easy problem for C++",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C++ code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c++_e_5",
+        "title": "C++ Easy Problem 5",
+        "description": "Sample easy problem for C++",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C++ code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "moderate": [
+      {
+        "id": "c++_m_1",
+        "title": "C++ Moderate Problem 1",
+        "description": "Sample moderate problem for C++",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C++ code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c++_m_2",
+        "title": "C++ Moderate Problem 2",
+        "description": "Sample moderate problem for C++",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C++ code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c++_m_3",
+        "title": "C++ Moderate Problem 3",
+        "description": "Sample moderate problem for C++",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C++ code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c++_m_4",
+        "title": "C++ Moderate Problem 4",
+        "description": "Sample moderate problem for C++",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C++ code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c++_m_5",
+        "title": "C++ Moderate Problem 5",
+        "description": "Sample moderate problem for C++",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C++ code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "hard": [
+      {
+        "id": "c++_h_1",
+        "title": "C++ Hard Problem 1",
+        "description": "Sample hard problem for C++",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C++ code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c++_h_2",
+        "title": "C++ Hard Problem 2",
+        "description": "Sample hard problem for C++",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C++ code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c++_h_3",
+        "title": "C++ Hard Problem 3",
+        "description": "Sample hard problem for C++",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C++ code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c++_h_4",
+        "title": "C++ Hard Problem 4",
+        "description": "Sample hard problem for C++",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C++ code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "c++_h_5",
+        "title": "C++ Hard Problem 5",
+        "description": "Sample hard problem for C++",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your C++ code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ]
+  },
+  "JavaScript": {
+    "icon": "📜",
+    "color": "#F7DF1E",
+    "easy": [
+      {
+        "id": "javascript_e_1",
+        "title": "JavaScript Easy Problem 1",
+        "description": "Sample easy problem for JavaScript",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your JavaScript code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "javascript_e_2",
+        "title": "JavaScript Easy Problem 2",
+        "description": "Sample easy problem for JavaScript",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your JavaScript code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "javascript_e_3",
+        "title": "JavaScript Easy Problem 3",
+        "description": "Sample easy problem for JavaScript",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your JavaScript code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "javascript_e_4",
+        "title": "JavaScript Easy Problem 4",
+        "description": "Sample easy problem for JavaScript",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your JavaScript code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "javascript_e_5",
+        "title": "JavaScript Easy Problem 5",
+        "description": "Sample easy problem for JavaScript",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your JavaScript code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "moderate": [
+      {
+        "id": "javascript_m_1",
+        "title": "JavaScript Moderate Problem 1",
+        "description": "Sample moderate problem for JavaScript",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your JavaScript code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "javascript_m_2",
+        "title": "JavaScript Moderate Problem 2",
+        "description": "Sample moderate problem for JavaScript",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your JavaScript code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "javascript_m_3",
+        "title": "JavaScript Moderate Problem 3",
+        "description": "Sample moderate problem for JavaScript",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your JavaScript code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "javascript_m_4",
+        "title": "JavaScript Moderate Problem 4",
+        "description": "Sample moderate problem for JavaScript",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your JavaScript code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "javascript_m_5",
+        "title": "JavaScript Moderate Problem 5",
+        "description": "Sample moderate problem for JavaScript",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your JavaScript code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "hard": [
+      {
+        "id": "javascript_h_1",
+        "title": "JavaScript Hard Problem 1",
+        "description": "Sample hard problem for JavaScript",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your JavaScript code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "javascript_h_2",
+        "title": "JavaScript Hard Problem 2",
+        "description": "Sample hard problem for JavaScript",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your JavaScript code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "javascript_h_3",
+        "title": "JavaScript Hard Problem 3",
+        "description": "Sample hard problem for JavaScript",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your JavaScript code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "javascript_h_4",
+        "title": "JavaScript Hard Problem 4",
+        "description": "Sample hard problem for JavaScript",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your JavaScript code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "javascript_h_5",
+        "title": "JavaScript Hard Problem 5",
+        "description": "Sample hard problem for JavaScript",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your JavaScript code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ]
+  },
+  "PHP": {
+    "icon": "🐘",
+    "color": "#777BB4",
+    "easy": [
+      {
+        "id": "php_e_1",
+        "title": "PHP Easy Problem 1",
+        "description": "Sample easy problem for PHP",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your PHP code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "php_e_2",
+        "title": "PHP Easy Problem 2",
+        "description": "Sample easy problem for PHP",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your PHP code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "php_e_3",
+        "title": "PHP Easy Problem 3",
+        "description": "Sample easy problem for PHP",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your PHP code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "php_e_4",
+        "title": "PHP Easy Problem 4",
+        "description": "Sample easy problem for PHP",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your PHP code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "php_e_5",
+        "title": "PHP Easy Problem 5",
+        "description": "Sample easy problem for PHP",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your PHP code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "moderate": [
+      {
+        "id": "php_m_1",
+        "title": "PHP Moderate Problem 1",
+        "description": "Sample moderate problem for PHP",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your PHP code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "php_m_2",
+        "title": "PHP Moderate Problem 2",
+        "description": "Sample moderate problem for PHP",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your PHP code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "php_m_3",
+        "title": "PHP Moderate Problem 3",
+        "description": "Sample moderate problem for PHP",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your PHP code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "php_m_4",
+        "title": "PHP Moderate Problem 4",
+        "description": "Sample moderate problem for PHP",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your PHP code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "php_m_5",
+        "title": "PHP Moderate Problem 5",
+        "description": "Sample moderate problem for PHP",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your PHP code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "hard": [
+      {
+        "id": "php_h_1",
+        "title": "PHP Hard Problem 1",
+        "description": "Sample hard problem for PHP",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your PHP code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "php_h_2",
+        "title": "PHP Hard Problem 2",
+        "description": "Sample hard problem for PHP",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your PHP code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "php_h_3",
+        "title": "PHP Hard Problem 3",
+        "description": "Sample hard problem for PHP",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your PHP code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "php_h_4",
+        "title": "PHP Hard Problem 4",
+        "description": "Sample hard problem for PHP",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your PHP code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "php_h_5",
+        "title": "PHP Hard Problem 5",
+        "description": "Sample hard problem for PHP",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your PHP code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ]
+  },
+  "CSharp": {
+    "icon": "#️⃣",
+    "color": "#239120",
+    "displayName": "C#",
+    "easy": [
+      {
+        "id": "csharp_e_1",
+        "title": "CSharp Easy Problem 1",
+        "description": "Sample easy problem for CSharp",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your CSharp code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "csharp_e_2",
+        "title": "CSharp Easy Problem 2",
+        "description": "Sample easy problem for CSharp",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your CSharp code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "csharp_e_3",
+        "title": "CSharp Easy Problem 3",
+        "description": "Sample easy problem for CSharp",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your CSharp code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "csharp_e_4",
+        "title": "CSharp Easy Problem 4",
+        "description": "Sample easy problem for CSharp",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your CSharp code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "csharp_e_5",
+        "title": "CSharp Easy Problem 5",
+        "description": "Sample easy problem for CSharp",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your CSharp code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "moderate": [
+      {
+        "id": "csharp_m_1",
+        "title": "CSharp Moderate Problem 1",
+        "description": "Sample moderate problem for CSharp",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your CSharp code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "csharp_m_2",
+        "title": "CSharp Moderate Problem 2",
+        "description": "Sample moderate problem for CSharp",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your CSharp code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "csharp_m_3",
+        "title": "CSharp Moderate Problem 3",
+        "description": "Sample moderate problem for CSharp",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your CSharp code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "csharp_m_4",
+        "title": "CSharp Moderate Problem 4",
+        "description": "Sample moderate problem for CSharp",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your CSharp code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "csharp_m_5",
+        "title": "CSharp Moderate Problem 5",
+        "description": "Sample moderate problem for CSharp",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your CSharp code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "hard": [
+      {
+        "id": "csharp_h_1",
+        "title": "CSharp Hard Problem 1",
+        "description": "Sample hard problem for CSharp",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your CSharp code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "csharp_h_2",
+        "title": "CSharp Hard Problem 2",
+        "description": "Sample hard problem for CSharp",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your CSharp code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "csharp_h_3",
+        "title": "CSharp Hard Problem 3",
+        "description": "Sample hard problem for CSharp",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your CSharp code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "csharp_h_4",
+        "title": "CSharp Hard Problem 4",
+        "description": "Sample hard problem for CSharp",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your CSharp code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "csharp_h_5",
+        "title": "CSharp Hard Problem 5",
+        "description": "Sample hard problem for CSharp",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your CSharp code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ]
+  },
+  "Frontend": {
+    "icon": "🎨",
+    "color": "#FF6B6B",
+    "isCategory": true,
+    "subcategories": {
+      "HTML": {
+        "icon": "🌐",
+        "color": "#E34F26"
+      },
+      "CSS": {
+        "icon": "🎨",
+        "color": "#1572B6"
+      },
+      "JavaScript": {
+        "icon": "📜",
+        "color": "#F7DF1E"
+      },
+      "React": {
+        "icon": "⚛️",
+        "color": "#61DAFB"
+      }
+    },
+    "easy": [
+      {
+        "id": "frontend_e_1",
+        "title": "Frontend Easy Challenge 1",
+        "description": "Sample easy challenge for Frontend",
+        "difficulty": "Easy",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "frontend_e_2",
+        "title": "Frontend Easy Challenge 2",
+        "description": "Sample easy challenge for Frontend",
+        "difficulty": "Easy",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "frontend_e_3",
+        "title": "Frontend Easy Challenge 3",
+        "description": "Sample easy challenge for Frontend",
+        "difficulty": "Easy",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "frontend_e_4",
+        "title": "Frontend Easy Challenge 4",
+        "description": "Sample easy challenge for Frontend",
+        "difficulty": "Easy",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "frontend_e_5",
+        "title": "Frontend Easy Challenge 5",
+        "description": "Sample easy challenge for Frontend",
+        "difficulty": "Easy",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "moderate": [
+      {
+        "id": "frontend_m_1",
+        "title": "Frontend Moderate Challenge 1",
+        "description": "Sample moderate challenge for Frontend",
+        "difficulty": "Moderate",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "frontend_m_2",
+        "title": "Frontend Moderate Challenge 2",
+        "description": "Sample moderate challenge for Frontend",
+        "difficulty": "Moderate",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "frontend_m_3",
+        "title": "Frontend Moderate Challenge 3",
+        "description": "Sample moderate challenge for Frontend",
+        "difficulty": "Moderate",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "frontend_m_4",
+        "title": "Frontend Moderate Challenge 4",
+        "description": "Sample moderate challenge for Frontend",
+        "difficulty": "Moderate",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "frontend_m_5",
+        "title": "Frontend Moderate Challenge 5",
+        "description": "Sample moderate challenge for Frontend",
+        "difficulty": "Moderate",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "hard": [
+      {
+        "id": "frontend_h_1",
+        "title": "Frontend Hard Challenge 1",
+        "description": "Sample hard challenge for Frontend",
+        "difficulty": "Hard",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "frontend_h_2",
+        "title": "Frontend Hard Challenge 2",
+        "description": "Sample hard challenge for Frontend",
+        "difficulty": "Hard",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "frontend_h_3",
+        "title": "Frontend Hard Challenge 3",
+        "description": "Sample hard challenge for Frontend",
+        "difficulty": "Hard",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "frontend_h_4",
+        "title": "Frontend Hard Challenge 4",
+        "description": "Sample hard challenge for Frontend",
+        "difficulty": "Hard",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "frontend_h_5",
+        "title": "Frontend Hard Challenge 5",
+        "description": "Sample hard challenge for Frontend",
+        "difficulty": "Hard",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ]
+  },
+  "Backend": {
+    "icon": "⚙️",
+    "color": "#4A90E2",
+    "isCategory": true,
+    "subcategories": {
+      "Node.js": {
+        "icon": "🟢",
+        "color": "#339933"
+      },
+      "Python": {
+        "icon": "🐍",
+        "color": "#3776AB"
+      },
+      "PHP": {
+        "icon": "🐘",
+        "color": "#777BB4"
+      },
+      "Java": {
+        "icon": "☕",
+        "color": "#007396"
+      },
+      ".NET": {
+        "icon": "#️⃣",
+        "color": "#512BD4"
+      }
+    },
+    "easy": [
+      {
+        "id": "backend_e_1",
+        "title": "Backend Easy Challenge 1",
+        "description": "Sample easy challenge for Backend",
+        "difficulty": "Easy",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "backend_e_2",
+        "title": "Backend Easy Challenge 2",
+        "description": "Sample easy challenge for Backend",
+        "difficulty": "Easy",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "backend_e_3",
+        "title": "Backend Easy Challenge 3",
+        "description": "Sample easy challenge for Backend",
+        "difficulty": "Easy",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "backend_e_4",
+        "title": "Backend Easy Challenge 4",
+        "description": "Sample easy challenge for Backend",
+        "difficulty": "Easy",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "backend_e_5",
+        "title": "Backend Easy Challenge 5",
+        "description": "Sample easy challenge for Backend",
+        "difficulty": "Easy",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "moderate": [
+      {
+        "id": "backend_m_1",
+        "title": "Backend Moderate Challenge 1",
+        "description": "Sample moderate challenge for Backend",
+        "difficulty": "Moderate",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "backend_m_2",
+        "title": "Backend Moderate Challenge 2",
+        "description": "Sample moderate challenge for Backend",
+        "difficulty": "Moderate",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "backend_m_3",
+        "title": "Backend Moderate Challenge 3",
+        "description": "Sample moderate challenge for Backend",
+        "difficulty": "Moderate",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "backend_m_4",
+        "title": "Backend Moderate Challenge 4",
+        "description": "Sample moderate challenge for Backend",
+        "difficulty": "Moderate",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "backend_m_5",
+        "title": "Backend Moderate Challenge 5",
+        "description": "Sample moderate challenge for Backend",
+        "difficulty": "Moderate",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "hard": [
+      {
+        "id": "backend_h_1",
+        "title": "Backend Hard Challenge 1",
+        "description": "Sample hard challenge for Backend",
+        "difficulty": "Hard",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "backend_h_2",
+        "title": "Backend Hard Challenge 2",
+        "description": "Sample hard challenge for Backend",
+        "difficulty": "Hard",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "backend_h_3",
+        "title": "Backend Hard Challenge 3",
+        "description": "Sample hard challenge for Backend",
+        "difficulty": "Hard",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "backend_h_4",
+        "title": "Backend Hard Challenge 4",
+        "description": "Sample hard challenge for Backend",
+        "difficulty": "Hard",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "backend_h_5",
+        "title": "Backend Hard Challenge 5",
+        "description": "Sample hard challenge for Backend",
+        "difficulty": "Hard",
+        "tags": [
+          "Web Development"
+        ],
+        "starterCode": "// Write your code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ]
+  },
+  "SQL": {
+    "icon": "🗄️",
+    "color": "#336791",
+    "easy": [
+      {
+        "id": "sql_e_1",
+        "title": "SQL Easy Problem 1",
+        "description": "Sample easy problem for SQL",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your SQL code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "sql_e_2",
+        "title": "SQL Easy Problem 2",
+        "description": "Sample easy problem for SQL",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your SQL code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "sql_e_3",
+        "title": "SQL Easy Problem 3",
+        "description": "Sample easy problem for SQL",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your SQL code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "sql_e_4",
+        "title": "SQL Easy Problem 4",
+        "description": "Sample easy problem for SQL",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your SQL code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "sql_e_5",
+        "title": "SQL Easy Problem 5",
+        "description": "Sample easy problem for SQL",
+        "difficulty": "Easy",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your SQL code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "moderate": [
+      {
+        "id": "sql_m_1",
+        "title": "SQL Moderate Problem 1",
+        "description": "Sample moderate problem for SQL",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your SQL code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "sql_m_2",
+        "title": "SQL Moderate Problem 2",
+        "description": "Sample moderate problem for SQL",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your SQL code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "sql_m_3",
+        "title": "SQL Moderate Problem 3",
+        "description": "Sample moderate problem for SQL",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your SQL code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "sql_m_4",
+        "title": "SQL Moderate Problem 4",
+        "description": "Sample moderate problem for SQL",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your SQL code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "sql_m_5",
+        "title": "SQL Moderate Problem 5",
+        "description": "Sample moderate problem for SQL",
+        "difficulty": "Moderate",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your SQL code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ],
+    "hard": [
+      {
+        "id": "sql_h_1",
+        "title": "SQL Hard Problem 1",
+        "description": "Sample hard problem for SQL",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your SQL code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "sql_h_2",
+        "title": "SQL Hard Problem 2",
+        "description": "Sample hard problem for SQL",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your SQL code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "sql_h_3",
+        "title": "SQL Hard Problem 3",
+        "description": "Sample hard problem for SQL",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your SQL code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "sql_h_4",
+        "title": "SQL Hard Problem 4",
+        "description": "Sample hard problem for SQL",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your SQL code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      },
+      {
+        "id": "sql_h_5",
+        "title": "SQL Hard Problem 5",
+        "description": "Sample hard problem for SQL",
+        "difficulty": "Hard",
+        "tags": [
+          "Algorithm",
+          "Data Structure"
+        ],
+        "starterCode": "// Write your SQL code here\n",
+        "testCases": [
+          {
+            "input": "sample",
+            "output": "result"
+          }
+        ]
+      }
+    ]
+  }
+}

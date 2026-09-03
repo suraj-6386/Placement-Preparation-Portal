@@ -1,0 +1,12 @@
+{
+  "Python": "https://docs.python.org/3/tutorial/",
+  "Java": "https://docs.oracle.com/javase/tutorial/",
+  "C": "https://www.learn-c.org/",
+  "C++": "https://www.learncpp.com/",
+  "JavaScript": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide",
+  "PHP": "https://www.php.net/manual/en/tutorial.php",
+  "C#": "https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/",
+  "Go (Golang)": "https://go.dev/tour/",
+  "SQL": "https://www.w3schools.com/sql/",
+  "HTML/CSS (Basic Frontend)": "https://developer.mozilla.org/en-US/docs/Learn"
+}

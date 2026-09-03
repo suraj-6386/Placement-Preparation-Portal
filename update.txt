@@ -1,0 +1,263 @@
+================================================================================
+          PLACEMENT PREPARATION PORTAL — MANUAL CONFIGURATION GUIDE
+================================================================================
+
+This document contains all the manual setup steps, configuration values, and SQL
+commands needed to run this project on your machine or on any new device.
+
+================================================================================
+1. FILES YOU NEED TO CONFIGURE / EDIT
+================================================================================
+
+Only ONE file needs your attention:
+  File: .env (located in the project root folder)
+
+Values to check or update in .env:
+  1. DB_PASSWORD: Your local MySQL root password.
+  2. DATABASE_URL: Update the password in the connection string:
+     mysql+pymysql://root:YOUR_PASSWORD@127.0.0.1:3306/skillprep_db
+  3. GOOGLE_CLIENT_ID: (Optional) Your Google OAuth Client ID if you want live
+     Google Sign-In. Leave blank if testing standard username/password login.
+  4. GOOGLE_CLIENT_SECRET: (Optional) Your Google OAuth Client Secret.
+
+================================================================================
+2. MYSQL DATABASE CREATION & SETUP (ACTUAL SQL COMMANDS)
+================================================================================
+
+Database Name Required: skillprep_db
+
+Step 2.1: Open MySQL Command Line Client or MySQL Workbench and run:
+
+--------------------------------- SQL COMMANDS ---------------------------------
+CREATE DATABASE IF NOT EXISTS skillprep_db
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+USE skillprep_db;
+
+-- 1. Users Table
+CREATE TABLE IF NOT EXISTS users (
+    id VARCHAR(36) PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    phone VARCHAR(50) DEFAULT '',
+    college VARCHAR(200) DEFAULT '',
+    course VARCHAR(150) DEFAULT '',
+    skills TEXT DEFAULT NULL,
+    photo VARCHAR(255) DEFAULT '',
+    resume VARCHAR(255) DEFAULT '',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_user_username (username),
+    INDEX idx_user_email (email)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 2. Sessions Table
+CREATE TABLE IF NOT EXISTS sessions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    token VARCHAR(64) NOT NULL UNIQUE,
+    user_id VARCHAR(36) NULL,
+    username VARCHAR(100) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_session_token (token),
+    INDEX idx_session_username (username),
+    CONSTRAINT fk_session_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 3. Help & Contact Queries Table
+CREATE TABLE IF NOT EXISTS help_queries (
+    id VARCHAR(36) PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    subject VARCHAR(255) DEFAULT 'No subject',
+    message TEXT NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 4. FAQs Table
+CREATE TABLE IF NOT EXISTS faqs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 5. Interview Questions Table
+CREATE TABLE IF NOT EXISTS interview_questions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category VARCHAR(50) NOT NULL,
+    subject VARCHAR(100) NULL,
+    question TEXT NOT NULL,
+    display_order INT DEFAULT 0,
+    INDEX idx_interview_category (category),
+    INDEX idx_interview_subject (subject)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 6. Learning Resources Table
+CREATE TABLE IF NOT EXISTS learning_resources (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category VARCHAR(50) NOT NULL,
+    title VARCHAR(150) NOT NULL,
+    url VARCHAR(500) NOT NULL,
+    INDEX idx_resource_category (category)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 7. Practice Questions Table
+CREATE TABLE IF NOT EXISTS practice_questions (
+    id VARCHAR(50) PRIMARY KEY,
+    category VARCHAR(50) NOT NULL,
+    chapter VARCHAR(100) NOT NULL,
+    question TEXT NOT NULL,
+    options JSON NOT NULL,
+    answer VARCHAR(500) NOT NULL,
+    difficulty VARCHAR(20) DEFAULT NULL,
+    INDEX idx_practice_category (category),
+    INDEX idx_practice_chapter (chapter)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 8. Mock Tests Table
+CREATE TABLE IF NOT EXISTS mock_tests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category VARCHAR(50) NOT NULL,
+    level VARCHAR(20) NOT NULL,
+    set_index INT NOT NULL DEFAULT 0,
+    questions JSON NOT NULL,
+    INDEX idx_mock_category (category),
+    INDEX idx_mock_level (level)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 9. Coding Challenges Table
+CREATE TABLE IF NOT EXISTS coding_challenges (
+    id VARCHAR(50) PRIMARY KEY,
+    language VARCHAR(50) NOT NULL,
+    difficulty VARCHAR(20) NOT NULL,
+    title VARCHAR(200) NOT NULL,
+    description TEXT NOT NULL,
+    tags JSON DEFAULT NULL,
+    starter_code TEXT DEFAULT NULL,
+    test_cases JSON DEFAULT NULL,
+    INDEX idx_challenge_language (language),
+    INDEX idx_challenge_difficulty (difficulty)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+--------------------------------------------------------------------------------
+
+Alternatively, you can run the entire database/init.sql file in one command:
+    mysql -u root -p < database/init.sql
+
+* Note: Even if you do not run table creation scripts manually, SQLAlchemy will
+  automatically verify and create all tables when you start the FastAPI backend!
+
+================================================================================
+3. GOOGLE CLOUD CONSOLE SETUP (EXACT SETTINGS)
+================================================================================
+
+Step 3.1: Go to Google Cloud Console
+  URL: https://console.cloud.google.com/
+
+Step 3.2: Create or Select your Project
+  - In Google Cloud Console, select your existing project or create a new one.
+
+Step 3.3: Configure OAuth Consent Screen
+  - Go to: APIs & Services > OAuth consent screen.
+  - User Type: "External" > Click "Create".
+  - App Name: Placement Preparation Portal
+  - User support email: (Select your email)
+  - Developer contact information: (Enter your email)
+  - Scopes required: "openid", ".../auth/userinfo.email", ".../auth/userinfo.profile"
+  - Save and continue through Test Users.
+
+Step 3.4: Create / Update OAuth 2.0 Web Client Credentials
+  - Go to: APIs & Services > Credentials.
+  - Click "+ CREATE CREDENTIALS" > "OAuth client ID".
+  - Application type: "Web application".
+  - Name: "Placement Preparation Portal Client".
+
+  - Authorized JavaScript origins (EXACT VALUE):
+      http://localhost:8000
+
+  - Authorized redirect URIs (EXACT VALUE):
+      http://localhost:8000/auth/google/callback
+
+  - Click "Save" / "Create".
+
+Step 3.5: Enter Values into .env
+  Open .env in the project root:
+      GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET
+DATABASE_URL=mysql+pymysql://root:YOUR_PASSWORD@127.0.0.1:3306/skillprep_db
+
+================================================================================
+4. COMPLETE .ENV FILE CONFIGURATION
+================================================================================
+
+APP_NAME=Placement Preparation Portal
+APP_ENV=development
+DEBUG=True
+HOST=127.0.0.1
+PORT=8000
+
+SECRET_KEY=skillprep_super_secret_session_key_change_in_production
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=1440
+
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=
+DB_NAME=skillprep_db
+
+DATABASE_URL=mysql+pymysql://root:15056324@127.0.0.1:3306/skillprep_db
+
+UPLOAD_FOLDER_IMAGES=userdata/profile_images
+UPLOAD_FOLDER_RESUMES=userdata/resumes
+
+# Google OAuth 2.0 Settings
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_REDIRECT_URI=
+
+================================================================================
+5. COMMANDS TO RUN ON A NEW DEVICE
+================================================================================
+
+Step 5.1: Create virtual environment
+    python -m venv venv
+
+Step 5.2: Activate virtual environment
+    # Windows:
+    venv\Scripts\activate
+
+    # macOS / Linux:
+    source venv/bin/activate
+
+Step 5.3: Install dependencies
+    pip install -r requirements.txt
+
+Step 5.4: Create the database
+    mysql -u root -p < database/init.sql
+
+Step 5.5: Run the application (from project root)
+    python app.py
+
+Step 5.6: Open in browser
+    http://localhost:8000
+
+================================================================================
+6. ARCHITECTURE OVERVIEW FOR INTERVIEW DISCUSSION
+================================================================================
+
+When discussing this project in a Python / FastAPI Developer interview:
+- Entry Point: Single python app.py command from the project root starts everything.
+- Web Framework: FastAPI for high-performance asynchronous REST APIs.
+- ASGI Server: Uvicorn (invoked programmatically via uvicorn.run() — no separate command needed).
+- Database: MySQL 8.0 relational database with SQLAlchemy 2.0 ORM.
+- Connection Driver: PyMySQL with connection pooling and pre-ping health check.
+- Authentication:
+  * Registration & Login: Passwords hashed with bcrypt (cost factor 12).
+  * Session Management: Cryptographic hex session tokens stored in MySQL.
+  * Google OAuth: Verifies Google Identity Services signed ID tokens via
+    google-auth library; automatically provisions user accounts in MySQL.
+- Static & Media Serving: StaticFiles mounts for frontend assets and userdata.
+- Frontend Architecture: Semantic HTML5, Vanilla CSS3 with CSS custom properties
+  (variables) supporting Light/Dark themes, ES6 JavaScript fetch requests.
+================================================================================

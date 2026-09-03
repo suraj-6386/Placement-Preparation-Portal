@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile - Placement Preparation Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Placement Preparation Portal</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="aptitude.html">Aptitude</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="coding.html">Coding</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="interview.html">Interview</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="profile.html">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="help.html">Help</a>
+            </li>
+            <li class="nav-item">
+              <button
+                class="btn nav-link theme-toggle"
+                id="themeToggle"
+                onclick="toggleTheme()"
+                title="Toggle Dark/Light Mode"
+              >
+                <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+              </button>
+            </li>
+            <li class="nav-item" id="authNav"></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container my-5">
+      <h2 class="mb-4">User Profile</h2>
+
+      <div id="profileContent">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title mb-4">Personal Information</h5>
+                <form id="profileForm">
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label class="form-label">Full Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="profileName"
+                        required
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Username</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="profileUsername"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label class="form-label">Email</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="profileEmail"
+                        required
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Phone</label>
+                      <input
+                        type="tel"
+                        class="form-control"
+                        id="profilePhone"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label class="form-label">College</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="profileCollege"
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Course</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="profileCourse"
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Skills (comma separated)</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="profileSkills"
+                    />
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label class="form-label">Profile Photo</label>
+                      <input
+                        type="file"
+                        class="form-control"
+                        id="profilePhoto"
+                        accept="image/*"
+                      />
+                      <small class="text-muted" id="currentPhoto"></small>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Resume</label>
+                      <input
+                        type="file"
+                        class="form-control"
+                        id="profileResume"
+                        accept=".pdf,.doc,.docx"
+                      />
+                      <small class="text-muted" id="currentResume"></small>
+                    </div>
+                  </div>
+                  <div id="profileMessage" class="alert d-none"></div>
+                  <button type="submit" class="btn btn-primary">
+                    Update Profile
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body text-center">
+                <h5 class="card-title mb-4">Profile Photo</h5>
+                <div class="profile-photo-container mb-3">
+                  <div
+                    id="displayProfilePhoto"
+                    class="profile-photo-preview"
+                    style="
+                      width: 200px;
+                      height: 200px;
+                      margin: 0 auto;
+                      border-radius: 50%;
+                      border: 4px solid #d4af37;
+                      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      background: linear-gradient(
+                        135deg,
+                        #667eea 0%,
+                        #764ba2 100%
+                      );
+                      color: white;
+                      font-size: 72px;
+                      font-weight: bold;
+                    "
+                  >
+                    👤
+                  </div>
+                </div>
+                <p class="text-muted small" id="photoFileName">
+                  No photo uploaded
+                </p>
+                <button
+                  type="button"
+                  class="btn btn-outline-primary btn-sm"
+                  onclick="document.getElementById('profilePhoto').click()"
+                >
+                  Change Photo
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="notLoggedIn" style="display: none">
+        <div class="alert alert-warning">
+          <h4>Please Login</h4>
+          <p>You need to be logged in to view and edit your profile.</p>
+          <a href="/" class="btn btn-primary">Go to Home</a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+      <p class="mb-0">
+        &copy; 2024 Placement Preparation Portal. All rights reserved.
+      </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+      // Load auth modals and check authentication
+      loadAuthModals();
+      checkAuth();
+      loadProfile();
+
+      async function loadProfile() {
+        const token = getAuthToken();
+        if (!token) {
+          document.getElementById("profileContent").style.display = "none";
+          document.getElementById("notLoggedIn").style.display = "block";
+          return;
+        }
+
+        try {
+          const response = await fetch(`/api/profile?token=${token}`);
+          const data = await response.json();
+
+          if (data.success) {
+            const user = data.user;
+            document.getElementById("profileName").value = user.name || "";
+            document.getElementById("profileUsername").value =
+              user.username || "";
+            document.getElementById("profileEmail").value = user.email || "";
+            document.getElementById("profilePhone").value = user.phone || "";
+            document.getElementById("profileCollege").value =
+              user.college || "";
+            document.getElementById("profileCourse").value = user.course || "";
+            document.getElementById("profileSkills").value = user.skills || "";
+
+            if (user.photo) {
+              document.getElementById(
+                "currentPhoto"
+              ).textContent = `Current: ${user.photo}`;
+              // Display the uploaded photo
+              const photoDisplay = document.getElementById(
+                "displayProfilePhoto"
+              );
+              photoDisplay.style.backgroundImage = `url('/uploads/${user.photo}')`;
+              photoDisplay.style.backgroundSize = "cover";
+              photoDisplay.style.backgroundPosition = "center";
+              photoDisplay.textContent = "";
+              document.getElementById("photoFileName").textContent = user.photo;
+            }
+            if (user.resume) {
+              document.getElementById(
+                "currentResume"
+              ).textContent = `Current: ${user.resume}`;
+            }
+          } else {
+            showMessage("profileMessage", data.message, "danger");
+          }
+        } catch (error) {
+          showMessage("profileMessage", "Error loading profile", "danger");
+        }
+      }
+
+      document
+        .getElementById("profileForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const token = getAuthToken();
+          if (!token) {
+            showMessage("profileMessage", "Please login first", "danger");
+            return;
+          }
+
+          const formData = new FormData();
+          formData.append("token", token);
+          formData.append("name", document.getElementById("profileName").value);
+          formData.append(
+            "email",
+            document.getElementById("profileEmail").value
+          );
+          formData.append(
+            "phone",
+            document.getElementById("profilePhone").value
+          );
+          formData.append(
+            "college",
+            document.getElementById("profileCollege").value
+          );
+          formData.append(
+            "course",
+            document.getElementById("profileCourse").value
+          );
+          formData.append(
+            "skills",
+            document.getElementById("profileSkills").value
+          );
+
+          const photoFile = document.getElementById("profilePhoto").files[0];
+          if (photoFile) {
+            formData.append("photo", photoFile);
+          }
+
+          const resumeFile = document.getElementById("profileResume").files[0];
+          if (resumeFile) {
+            formData.append("resume", resumeFile);
+          }
+
+          try {
+            const response = await fetch("/api/profile/update", {
+              method: "POST",
+              body: formData,
+            });
+            const data = await response.json();
+
+            if (data.success) {
+              showMessage(
+                "profileMessage",
+                "Profile updated successfully!",
+                "success"
+              );
+              setTimeout(() => loadProfile(), 1000);
+            } else {
+              showMessage("profileMessage", data.message, "danger");
+            }
+          } catch (error) {
+            showMessage("profileMessage", "Error updating profile", "danger");
+          }
+        });
+
+      function showMessage(elementId, message, type) {
+        const msgDiv = document.getElementById(elementId);
+        msgDiv.className = `alert alert-${type}`;
+        msgDiv.textContent = message;
+        msgDiv.classList.remove("d-none");
+        setTimeout(() => msgDiv.classList.add("d-none"), 3000);
+      }
+
+      // Preview photo when selected
+      document
+        .getElementById("profilePhoto")
+        .addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              const photoDisplay = document.getElementById(
+                "displayProfilePhoto"
+              );
+              photoDisplay.style.backgroundImage = `url('${event.target.result}')`;
+              photoDisplay.style.backgroundSize = "cover";
+              photoDisplay.style.backgroundPosition = "center";
+              photoDisplay.textContent = "";
+              document.getElementById("photoFileName").textContent = file.name;
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+    </script>
+  </body>
+</html>
