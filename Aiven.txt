@@ -61,8 +61,8 @@ DB_PASSWORD
   Note: Only used if DATABASE_URL is not set
 
 DB_SSL_ENABLED
-  Purpose: Enable SSL/TLS for local databases
-  Value for Aiven: false (SSL is configured in DATABASE_URL)
+  Purpose: Enable SSL/TLS when using the individual DB_* settings
+  Value for Aiven: false (ssl-mode in DATABASE_URL is translated by the app)
   Value for local MySQL: false (unless you enable SSL locally)
 
 
@@ -72,10 +72,9 @@ Aiven requires SSL/TLS connections. The DATABASE_URL includes:
 
   ?ssl-mode=REQUIRED
 
-This ensures:
-- All connections to Aiven are encrypted
-- No unencrypted data transmission
-- Compliance with Aiven security requirements
+The application removes this URL-only option before calling PyMySQL and enables
+TLS through the driver's supported `ssl` connection option. This ensures all
+Aiven connections remain encrypted without passing `ssl-mode` to PyMySQL.
 
 The cryptography library (>=42.0.0) in requirements.txt handles SSL certificates.
 
@@ -105,6 +104,8 @@ Step 1: In Render environment variables, set:
 
   DATABASE_URL=mysql+pymysql://avnadmin:<PASSWORD>@mysql-24602c0f-sg022529-6614.h.aivencloud.com:10844/skillprep_db?ssl-mode=REQUIRED&charset=utf8mb4
 
+  GOOGLE_REDIRECT_URI=https://YOUR-RENDER-URL.onrender.com/auth/google/callback
+
 Step 2: Replace <PASSWORD> with your actual Aiven password from the Aiven console.
 
 Step 3: Do NOT set these environment variables on Render:
@@ -115,6 +116,21 @@ Step 3: Do NOT set these environment variables on Render:
   - DB_NAME
 
 Step 4: Deploy your application to Render. The application will use DATABASE_URL.
+
+
+GOOGLE OAUTH REDIRECT URI
+================================================================================
+LOCAL:
+GOOGLE_REDIRECT_URI=http://localhost:8000/auth/google/callback
+
+RENDER:
+GOOGLE_REDIRECT_URI=https://YOUR-RENDER-URL.onrender.com/auth/google/callback
+
+When switching Local to Render, change GOOGLE_REDIRECT_URI to the Render value,
+set DATABASE_URL to the Aiven URL, and set the Render GOOGLE_CLIENT_ID and
+GOOGLE_CLIENT_SECRET values. When switching Render to Local, restore the local
+GOOGLE_REDIRECT_URI, clear DATABASE_URL, and configure the local DB_* values.
+Register each redirect URI in the matching Google OAuth web client.
 
 Step 5: Verify connection in Render logs:
   [OK] Connected to MySQL database 'skillprep_db'
@@ -210,7 +226,7 @@ Local MySQL connection after switching back?
 SSL certificate errors?
   → Aiven uses self-signed certificates; the application automatically skips verification
   → Ensure cryptography library (>=42.0.0) is installed
-  → The application uses PyMySQL-compatible SSL options (check_hostname=False, verify_cert=False)
+  → The application uses PyMySQL-compatible SSL options (check_hostname=False)
   → Verify Aiven instance status in Aiven console
 
 
@@ -244,7 +260,7 @@ SSL IMPLEMENTATION DETAILS:
   - The DATABASE_URL may contain "ssl-mode=REQUIRED" for Aiven
   - The application removes this parameter (PyMySQL doesn't recognize it)
   - SSL options are passed via SQLAlchemy's connect_args parameter
-  - For Aiven: Uses check_hostname=False and verify_cert=False (Aiven requirement)
+  - For Aiven: Uses check_hostname=False with PyMySQL's SSL connection option
   - For local MySQL: No SSL options added unless DB_SSL_ENABLED=true
 
 

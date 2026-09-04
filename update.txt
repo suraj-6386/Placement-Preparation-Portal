@@ -206,7 +206,7 @@ DB_USER=root
 DB_PASSWORD=
 DB_NAME=skillprep_db
 
-DATABASE_URL=mysql+pymysql://root:15056324@127.0.0.1:3306/skillprep_db
+DATABASE_URL=mysql+pymysql://root:YOUR_PASSWORD@127.0.0.1:3306/skillprep_db
 
 UPLOAD_FOLDER_IMAGES=userdata/profile_images
 UPLOAD_FOLDER_RESUMES=userdata/resumes

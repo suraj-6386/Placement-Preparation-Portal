@@ -5,6 +5,7 @@ Loads settings from environment variables or .env file.
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from sqlalchemy.engine import URL, make_url
 
 # Resolve paths
 BACKEND_DIR = Path(__file__).resolve().parent
@@ -63,7 +64,7 @@ class Settings:
     ALLOWED_EXTENSIONS_RESUMES: set = {"pdf", "doc", "docx"}
 
     @property
-    def sync_database_url(self) -> str:
+    def sync_database_url(self) -> URL:
         """
         Construct the SQLAlchemy MySQL connection URL.
         
@@ -76,34 +77,40 @@ class Settings:
         """
         # If DATABASE_URL is provided (recommended for Aiven), use it
         if self.DATABASE_URL:
-            url = self.DATABASE_URL
-            # Ensure mysql:// is converted to mysql+pymysql://
-            if url.startswith("mysql://"):
-                url = url.replace("mysql://", "mysql+pymysql://", 1)
-            
-            # Remove ssl-mode parameter (not supported by PyMySQL)
-            # PyMySQL SSL options are passed via connect_args instead
-            url = url.replace("?ssl-mode=REQUIRED", "")
-            url = url.replace("&ssl-mode=REQUIRED", "")
-            
-            # Ensure charset is present
-            if "charset=" not in url:
-                url += "?charset=utf8mb4" if "?" not in url else "&charset=utf8mb4"
-            
-            return url
+            url = make_url(self.DATABASE_URL)
+            if not url.drivername.startswith("mysql"):
+                raise ValueError("DATABASE_URL must use a MySQL driver")
+            if url.drivername != "mysql+pymysql":
+                url = url.set(drivername="mysql+pymysql")
+
+            # ssl-mode is a MySQL CLI option, not a PyMySQL connection argument.
+            query = {
+                key: value for key, value in url.query.items()
+                if key.lower() != "ssl-mode"
+            }
+            if "charset" not in query:
+                query["charset"] = "utf8mb4"
+            return url.set(query=query)
 
         # Otherwise, construct URL from individual parameters (local MySQL)
-        pwd = f":{self.DB_PASSWORD}" if self.DB_PASSWORD else ""
-        url = (
-            f"mysql+pymysql://{self.DB_USER}{pwd}@{self.DB_HOST}:{self.DB_PORT}/"
-            f"{self.DB_NAME}?charset=utf8mb4"
+        return URL.create(
+            "mysql+pymysql",
+            username=self.DB_USER,
+            password=self.DB_PASSWORD,
+            host=self.DB_HOST,
+            port=self.DB_PORT,
+            database=self.DB_NAME,
+            query={"charset": "utf8mb4"},
         )
-        
-        # Add SSL parameter if enabled (for local databases requiring SSL)
-        if self.DB_SSL_ENABLED:
-            url += "&ssl_verify_cert=false"
-        
-        return url
+
+    @property
+    def database_target(self) -> str:
+        """Return a log-safe database target without username or password."""
+        url = make_url(self.sync_database_url)
+        host = url.host or "unknown-host"
+        port = f":{url.port}" if url.port else ""
+        database = url.database or "unknown-database"
+        return f"{host}{port}/{database}"
 
     def get_database_ssl_options(self) -> dict:
         """
@@ -122,12 +129,22 @@ class Settings:
         """
         connect_args = {}
         
-        # Check if DATABASE_URL indicates SSL requirement (for Aiven)
-        if self.DATABASE_URL and "ssl-mode=REQUIRED" in self.DATABASE_URL:
-            # PyMySQL SSL options for secure connection
+        # Translate the URL's MySQL SSL mode to PyMySQL's supported SSL options.
+        url = make_url(self.DATABASE_URL) if self.DATABASE_URL else None
+        ssl_mode = ""
+        if url:
+            for key, value in url.query.items():
+                if key.lower() == "ssl-mode":
+                    ssl_mode = str(value).lower()
+                    break
+
+        if self.DB_SSL_ENABLED or ssl_mode in {
+            "required",
+            "verify-ca",
+            "verify-identity",
+        }:
             connect_args["ssl"] = {
-                "check_hostname": False,  # Aiven uses self-signed certs
-                "verify_cert": False,     # Skip certificate verification (Aiven requirement)
+                "check_hostname": False,
             }
         
         return connect_args

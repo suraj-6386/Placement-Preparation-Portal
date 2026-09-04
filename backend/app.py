@@ -10,6 +10,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from sqlalchemy.exc import SQLAlchemyError
 
 from config import settings
 from database import init_db
@@ -28,9 +29,15 @@ async def lifespan(app: FastAPI):
     Initializes database tables on application startup.
     """
     # Verify and create MySQL tables if needed
-    init_db()
-    print(f"  [OK] Connected to MySQL database '{settings.DB_NAME}'")
-    print("  [OK] Database tables verified/initialized")
+    try:
+        init_db()
+    except SQLAlchemyError:
+        print("  [ERROR] Database initialization failed; the application cannot start.")
+        print("  [ERROR] Check the configured MySQL credentials and network access.")
+        raise RuntimeError("Database initialization failed") from None
+    else:
+        print(f"  [OK] Connected to MySQL database '{settings.database_target}'")
+        print("  [OK] Database tables verified/initialized")
     yield
 
 
