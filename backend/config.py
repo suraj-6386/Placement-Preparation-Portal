@@ -22,7 +22,7 @@ class Settings:
     # App Settings
     APP_NAME: str = os.getenv("APP_NAME", "Placement Preparation Portal")
     APP_ENV: str = os.getenv("APP_ENV", "development")
-    DEBUG: bool = os.getenv("DEBUG", "True").lower() in ("true", "1", "yes")
+    DEBUG: bool = os.getenv("DEBUG", "False").lower() in ("true", "1", "yes")
     HOST: str = os.getenv("HOST", "127.0.0.1")
     PORT: int = int(os.getenv("PORT", "8000"))
 
@@ -45,6 +45,14 @@ class Settings:
     
     # SSL/TLS Settings (for Aiven and other remote databases)
     DB_SSL_ENABLED: bool = os.getenv("DB_SSL_ENABLED", "False").lower() in ("true", "1", "yes")
+    CORS_ORIGINS: list[str] = [
+        origin.strip()
+        for origin in os.getenv(
+            "CORS_ORIGINS",
+            "http://localhost:8000,http://127.0.0.1:8000",
+        ).split(",")
+        if origin.strip()
+    ]
 
     # Google OAuth Settings
     GOOGLE_CLIENT_ID: str = os.getenv("GOOGLE_CLIENT_ID", "")

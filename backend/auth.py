@@ -5,6 +5,7 @@ and current user dependency injection.
 """
 import uuid
 import secrets
+from datetime import datetime, timedelta
 from typing import Optional, Dict, Any
 import bcrypt
 from fastapi import Depends, HTTPException, Header, Query, status
@@ -42,12 +43,24 @@ def generate_uuid() -> str:
     return str(uuid.uuid4())
 
 
+def session_is_valid(session: SessionModel) -> bool:
+    """Check the database-backed session lifetime configured for the app."""
+    if not session.created_at:
+        return False
+    return datetime.utcnow() - session.created_at <= timedelta(
+        minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
+    )
+
+
 def verify_google_token(token: str, client_id: Optional[str] = None) -> Dict[str, Any]:
     """
     Verify a Google ID token from Google Identity Services.
     Uses google.oauth2.id_token, or falls back to Google's tokeninfo endpoint.
     Returns user info dictionary containing email, name, sub, picture.
     """
+    if not client_id:
+        raise ValueError("Google OAuth is not configured")
+
     # 1. Try verification with google-auth library
     try:
         from google.oauth2 import id_token
@@ -58,7 +71,7 @@ def verify_google_token(token: str, client_id: Optional[str] = None) -> Dict[str
         idinfo = id_token.verify_oauth2_token(
             token,
             request,
-            client_id if client_id else None
+            client_id
         )
         return idinfo
     except Exception as lib_err:
@@ -106,7 +119,10 @@ def get_current_user(
         )
 
     session = db.query(SessionModel).filter(SessionModel.token == auth_token).first()
-    if not session:
+    if not session or not session_is_valid(session):
+        if session:
+            db.delete(session)
+            db.commit()
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail={"success": False, "message": "Invalid or expired session"},

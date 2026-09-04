@@ -419,6 +419,20 @@
   }
 }
 
+/* Shared responsive overrides for generated practice content. */
+.chapter-card, .question-item, .question-modal, .option-item { max-width: 100%; }
+.chapter-name, .question-text, .question-text-large, .option-label { overflow-wrap: anywhere; }
+.chapter-header { background: var(--card-bg); border: 1px solid var(--border-color); }
+.question-item, .question-modal, .option-item { background: var(--card-bg); border-color: var(--border-color); }
+.question-text, .question-text-large, .option-label, .chapter-name { color: var(--text-primary); }
+@media (max-width: 575.98px) {
+  .question-actions, .modal-actions { flex-wrap: wrap; }
+  .question-actions .btn, .modal-actions .btn { flex: 1 1 100%; }
+  .modal-body-custom { padding: 1rem; }
+  .question-modal-overlay { padding: .5rem; }
+  .question-modal { max-height: 94vh; }
+}
+
 @media (max-width: 576px) {
   .chapter-icon {
     width: 50px;
@@ -484,3 +498,23 @@
   margin-bottom: 1rem;
   opacity: 0.5;
 }
+
+[data-theme="dark"] .chapter-card,
+[data-theme="dark"] .question-item,
+[data-theme="dark"] .question-modal,
+[data-theme="dark"] .option-item,
+[data-theme="dark"] .chapter-header { background: var(--card-bg); color: var(--text-primary); border-color: var(--border-color); }
+[data-theme="dark"] .chapter-name,
+[data-theme="dark"] .question-text,
+[data-theme="dark"] .question-text-large,
+[data-theme="dark"] .option-label,
+[data-theme="dark"] .modal-header-custom h5 { color: var(--text-primary); }
+[data-theme="dark"] .question-number { background: linear-gradient(135deg, #0f766e, #2aa99c); }
+[data-theme="dark"] .option-item:hover { background: #23484d; border-color: #5eead4; }
+[data-theme="dark"] .option-item.correct-answer { background: #163f39; border-color: #55cfae; }
+[data-theme="dark"] .modal-header-custom { background: linear-gradient(110deg, #173237, #126b65); border-color: var(--border-color); }
+[data-theme="dark"] .btn-close-custom { color: #c5ded9; }
+[data-theme="dark"] .pagination .page-link { border-color: var(--border-color); background: var(--card-bg); color: #7ce9dc; }
+[data-theme="dark"] .pagination .page-item.disabled .page-link { background: #142d32; color: #789491; }
+[data-theme="dark"] .loading-skeleton { background: linear-gradient(90deg, #1b3b40 25%, #31585b 50%, #1b3b40 75%); background-size: 200% 100%; }
+[data-theme="dark"] .empty-state { color: #b4cfca; }

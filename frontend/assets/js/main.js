@@ -127,6 +127,7 @@ function checkAuth() {
 // ============================================================================
 
 let googleClientId = null;
+let googleSignInInitialized = false;
 
 // Check for OAuth tokens or errors in URL parameters on page load
 function handleOAuthUrlParams() {
@@ -195,6 +196,8 @@ async function handleGoogleCredentialResponse(response) {
 }
 
 async function initGoogleSignIn() {
+    if (googleSignInInitialized) return;
+    googleSignInInitialized = true;
     handleOAuthUrlParams();
 
     // Check if Google GSI client library is loaded
@@ -212,6 +215,17 @@ async function initGoogleSignIn() {
                 console.warn('Google GSI initialization notice:', err);
             }
         }
+    }
+}
+
+async function fetchGoogleClientId() {
+    try {
+        const response = await fetch('/api/auth/google/client-id');
+        if (!response.ok) return null;
+        const data = await response.json();
+        return data.client_id || null;
+    } catch (error) {
+        return null;
     }
 }
 
@@ -414,6 +428,14 @@ function showLoading() {
 function hideLoading() {
     const loader = document.getElementById('loadingSpinner');
     if (loader) loader.remove();
+}
+
+function debounce(callback, delay) {
+    let timeoutId;
+    return (...args) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => callback(...args), delay);
+    };
 }
 
 // Toast Notifications

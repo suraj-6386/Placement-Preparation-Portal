@@ -18,7 +18,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
     />
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/style.css?v=20260905" />
     <link rel="stylesheet" href="assets/css/practice-tab.css" />
     <link rel="stylesheet" href="assets/css/coding-challenges.css" />
   </head>
@@ -449,7 +449,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js?v=20260905"></script>
     <script src="assets/js/coding-practice-tab.js"></script>
     <script src="assets/js/coding-challenges.js"></script>
     <script>
@@ -501,63 +501,8 @@
                 `;
         }
 
-        // Load Practice data
-        const practiceData = await fetchAPI("/api/coding/practice");
-        const practiceLanguages = document.getElementById("practiceLanguages");
-        practiceLanguages.innerHTML = "";
-
-        for (const language of Object.keys(practiceData)) {
-          practiceLanguages.innerHTML += `
-            <div class="col-md-6 col-lg-4 mb-3">
-              <div class="card h-100 practice-language-card" style="cursor: pointer;" onclick="displayPracticeQuestions('${language}')">
-                <div class="card-body">
-                  <h5 class="card-title">${language}</h5>
-                  <p class="text-muted mb-0">${practiceData[language].length} questions</p>
-                </div>
-              </div>
-            </div>
-          `;
-        }
-
-        // Store practice data globally
-        window.practiceData = practiceData;
-      }
-
-      function displayPracticeQuestions(language) {
-        const questions = window.practiceData[language];
-        const container = document.getElementById("practiceQuestions");
-
-        if (!questions || questions.length === 0) {
-          container.innerHTML =
-            '<p class="text-muted">No questions available for this language.</p>';
-          return;
-        }
-
-        container.innerHTML = `<h5 class="mb-3">${language}</h5><div class="question-list">`;
-        questions.forEach((q, idx) => {
-          container.innerHTML += `
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h6>Q${idx + 1}. ${q.question}</h6>
-                            ${q.options
-                              .map(
-                                (opt, i) => `
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="q${q.id}" id="${q.id}_${i}" value="${opt}">
-                                    <label class="form-check-label" for="${q.id}_${i}">${opt}</label>
-                                </div>
-                            `
-                              )
-                              .join("")}
-                            <button class="btn btn-sm btn-primary mt-2" onclick="checkAnswer('${
-                              q.id
-                            }', '${q.answer}')">Check Answer</button>
-                            <div id="result_${q.id}" class="mt-2"></div>
-                        </div>
-                    </div>
-                `;
-        });
-        container.innerHTML += "</div>";
+        // Coding practice is rendered by coding-practice-tab.js.
+        loadCodingPracticeData();
       }
 
       function checkAnswer(qid, correctAnswer) {

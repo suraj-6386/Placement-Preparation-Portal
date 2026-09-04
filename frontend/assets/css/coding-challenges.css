@@ -503,6 +503,19 @@
   }
 }
 
+/* Shared responsive overrides for challenge cards and compiler panels. */
+.challenge-problem-item, #problemTestCases, .test-case-item { background: var(--card-bg); border-color: var(--border-color); }
+.challenge-problem-title, #problemDescription, #problemTitle { color: var(--text-primary); }
+.challenge-problem-meta, .challenge-problem-tags { min-width: 0; }
+#codeEditor, #codeOutput { max-width: 100%; overflow: auto; }
+@media (max-width: 767.98px) {
+  .challenge-chapter-card { flex: 1 1 100%; min-width: 0; margin-inline: 0; }
+  #challengeChaptersGrid { margin-inline: 0; gap: 1rem; }
+  .challenge-problem-item { align-items: flex-start; flex-direction: column; gap: .75rem; }
+  .challenge-problem-action { width: 100%; justify-content: space-between; }
+  #compilerView .col-lg-5, #compilerView .col-lg-7 { padding-inline: 0; }
+}
+
 @media (max-width: 991px) {
   #compilerView .col-lg-5,
   #compilerView .col-lg-7 {
@@ -677,3 +690,20 @@
   margin-bottom: 0;
   font-size: 0.9rem;
 }
+
+[data-theme="dark"] .challenge-problem-item,
+[data-theme="dark"] .test-case-item,
+[data-theme="dark"] #problemTestCases,
+[data-theme="dark"] .loading-card { background: var(--card-bg); color: var(--text-primary); border-color: var(--border-color); }
+[data-theme="dark"] .challenge-problem-title,
+[data-theme="dark"] #problemDescription,
+[data-theme="dark"] #problemTitle,
+[data-theme="dark"] .test-case-item strong { color: var(--text-primary); }
+[data-theme="dark"] .challenge-tag,
+[data-theme="dark"] .test-case-item code { background: #31585b; color: #effaf8; }
+[data-theme="dark"] .challenge-problem-item:hover { border-color: #5eead4; box-shadow: 0 4px 16px rgba(94,234,212,.12); }
+[data-theme="dark"] #problemDescription pre,
+[data-theme="dark"] #codeOutput { background: #0b191c; color: #d5ebe7; }
+[data-theme="dark"] .text-muted-custom,
+[data-theme="dark"] .empty-state { color: #b4cfca; }
+[data-theme="dark"] .divider { background: linear-gradient(to right, transparent, #487176, transparent); }

@@ -5,6 +5,7 @@ Implements authentication, user profiles, aptitude, coding, interview, and help 
 import os
 import re
 import json
+import html
 import secrets
 import urllib.parse
 import urllib.request
@@ -12,6 +13,7 @@ from pathlib import Path
 from typing import Optional, Dict, Any, List
 from fastapi import APIRouter, Depends, Form, File, UploadFile, Header, Query, status
 from fastapi.responses import JSONResponse, HTMLResponse, RedirectResponse
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from config import settings
@@ -44,6 +46,7 @@ from auth import (
     verify_password,
     generate_session_token,
     generate_uuid,
+    session_is_valid,
     verify_google_token,
 )
 
@@ -142,15 +145,18 @@ def register(req: UserRegisterRequest, db: Session = Depends(get_db)):
             content={"success": False, "message": "All required fields must be provided"},
         )
 
+    username = req.username.strip()
+    email = req.email.strip().lower()
+
     # Check for existing username
-    if db.query(User).filter(User.username == req.username).first():
+    if db.query(User).filter(User.username == username).first():
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,
             content={"success": False, "message": "Username already exists"},
         )
 
     # Check for existing email
-    if db.query(User).filter(User.email == req.email).first():
+    if db.query(User).filter(User.email == email).first():
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,
             content={"success": False, "message": "Email already registered"},
@@ -160,8 +166,8 @@ def register(req: UserRegisterRequest, db: Session = Depends(get_db)):
     new_user = User(
         id=generate_uuid(),
         name=req.name.strip(),
-        email=req.email.strip().lower(),
-        username=req.username.strip(),
+        email=email,
+        username=username,
         password=hash_password(req.password),
         phone=req.phone or "",
         college=req.college or "",
@@ -171,7 +177,14 @@ def register(req: UserRegisterRequest, db: Session = Depends(get_db)):
         resume="",
     )
     db.add(new_user)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={"success": False, "message": "Username or email already exists"},
+        )
     db.refresh(new_user)
 
     return {"success": True, "message": "Registration successful"}
@@ -225,6 +238,11 @@ def google_auth(req: GoogleAuthRequest, db: Session = Depends(get_db)):
         )
 
     try:
+        if not settings.GOOGLE_CLIENT_ID:
+            return JSONResponse(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                content={"success": False, "message": "Google Sign-In is not configured"},
+            )
         idinfo = verify_google_token(req.credential, settings.GOOGLE_CLIENT_ID or None)
     except Exception as e:
         return JSONResponse(
@@ -335,12 +353,13 @@ def google_callback(
     creates a session in MySQL, and sets the auth session in the client.
     """
     if error:
+        safe_error = html.escape(error, quote=True)
         return HTMLResponse(
             f"""
             <!DOCTYPE html>
             <html><body style="font-family:sans-serif;padding:3rem;text-align:center;">
             <h2 style="color:#ef4444;">Google Authentication Failed</h2>
-            <p style="color:#64748b;">{error}</p>
+            <p style="color:#64748b;">{safe_error}</p>
             <a href="/" style="display:inline-block;padding:8px 18px;background:#4f46e5;color:#fff;text-decoration:none;border-radius:6px;margin-top:1rem;">Return to Portal</a>
             </body></html>
             """,
@@ -443,7 +462,9 @@ def google_callback(
         db.add(session)
         db.commit()
 
-        safe_name = user.name.replace('"', '\\"')
+        safe_name_html = html.escape(user.name or "", quote=True)
+        safe_name_js = json.dumps(user.name or "")
+        safe_token_js = json.dumps(session_token)
         return HTMLResponse(
             f"""
             <!DOCTYPE html>
@@ -489,13 +510,13 @@ def google_callback(
             <body>
                 <div class="auth-card">
                     <div class="spinner"></div>
-                    <h3 style="margin: 0 0 0.5rem; font-weight: 600;">Welcome, {safe_name}!</h3>
+                    <h3 style="margin: 0 0 0.5rem; font-weight: 600;">Welcome, {safe_name_html}!</h3>
                     <p style="color: #64748b; margin: 0;">Signed in successfully. Redirecting to portal...</p>
                 </div>
                 <script>
                     try {{
-                        localStorage.setItem('authToken', '{session_token}');
-                        localStorage.setItem('userName', "{safe_name}");
+                        localStorage.setItem('authToken', {safe_token_js});
+                        localStorage.setItem('userName', {safe_name_js});
                     }} catch (e) {{
                         console.error('Local storage error', e);
                     }}
@@ -513,7 +534,7 @@ def google_callback(
             <!DOCTYPE html>
             <html><body style="font-family:sans-serif;padding:3rem;text-align:center;">
             <h2 style="color:#ef4444;">Google Sign-In Error</h2>
-            <p style="color:#64748b;">{str(exc)}</p>
+            <p style="color:#64748b;">Google Sign-In could not be completed. Please try again.</p>
             <a href="/" style="display:inline-block;padding:8px 18px;background:#4f46e5;color:#fff;text-decoration:none;border-radius:6px;margin-top:1rem;">Return to Portal</a>
             </body></html>
             """,
@@ -572,7 +593,10 @@ def get_profile(
         )
 
     session = db.query(SessionModel).filter(SessionModel.token == auth_token).first()
-    if not session:
+    if not session or not session_is_valid(session):
+        if session:
+            db.delete(session)
+            db.commit()
         return JSONResponse(
             status_code=status.HTTP_401_UNAUTHORIZED,
             content={"success": False, "message": "Invalid or expired session"},
@@ -613,7 +637,10 @@ async def update_profile(
         )
 
     session = db.query(SessionModel).filter(SessionModel.token == auth_token).first()
-    if not session:
+    if not session or not session_is_valid(session):
+        if session:
+            db.delete(session)
+            db.commit()
         return JSONResponse(
             status_code=status.HTTP_401_UNAUTHORIZED,
             content={"success": False, "message": "Invalid or expired session"},
@@ -641,7 +668,18 @@ async def update_profile(
     if name is not None:
         user.name = name.strip()
     if email is not None:
-        user.email = email.strip()
+        normalized_email = email.strip().lower()
+        existing_email = (
+            db.query(User)
+            .filter(User.email == normalized_email, User.id != user.id)
+            .first()
+        )
+        if existing_email:
+            return JSONResponse(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                content={"success": False, "message": "Email already registered"},
+            )
+        user.email = normalized_email
     if phone is not None:
         user.phone = phone.strip()
     if college is not None:
