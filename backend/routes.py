@@ -6,11 +6,15 @@ import os
 import re
 import json
 import html
+import io
 import secrets
+import time
 import urllib.parse
 import urllib.request
+import urllib.error
+from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Optional, Dict, Any, List
+from typing import Optional, Any, List
 from fastapi import APIRouter, Depends, Form, File, UploadFile, Header, Query, status
 from fastapi.responses import JSONResponse, HTMLResponse, RedirectResponse
 from sqlalchemy.exc import IntegrityError
@@ -28,6 +32,7 @@ from models import (
     PracticeQuestion,
     MockTest,
     CodingChallenge,
+    ActivityEvent,
 )
 from schemas import (
     UserRegisterRequest,
@@ -40,6 +45,8 @@ from schemas import (
     UserProfileResponse,
     HelpQueryCreate,
     HelpQueryResponse,
+    ActivityCreate,
+    InterviewAIRequest,
 )
 from auth import (
     hash_password,
@@ -48,6 +55,7 @@ from auth import (
     generate_uuid,
     session_is_valid,
     verify_google_token,
+    get_current_user,
 )
 
 router = APIRouter(prefix="/api", tags=["API"])
@@ -107,6 +115,8 @@ async def save_uploaded_resume(user_id: str, file: UploadFile) -> Optional[str]:
     target_path = target_dir / stored_name
 
     content = await file.read()
+    if not content or len(content) > settings.RESUME_MAX_FILE_SIZE:
+        return None
     with open(target_path, "wb") as f:
         f.write(content)
     return stored_name
@@ -576,6 +586,404 @@ def _resolve_token(token: Optional[str], authorization: Optional[str]) -> Option
     return None
 
 
+def _resume_error(message: str, code: int = status.HTTP_400_BAD_REQUEST):
+    return JSONResponse(status_code=code, content={"success": False, "message": message})
+
+
+def _authenticated_user(token: Optional[str], authorization: Optional[str], db: Session):
+    auth_token = _resolve_token(token, authorization)
+    if not auth_token:
+        return None, _resume_error("Authentication token required", status.HTTP_401_UNAUTHORIZED)
+    session = db.query(SessionModel).filter(SessionModel.token == auth_token).first()
+    if not session or not session_is_valid(session):
+        if session:
+            db.delete(session)
+            db.commit()
+        return None, _resume_error("Invalid or expired session", status.HTTP_401_UNAUTHORIZED)
+    user = session.user or db.query(User).filter(User.username == session.username).first()
+    if not user:
+        return None, _resume_error("User not found", status.HTTP_404_NOT_FOUND)
+    return user, None
+
+
+def _resume_extension(filename: str) -> str:
+    return filename.rsplit(".", 1)[1].lower() if "." in filename else ""
+
+
+async def _read_resume(file: UploadFile, allowed: set) -> tuple[str, bytes]:
+    filename = secure_filename(file.filename or "")
+    extension = _resume_extension(filename)
+    if extension not in allowed:
+        raise ValueError("Upload a PDF, DOC, or DOCX file with a valid extension.")
+    content = await file.read()
+    if not content:
+        raise ValueError("The uploaded resume is empty.")
+    if len(content) > settings.RESUME_MAX_FILE_SIZE:
+        raise ValueError(f"Resume files must be smaller than {settings.RESUME_MAX_FILE_SIZE // (1024 * 1024)} MB.")
+    return extension, content
+
+
+def _docx_to_text(content: bytes) -> str:
+    from docx import Document
+
+    document = Document(io.BytesIO(content))
+    paragraphs = [paragraph.text.strip() for paragraph in document.paragraphs if paragraph.text.strip()]
+    for table in document.tables:
+        for row in table.rows:
+            paragraphs.extend(
+                cell.text.strip()
+                for cell in row.cells
+                if cell.text.strip()
+            )
+    text = "\n".join(paragraphs).strip()
+    if not text:
+        raise ValueError("The uploaded resume does not contain readable text.")
+    return text
+
+
+def _pdf_to_text(content: bytes) -> str:
+    from pypdf import PdfReader
+
+    reader = PdfReader(io.BytesIO(content))
+    text = "\n".join((page.extract_text() or "") for page in reader.pages).strip()
+    if not text:
+        raise ValueError("The PDF does not contain readable text. Scanned PDFs are not supported yet.")
+    return text
+
+
+def _legacy_doc_to_text(content: bytes) -> str:
+    """Extract readable text from common binary .doc files without exposing them to a converter."""
+    candidates = [content.decode("utf-16le", errors="ignore"), content.decode("cp1252", errors="ignore")]
+    fragments = []
+    for candidate in candidates:
+        fragments.extend(re.findall(r"[A-Za-z0-9][A-Za-z0-9 .,:;()/+&@#%_'\-]{3,}", candidate))
+    text = "\n".join(dict.fromkeys(fragment.strip() for fragment in fragments if fragment.strip()))
+    if len(re.sub(r"[^A-Za-z]", "", text)) < 20:
+        raise ValueError("The DOC file does not contain readable text. Save it as DOCX and try again.")
+    return text[: settings.RESUME_MAX_TEXT_LENGTH]
+
+
+def _call_gemini(resume_text: str) -> dict:
+    if not settings.GEMINI_API_KEY:
+        raise RuntimeError("Resume AI is not configured. Add GEMINI_API_KEY to the server environment.")
+    prompt = """Review the following resume for a job seeker. Return only valid JSON with these keys:
+overall_score (integer 0-100), ats_readability_score (integer 0-100), strengths (array of strings),
+weaknesses (array of strings), missing_sections (array of strings), suggestions (array of strings).
+Be specific, practical, and do not invent facts. Resume:\n""" + resume_text[: settings.RESUME_MAX_TEXT_LENGTH]
+    payload = json.dumps({
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {"temperature": 0.2, "responseMimeType": "application/json"},
+    }).encode("utf-8")
+    url = (
+        f"https://generativelanguage.googleapis.com/v1beta/models/{urllib.parse.quote(settings.GEMINI_MODEL)}:generateContent"
+        f"?key={urllib.parse.quote(settings.GEMINI_API_KEY)}"
+    )
+    request = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"}, method="POST")
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            response_data = json.loads(response.read().decode("utf-8"))
+    except Exception as exc:
+        raise RuntimeError("Resume AI is temporarily unavailable. Please try again.") from exc
+    try:
+        raw = response_data["candidates"][0]["content"]["parts"][0]["text"]
+        result = json.loads(raw)
+        for key in ("strengths", "weaknesses", "missing_sections", "suggestions"):
+            if not isinstance(result.get(key), list):
+                result[key] = []
+        result["overall_score"] = max(0, min(100, int(result.get("overall_score", 0))))
+        result["ats_readability_score"] = max(0, min(100, int(result.get("ats_readability_score", 0))))
+        return result
+    except (KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
+        raise RuntimeError("Resume AI returned an invalid review. Please try again.") from exc
+
+
+def _call_gemini_json(prompt: str) -> dict:
+    """Call Gemini for a JSON response used by interview tools."""
+    if not settings.GEMINI_API_KEY:
+        raise RuntimeError("Interview AI is not configured. Add GEMINI_API_KEY to the server environment.")
+    payload = json.dumps({
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {"temperature": 0.35, "responseMimeType": "application/json"},
+    }).encode("utf-8")
+    url = (
+        f"https://generativelanguage.googleapis.com/v1beta/models/{urllib.parse.quote(settings.GEMINI_MODEL)}:generateContent"
+        f"?key={urllib.parse.quote(settings.GEMINI_API_KEY)}"
+    )
+    request = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"}, method="POST")
+    try:
+        with urllib.request.urlopen(request, timeout=45) as response:
+            response_data = json.loads(response.read().decode("utf-8"))
+        raw = response_data["candidates"][0]["content"]["parts"][0]["text"].strip()
+        if raw.startswith("```"):
+            raw = re.sub(r"^```(?:json)?\s*|\s*```$", "", raw, flags=re.IGNORECASE)
+        return json.loads(raw)
+    except urllib.error.HTTPError as exc:
+        if exc.code == 429:
+            raise RuntimeError("Interview AI rate limit reached. Please wait a moment and try again.") from exc
+        raise RuntimeError("Interview AI is temporarily unavailable. Please try again.") from exc
+    except (urllib.error.URLError, TimeoutError, KeyError, TypeError, json.JSONDecodeError) as exc:
+        raise RuntimeError("Interview AI returned an invalid response. Please try again.") from exc
+
+
+ACTIVITY_EVENT_TYPES = {
+    "practice_answered",
+    "mock_completed",
+    "challenge_attempt",
+    "challenge_completed",
+    "interview_viewed",
+    "resource_viewed",
+    "resume_reviewed",
+}
+ACTIVITY_CATEGORIES = {
+    "aptitude",
+    "coding",
+    "aptitude_mock",
+    "coding_mock",
+    "coding_challenge",
+    "interview",
+    "learning",
+    "resume",
+}
+
+
+def _add_activity_event(
+    db: Session,
+    user_id: str,
+    event_type: str,
+    category: str,
+    item_key: str,
+    score: Optional[int] = None,
+    details: Optional[dict] = None,
+):
+    db.add(ActivityEvent(
+        id=generate_uuid(),
+        user_id=user_id,
+        event_type=event_type,
+        category=category,
+        item_key=item_key,
+        score=score,
+        details=details or {},
+    ))
+
+
+@router.post("/activity", response_model=BaseResponse)
+def record_activity(
+    req: ActivityCreate,
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Persist a bounded, user-owned learning event from an existing activity surface."""
+    event_type = req.event_type.strip().lower()
+    category = req.category.strip().lower()
+    item_key = req.item_key.strip()
+    if event_type not in ACTIVITY_EVENT_TYPES or category not in ACTIVITY_CATEGORIES:
+        return JSONResponse(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            content={"success": False, "message": "Unsupported activity event"},
+        )
+    if not item_key or len(item_key) > 150:
+        return JSONResponse(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            content={"success": False, "message": "Activity item is invalid"},
+        )
+    score = req.score
+    if score is not None and not 0 <= score <= 100:
+        return JSONResponse(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            content={"success": False, "message": "Activity score must be between 0 and 100"},
+        )
+    details = req.details if isinstance(req.details, dict) else {}
+    _add_activity_event(db, user.id, event_type, category, item_key, score, details)
+    db.commit()
+    return {"success": True, "message": "Activity recorded"}
+
+
+def _content_total(db: Session, model, category: str, dataset_name: str) -> int:
+    total = db.query(model).filter(model.category == category).count()
+    if total:
+        return total
+    data = _read_json_file(dataset_name, {})
+    return sum(len(items) for items in data.values()) if isinstance(data, dict) else 0
+
+
+def _challenge_content_total(db: Session) -> int:
+    database_total = db.query(CodingChallenge).count()
+    if database_total:
+        return database_total
+    data = _read_json_file("coding_challenges.json", {})
+    return sum(
+        len(items)
+        for language in data.values()
+        if isinstance(language, dict)
+        for key in ("easy", "moderate", "hard")
+        for items in [language.get(key, [])]
+    )
+
+
+def _interview_subject_total(db: Session) -> int:
+    database_total = db.query(InterviewQuestion.subject).filter(
+        InterviewQuestion.category == "technical",
+        InterviewQuestion.subject.isnot(None),
+    ).distinct().count()
+    if database_total:
+        return database_total
+    data = _read_json_file("interview_technical.json", {})
+    return len(data) if isinstance(data, dict) else 0
+
+
+def _percent(completed: int, total: int) -> int:
+    return round(min(1, completed / total) * 100) if total else 0
+
+
+def _event_label(event: ActivityEvent) -> str:
+    labels = {
+        "practice_answered": "Answered practice questions",
+        "mock_completed": "Completed a mock test",
+        "challenge_attempt": "Attempted a coding challenge",
+        "challenge_completed": "Completed a coding challenge",
+        "interview_viewed": "Explored an interview topic",
+        "resource_viewed": "Opened a learning resource",
+        "resume_reviewed": "Reviewed your resume with AI",
+    }
+    return labels.get(event.event_type, "Made progress")
+
+
+def _dashboard_events(db: Session, user_id: str) -> list[ActivityEvent]:
+    return (
+        db.query(ActivityEvent)
+        .filter(ActivityEvent.user_id == user_id)
+        .order_by(ActivityEvent.created_at.desc())
+        .all()
+    )
+
+
+@router.get("/dashboard")
+def get_dashboard(
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Return authenticated progress metrics derived from persisted user activity."""
+    events = _dashboard_events(db, user.id)
+    practice_latest = {}
+    interview_topics = set()
+    completed_challenges = set()
+    for event in events:
+        if event.event_type == "practice_answered":
+            practice_latest.setdefault((event.category, event.item_key), event)
+        elif event.event_type == "interview_viewed":
+            interview_topics.add(event.item_key)
+        elif event.event_type == "challenge_completed":
+            completed_challenges.add(event.item_key)
+
+    aptitude_answered = sum(1 for key in practice_latest if key[0] == "aptitude")
+    coding_answered = sum(1 for key in practice_latest if key[0] == "coding")
+    correct_answers = sum(
+        1 for event in practice_latest.values() if event.score == 100
+    )
+    aptitude_total = _content_total(db, PracticeQuestion, "aptitude", "aptitude_practice.json")
+    coding_total = _content_total(db, PracticeQuestion, "coding", "coding_practice.json")
+    challenge_total = _challenge_content_total(db)
+    interview_total = _interview_subject_total(db)
+    mock_tests = sum(1 for event in events if event.event_type == "mock_completed")
+    challenge_attempts = sum(1 for event in events if event.event_type == "challenge_attempt")
+    resume_reviews = sum(1 for event in events if event.event_type == "resume_reviewed")
+
+    profile_fields = (user.college, user.course, user.skills, user.resume, user.photo)
+    profile_progress = _percent(sum(bool(value and value.strip()) for value in profile_fields), 5)
+    progress = [
+        {"key": "profile", "label": "Profile setup", "value": profile_progress, "completed": sum(bool(value and value.strip()) for value in profile_fields), "total": 5, "href": "profile.html"},
+        {"key": "aptitude", "label": "Aptitude practice", "value": _percent(aptitude_answered, aptitude_total), "completed": aptitude_answered, "total": aptitude_total, "href": "aptitude.html"},
+        {"key": "coding", "label": "Coding practice", "value": _percent(coding_answered, coding_total), "completed": coding_answered, "total": coding_total, "href": "coding.html"},
+        {"key": "challenges", "label": "Coding challenges", "value": _percent(len(completed_challenges), challenge_total), "completed": len(completed_challenges), "total": challenge_total, "href": "coding.html"},
+        {"key": "interview", "label": "Interview topics", "value": _percent(len(interview_topics), interview_total), "completed": len(interview_topics), "total": interview_total, "href": "interview.html"},
+        {"key": "resume", "label": "Resume readiness", "value": 100 if resume_reviews else 50 if user.resume else 0, "completed": 2 if resume_reviews else 1 if user.resume else 0, "total": 2, "href": "resume.html"},
+    ]
+    weights = {"profile": 15, "aptitude": 20, "coding": 25, "challenges": 15, "interview": 10, "resume": 15}
+    overall_progress = round(sum(item["value"] * weights[item["key"]] for item in progress) / 100)
+
+    today = datetime.utcnow().date()
+    daily_activity = []
+    for offset in range(6, -1, -1):
+        day = today - timedelta(days=offset)
+        day_events = [event for event in events if event.created_at and event.created_at.date() == day]
+        daily_activity.append({"date": day.isoformat(), "label": day.strftime("%a"), "count": len(day_events)})
+
+    active_days = {event.created_at.date() for event in events if event.created_at}
+    streak = 0
+    cursor = today
+    while cursor in active_days:
+        streak += 1
+        cursor -= timedelta(days=1)
+
+    recent = [
+        {"label": _event_label(event), "item_key": event.item_key, "category": event.category, "score": event.score, "created_at": event.created_at.isoformat() if event.created_at else None}
+        for event in events[:8]
+    ]
+    achievements = [
+        {"key": "first-step", "label": "First step", "description": "Complete your first learning activity", "earned": bool(events)},
+        {"key": "aptitude-starter", "label": "Aptitude starter", "description": "Answer 10 aptitude questions", "earned": aptitude_answered >= 10},
+        {"key": "coding-explorer", "label": "Coding explorer", "description": "Answer 10 coding questions", "earned": coding_answered >= 10},
+        {"key": "challenge-solver", "label": "Challenge solver", "description": "Complete a coding challenge", "earned": bool(completed_challenges)},
+        {"key": "resume-ready", "label": "Resume ready", "description": "Review your resume with AI", "earned": bool(resume_reviews)},
+    ]
+    recommendations = []
+    if not user.resume:
+        recommendations.append({"title": "Upload your resume", "description": "Get a baseline and unlock resume readiness.", "href": "resume.html"})
+    if profile_progress < 100:
+        recommendations.append({"title": "Finish your profile", "description": "Add your course, skills, and college details.", "href": "profile.html"})
+    if aptitude_answered < 10:
+        recommendations.append({"title": "Build an aptitude streak", "description": "Answer 10 questions to establish your baseline.", "href": "aptitude.html"})
+    if coding_answered < 10:
+        recommendations.append({"title": "Practice a coding topic", "description": "Choose a language and solve a few questions.", "href": "coding.html"})
+    if len(interview_topics) < interview_total:
+        recommendations.append({"title": "Explore interview topics", "description": "Open a technical subject and review its questions.", "href": "interview.html"})
+
+    return {
+        "success": True,
+        "user": {"name": user.name or "Learner", "resume": bool(user.resume)},
+        "overall_progress": overall_progress,
+        "kpis": {"questions_answered": aptitude_answered + coding_answered, "correct_answers": correct_answers, "mock_tests": mock_tests, "challenge_attempts": challenge_attempts, "challenges_completed": len(completed_challenges), "resume_reviews": resume_reviews, "active_streak": streak, "activity_count": len(events)},
+        "progress": progress,
+        "daily_activity": daily_activity,
+        "recent_activity": recent,
+        "achievements": achievements,
+        "recommendations": recommendations[:4],
+        "is_new_user": not events,
+    }
+
+
+@router.post("/resume/analyze")
+async def analyze_resume(
+    file: UploadFile = File(...),
+    token: Optional[str] = Query(None),
+    authorization: Optional[str] = Header(None),
+    db: Session = Depends(get_db),
+):
+    user, error = _authenticated_user(token, authorization, db)
+    if error:
+        return error
+    try:
+        extension, content = await _read_resume(file, settings.ALLOWED_EXTENSIONS_RESUMES)
+        if extension == "pdf":
+            text = _pdf_to_text(content)
+        elif extension == "doc":
+            text = _legacy_doc_to_text(content)
+        else:
+            text = _docx_to_text(content)
+        review = _call_gemini(text)
+        _add_activity_event(db, user.id, "resume_reviewed", "resume", file.filename or "resume", 100, {
+            "overall_score": review.get("overall_score", 0),
+        })
+        db.commit()
+        return {"success": True, "filename": file.filename, "review": review}
+    except ValueError as exc:
+        return _resume_error(str(exc), status.HTTP_422_UNPROCESSABLE_ENTITY)
+    except RuntimeError as exc:
+        return _resume_error(str(exc), status.HTTP_503_SERVICE_UNAVAILABLE)
+    except Exception:
+        return _resume_error("The resume could not be processed.", status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+
 @router.get("/profile", response_model=UserProfileResponse)
 def get_profile(
     token: Optional[str] = Query(None),
@@ -824,6 +1232,130 @@ def get_coding_challenges(db: Session = Depends(get_db)):
 # Interview Endpoints
 # ============================================================================
 
+INTERVIEW_DIFFICULTIES = ("Basic", "Medium", "Hard")
+INTERVIEW_AI_LIMIT = 20
+_INTERVIEW_AI_REQUESTS: dict[str, list[float]] = {}
+HR_EXTRA_QUESTIONS = [
+    "How would your manager describe you?",
+    "What type of feedback helps you improve?",
+    "Tell me about a time you disagreed with a teammate.",
+    "How do you manage competing deadlines?",
+    "Describe a time you had to learn something quickly.",
+    "How do you build relationships with new teammates?",
+    "Tell me about a time you went beyond expectations.",
+    "What kind of manager helps you do your best work?",
+    "How do you respond when priorities suddenly change?",
+    "Describe a time you had to persuade someone.",
+    "How do you make decisions with incomplete information?",
+    "Tell me about a time you solved a problem creatively.",
+    "What does success mean to you in this role?",
+    "How do you make sure your work is accurate?",
+    "Describe a time you helped a struggling teammate.",
+    "What would you do in your first 30 days here?",
+    "How do you handle a task you do not enjoy?",
+    "Tell me about a time you improved a process.",
+    "How do you communicate bad news professionally?",
+    "What are you looking for in your next opportunity?",
+    "How do you balance speed and quality?",
+    "Describe a time you had to work with limited resources.",
+    "What is one skill you are actively developing?",
+    "How do you prepare before an important presentation?",
+    "Why should we choose you over another candidate?",
+]
+
+
+def _interview_question_data(db: Session) -> dict:
+    items = (
+        db.query(InterviewQuestion)
+        .filter(InterviewQuestion.category == "technical", InterviewQuestion.subject != "Go")
+        .order_by(InterviewQuestion.display_order.asc(), InterviewQuestion.id.asc())
+        .all()
+    )
+    result = {}
+    for item in items:
+        result.setdefault(item.subject or "General", []).append(item.question)
+    if not result:
+        result = _read_json_file("interview_technical.json", {})
+    result.pop("Go", None)
+    result.setdefault("API", [
+        "What is an API and how does a client consume one?",
+        "Compare REST, GraphQL, and SOAP APIs.",
+        "What are HTTP methods and when should each be used?",
+        "How do authentication and authorization differ in an API?",
+        "How would you version a public API?",
+        "What makes an API idempotent?",
+        "How do you design useful API error responses?",
+        "What is rate limiting and why is it important?",
+        "How do you secure sensitive data in API requests?",
+        "How would you test an API in CI?",
+    ])
+    return result
+
+
+def _check_interview_ai_rate_limit(user_id: str):
+    now = time.monotonic()
+    recent = [stamp for stamp in _INTERVIEW_AI_REQUESTS.get(user_id, []) if now - stamp < 600]
+    if len(recent) >= INTERVIEW_AI_LIMIT:
+        raise RuntimeError("Interview AI rate limit reached. Please wait a few minutes and try again.")
+    recent.append(now)
+    _INTERVIEW_AI_REQUESTS[user_id] = recent
+
+
+def _fallback_interview_questions(category: str, difficulty: str, seeds: list[str]) -> list[str]:
+    questions = list(dict.fromkeys(seeds))
+    prompts = {
+        "Basic": ["Define the core concept and give a simple example.", "What are the main benefits and limitations?", "How would you explain this to a beginner?"],
+        "Medium": ["Compare two practical approaches and explain the trade-offs.", "How would you debug or test this in a real project?", "Describe a realistic implementation scenario."],
+        "Hard": ["Design a robust solution for a high-scale production scenario.", "Analyze edge cases, failure modes, and performance trade-offs.", "How would you improve this design under strict reliability requirements?"],
+    }
+    index = 0
+    while len(questions) < 50:
+        seed = seeds[index % len(seeds)] if seeds else f"{category} interview concept"
+        prompt = prompts[difficulty][index % len(prompts[difficulty])]
+        questions.append(f"{seed} {prompt}")
+        index += 1
+    return questions[:50]
+
+
+def _get_interview_question_bank(category: str, difficulty: str, db: Session) -> tuple[list[str], str]:
+    catalog = _interview_question_data(db)
+    if category not in catalog:
+        raise ValueError("Unknown technical interview category")
+    if difficulty not in INTERVIEW_DIFFICULTIES:
+        raise ValueError("Difficulty must be Basic, Medium, or Hard")
+    cache_dir = USERDATA_DIR / "interview_question_cache"
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    cache_path = cache_dir / f"{secure_filename(category)}_{difficulty.lower()}.json"
+    if cache_path.exists():
+        try:
+            cached = json.loads(cache_path.read_text(encoding="utf-8"))
+            if isinstance(cached, list) and len(cached) == 50:
+                return cached, "ai-cache"
+        except (OSError, ValueError):
+            pass
+    seeds = [str(item) for item in catalog[category] if str(item).strip()]
+    prompt = f"""Generate exactly 50 unique {difficulty}-level technical interview questions for {category}.
+Return only JSON in this shape: {{\"questions\":[\"question 1\", ...]}}.
+""" + "\nSeed topics:\n" + "\n".join(f"- {seed}" for seed in seeds[:30])
+    source = "ai"
+    try:
+        generated = _call_gemini_json(prompt)
+        questions = generated.get("questions", []) if isinstance(generated, dict) else []
+        questions = [str(question).strip() for question in questions if str(question).strip()]
+        if len(questions) < 50:
+            raise RuntimeError("The AI question bank was incomplete.")
+        questions = list(dict.fromkeys(questions))[:50]
+        if len(questions) < 50:
+            raise RuntimeError("The AI question bank contained duplicates.")
+    except RuntimeError:
+        questions = _fallback_interview_questions(category, difficulty, seeds)
+        source = "fallback"
+    try:
+        cache_path.write_text(json.dumps(questions, ensure_ascii=False, indent=2), encoding="utf-8")
+    except OSError:
+        pass
+    return questions, source
+
 @router.get("/interview/hr")
 def get_interview_hr(db: Session = Depends(get_db)):
     """Common HR interview questions and behavioral prompts."""
@@ -833,27 +1365,74 @@ def get_interview_hr(db: Session = Depends(get_db)):
         .order_by(InterviewQuestion.display_order.asc(), InterviewQuestion.id.asc())
         .all()
     )
-    if items:
-        return [item.question for item in items]
-    return _read_json_file("interview_hr.json", [])
+    questions = [item.question for item in items] if items else _read_json_file("interview_hr.json", [])
+    questions = list(dict.fromkeys(questions + HR_EXTRA_QUESTIONS))
+    return questions[:50]
 
 
 @router.get("/interview/technical")
 def get_interview_technical(db: Session = Depends(get_db)):
-    """Subject-wise technical interview questions."""
-    items = (
-        db.query(InterviewQuestion)
-        .filter(InterviewQuestion.category == "technical")
-        .order_by(InterviewQuestion.display_order.asc(), InterviewQuestion.id.asc())
-        .all()
-    )
-    if items:
-        result = {}
-        for item in items:
-            subj = item.subject or "General"
-            result.setdefault(subj, []).append(item.question)
-        return result
-    return _read_json_file("interview_technical.json", {})
+    """Subject-wise technical interview seed questions, excluding Go and including API."""
+    return _interview_question_data(db)
+
+
+@router.get("/interview/catalog")
+def get_interview_catalog(db: Session = Depends(get_db)):
+    return {"categories": sorted(_interview_question_data(db).keys()), "difficulties": list(INTERVIEW_DIFFICULTIES)}
+
+
+@router.get("/interview/questions")
+def get_interview_questions(
+    category: str = Query(..., min_length=1, max_length=80),
+    difficulty: str = Query(..., min_length=1, max_length=20),
+    db: Session = Depends(get_db),
+):
+    try:
+        questions, source = _get_interview_question_bank(category.strip(), difficulty.strip().title(), db)
+        return {"success": True, "category": category, "difficulty": difficulty, "source": source, "questions": questions}
+    except ValueError as exc:
+        return _resume_error(str(exc), status.HTTP_422_UNPROCESSABLE_ENTITY)
+    except RuntimeError as exc:
+        return _resume_error(str(exc), status.HTTP_503_SERVICE_UNAVAILABLE)
+
+
+@router.post("/interview/evaluate")
+def evaluate_interview_answer(req: InterviewAIRequest, user: User = Depends(get_current_user)):
+    question = req.question.strip()
+    answer = (req.answer or "").strip()
+    if not question or len(question) > 1000 or not answer:
+        return _resume_error("Provide a question and a non-empty answer.", status.HTTP_422_UNPROCESSABLE_ENTITY)
+    if len(answer) > 8000:
+        return _resume_error("Your answer is too long. Keep it under 8,000 characters.", status.HTTP_422_UNPROCESSABLE_ENTITY)
+    try:
+        _check_interview_ai_rate_limit(user.id)
+        result = _call_gemini_json(f"""Evaluate this {req.category} interview answer for the question below.
+Return only JSON with integer score (0-100), string feedback, array strengths, and array improvements.
+Be constructive, specific, and judge relevance, structure, clarity, evidence, and professionalism.
+Question: {question}
+Answer: {answer}""")
+        score = max(0, min(100, int(result.get("score", 0))))
+        return {"success": True, "score": score, "feedback": str(result.get("feedback", "")), "strengths": result.get("strengths", []), "improvements": result.get("improvements", [])}
+    except RuntimeError as exc:
+        code = status.HTTP_429_TOO_MANY_REQUESTS if "rate limit" in str(exc).lower() else status.HTTP_503_SERVICE_UNAVAILABLE
+        return _resume_error(str(exc), code)
+
+
+@router.post("/interview/best-answer")
+def get_best_interview_answer(req: InterviewAIRequest, user: User = Depends(get_current_user)):
+    question = req.question.strip()
+    if not question or len(question) > 1000:
+        return _resume_error("A valid interview question is required.", status.HTTP_422_UNPROCESSABLE_ENTITY)
+    try:
+        _check_interview_ai_rate_limit(user.id)
+        result = _call_gemini_json(f"""Write a strong, natural, interview-appropriate answer to this {req.category} question.
+Return only JSON with string answer and array tips. Do not invent personal facts; use clearly marked placeholders when needed.
+Question: {question}
+Difficulty: {req.difficulty or 'general'}""")
+        return {"success": True, "answer": str(result.get("answer", "")), "tips": result.get("tips", [])}
+    except RuntimeError as exc:
+        code = status.HTTP_429_TOO_MANY_REQUESTS if "rate limit" in str(exc).lower() else status.HTTP_503_SERVICE_UNAVAILABLE
+        return _resume_error(str(exc), code)
 
 
 # ============================================================================

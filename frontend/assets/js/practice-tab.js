@@ -459,6 +459,9 @@ function checkModalAnswer() {
   }
   
   const isCorrect = selected.value === selectedQuestion.answer;
+  recordActivity('practice_answered', 'aptitude', selectedQuestion.id, isCorrect ? 100 : 0, {
+    chapter: currentChapter || ''
+  });
   
   if (isCorrect) {
     resultDiv.innerHTML = `

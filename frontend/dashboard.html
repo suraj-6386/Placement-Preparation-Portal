@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Placement Preparation Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css?v=20260905" />
+    <link rel="stylesheet" href="assets/css/dashboard.css?v=20260905" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Placement Preparation Portal</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link active" href="dashboard.html">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="aptitude.html">Aptitude</a></li>
+            <li class="nav-item"><a class="nav-link" href="coding.html">Coding</a></li>
+            <li class="nav-item"><a class="nav-link" href="interview.html">Interview</a></li>
+            <li class="nav-item"><a class="nav-link" href="resume.html">Resume</a></li>
+            <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+            <li class="nav-item"><a class="nav-link" href="help.html">Help</a></li>
+            <li class="nav-item"><button class="btn nav-link theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode"><i class="bi bi-moon-stars-fill" id="themeIcon"></i></button></li>
+            <li class="nav-item" id="authNav"></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container dashboard-page py-5">
+      <div id="dashboardLoading" class="dashboard-loading" aria-live="polite"><div class="skeleton-line wide"></div><div class="skeleton-line short"></div><div class="skeleton-grid"><div></div><div></div><div></div><div></div></div><div class="skeleton-panel"></div></div>
+      <div id="dashboardLoggedOut" class="alert alert-warning d-none"><strong>Log in to see your progress.</strong> Your learning activity is private to your account. <a href="/" class="alert-link">Go to Home</a></div>
+      <div id="dashboardError" class="alert alert-danger d-none" role="alert"><strong>We could not load your dashboard.</strong> <span id="dashboardErrorMessage"></span> <button class="btn btn-sm btn-outline-danger ms-2" id="retryDashboard">Try again</button></div>
+
+      <section id="dashboardContent" class="d-none">
+        <header class="dashboard-header d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+          <div><span class="dashboard-eyebrow">Your preparation desk</span><h1 class="mb-2">Good to see you, <span id="dashboardUserName">Learner</span>.</h1><p class="text-muted mb-0">A clear view of what you have practiced and what will move you forward next.</p></div>
+          <a class="btn btn-primary dashboard-action" href="aptitude.html"><i class="bi bi-play-fill me-2"></i>Continue preparing</a>
+        </header>
+
+        <div id="newUserNotice" class="dashboard-onboarding d-none mb-4"><div class="onboarding-icon"><i class="bi bi-compass"></i></div><div><h2 class="h5 mb-1">Your dashboard starts here</h2><p class="mb-0 text-muted">Try a few questions, explore an interview topic, or review your resume. Your activity will turn into a personal progress path.</p></div></div>
+
+        <div class="row g-4 mb-4">
+          <div class="col-lg-4"><article class="dashboard-card overall-card h-100"><div class="card-body p-4"><div class="d-flex justify-content-between align-items-start"><div><span class="dashboard-label">Overall progress</span><h2 class="display-score" id="overallProgress">0%</h2><p class="text-muted small mb-0">Weighted across your preparation areas</p></div><div class="progress-ring" id="progressRing"><span>0%</span></div></div><div class="overall-meta mt-4"><span><i class="bi bi-lightning-charge-fill"></i><strong id="activeStreak">0</strong> day streak</span><span><i class="bi bi-activity"></i><strong id="activityCount">0</strong> activities</span></div></div></article></div>
+          <div class="col-lg-8"><div class="row g-3 kpi-grid"><div class="col-6 col-md-3"><article class="dashboard-card kpi-card"><i class="bi bi-check2-square kpi-icon teal"></i><strong id="questionsAnswered">0</strong><span>Questions answered</span></article></div><div class="col-6 col-md-3"><article class="dashboard-card kpi-card"><i class="bi bi-bullseye kpi-icon amber"></i><strong id="correctAnswers">0</strong><span>Correct answers</span></article></div><div class="col-6 col-md-3"><article class="dashboard-card kpi-card"><i class="bi bi-trophy kpi-icon coral"></i><strong id="challengesCompleted">0</strong><span>Challenges completed</span></article></div><div class="col-6 col-md-3"><article class="dashboard-card kpi-card"><i class="bi bi-file-earmark-check kpi-icon blue"></i><strong id="resumeReviews">0</strong><span>Resume reviews</span></article></div></div></div>
+        </div>
+
+        <div class="row g-4 mb-4">
+          <div class="col-lg-7"><article class="dashboard-card h-100"><div class="card-body p-4"><div class="section-heading"><div><span class="dashboard-label">Preparation map</span><h2 class="h5 mb-0">Your areas of progress</h2></div><span class="text-muted small">Completed / available</span></div><div id="progressModules" class="progress-modules"></div></div></article></div>
+          <div class="col-lg-5"><article class="dashboard-card h-100"><div class="card-body p-4"><div class="section-heading"><div><span class="dashboard-label">Momentum</span><h2 class="h5 mb-0">Last 7 days</h2></div><i class="bi bi-bar-chart-line text-primary fs-4"></i></div><div id="activityChart" class="activity-chart" role="img" aria-label="Activity over the last seven days"></div><p id="chartEmpty" class="text-muted small d-none mb-0">No activity yet. Your first completed action will appear here.</p></div></article></div>
+        </div>
+
+        <div class="row g-4 mb-4">
+          <div class="col-lg-7"><article class="dashboard-card h-100"><div class="card-body p-4"><div class="section-heading"><div><span class="dashboard-label">Keep moving</span><h2 class="h5 mb-0">Recommended next steps</h2></div><i class="bi bi-arrow-up-right-circle text-primary fs-4"></i></div><div id="recommendations" class="recommendations"></div></div></article></div>
+          <div class="col-lg-5"><article class="dashboard-card h-100"><div class="card-body p-4"><div class="section-heading"><div><span class="dashboard-label">Milestones</span><h2 class="h5 mb-0">Achievements</h2></div><i class="bi bi-award text-warning fs-4"></i></div><div id="achievements" class="achievements"></div></div></article></div>
+        </div>
+
+        <article class="dashboard-card mb-4"><div class="card-body p-4"><div class="section-heading"><div><span class="dashboard-label">Your trail</span><h2 class="h5 mb-0">Recent activity</h2></div><span id="recentActivityCount" class="text-muted small"></span></div><div id="recentActivity" class="recent-activity"></div></div></article>
+      </section>
+    </main>
+    <footer class="bg-dark text-white text-center py-3 mt-auto"><p class="mb-0">&copy; 2024 Placement Preparation Portal. All rights reserved.</p></footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script><script src="assets/js/main.js?v=20260905"></script><script src="assets/js/dashboard.js?v=20260905"></script>
+  </body>
+</html>

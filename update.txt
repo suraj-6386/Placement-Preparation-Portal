@@ -186,6 +186,10 @@ Step 3.5: Enter Values into .env
 GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET
 DATABASE_URL=mysql+pymysql://root:YOUR_PASSWORD@127.0.0.1:3306/skillprep_db
 
+Dashboard progress tracking uses the `activity_events` table. SQLAlchemy creates
+it automatically on application startup; fresh installations can also use the
+matching table definition in `database/init.sql`.
+
 ================================================================================
 4. COMPLETE .ENV FILE CONFIGURATION
 ================================================================================

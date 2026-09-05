@@ -2,7 +2,7 @@
 SkillPrep Portal - Pydantic Request & Response Schemas
 Provides validation and serialization for REST APIs.
 """
-from typing import Optional, List
+from typing import Any, Dict, Optional, List
 from pydantic import BaseModel, EmailStr
 
 
@@ -69,6 +69,21 @@ class UserProfileResponse(BaseModel):
     success: bool
     user: Optional[UserProfileData] = None
     message: Optional[str] = None
+
+
+class ActivityCreate(BaseModel):
+    event_type: str
+    category: str
+    item_key: str
+    score: Optional[int] = None
+    details: Dict[str, Any] = {}
+
+
+class InterviewAIRequest(BaseModel):
+    question: str
+    answer: Optional[str] = ""
+    category: Optional[str] = "HR"
+    difficulty: Optional[str] = ""
 
 
 # ============================================================================

@@ -19,6 +19,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
     />
     <link rel="stylesheet" href="assets/css/style.css?v=20260905" />
+    <link rel="stylesheet" href="assets/css/home.css?v=20260905" />
     <!-- Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
   </head>
@@ -40,6 +41,7 @@
             <li class="nav-item">
               <a class="nav-link active" href="/">Home</a>
             </li>
+            <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
             <li class="nav-item">
               <a class="nav-link" href="aptitude.html">Aptitude</a>
             </li>
@@ -48,6 +50,9 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="interview.html">Interview</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="resume.html">Resume</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="profile.html">Profile</a>
@@ -73,78 +78,60 @@
       </div>
     </nav>
 
-    <!-- Hero Section -->
-    <div class="hero-section">
-      <div class="container text-center py-5">
-        <div id="welcomeSection" style="display: none">
-          <h1 class="display-4 mb-3">
-            Welcome back, <span id="userName">User</span>!
-          </h1>
-          <p class="lead mb-4">Continue your placement preparation journey</p>
-          <a href="aptitude.html" class="btn btn-primary btn-lg">Get Started</a>
+    <main class="home-shell">
+      <section class="home-hero">
+        <div class="home-grid-pattern"></div>
+        <div class="container home-hero-inner">
+          <div class="hero-copy">
+            <span class="home-eyebrow"><i class="bi bi-command"></i> One focused place to get hired</span>
+            <div id="guestSection">
+              <h1>Turn preparation into <em>progress.</em></h1>
+              <p class="hero-lede">SkillPrep brings aptitude, coding, interviews, and resume readiness into one calm workspace built for your next placement.</p>
+              <div class="hero-actions">
+                <button class="btn home-primary-cta" data-bs-toggle="modal" data-bs-target="#registerModal"><i class="bi bi-arrow-right"></i> Start preparing</button>
+                <a class="home-text-link" href="#platform"><span>See what is inside</span><i class="bi bi-arrow-down"></i></a>
+              </div>
+            </div>
+            <div id="welcomeSection" class="welcome-panel" style="display: none">
+              <span class="welcome-kicker">Your workspace is ready</span>
+              <h1>Welcome back, <span id="userName">User</span>.</h1>
+              <p class="hero-lede">Pick up where you left off and keep your preparation moving.</p>
+              <div class="hero-actions"><a href="dashboard.html" class="btn home-primary-cta"><i class="bi bi-speedometer2"></i> Open dashboard</a><a href="aptitude.html" class="home-text-link"><span>Continue practicing</span><i class="bi bi-arrow-right"></i></a></div>
+            </div>
+            <div class="hero-trust"><span><i class="bi bi-check-circle-fill"></i> Practice by topic</span><span><i class="bi bi-check-circle-fill"></i> Track your momentum</span><span><i class="bi bi-check-circle-fill"></i> Review your resume</span></div>
+          </div>
+          <div class="hero-visual" aria-label="SkillPrep preparation overview">
+            <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+            <div class="hero-dashboard-card">
+              <div class="mini-window-bar"><span></span><span></span><span></span><b>today / your prep</b></div>
+              <div class="prep-header"><div><small>Weekly momentum</small><strong>Build your edge</strong></div><span class="prep-score">+24%</span></div>
+              <div class="momentum-chart"><i style="height: 34%"></i><i style="height: 48%"></i><i style="height: 42%"></i><i style="height: 66%"></i><i style="height: 58%"></i><i style="height: 78%"></i><i style="height: 92%"></i></div>
+              <div class="prep-divider"></div>
+              <div class="prep-row"><span class="prep-icon teal"><i class="bi bi-calculator"></i></span><div><strong>Aptitude baseline</strong><small>Chapter practice · 82%</small></div><i class="bi bi-arrow-up-right"></i></div>
+              <div class="prep-row"><span class="prep-icon orange"><i class="bi bi-file-earmark-bar-graph"></i></span><div><strong>Resume review</strong><small>ATS signal · ready to improve</small></div><i class="bi bi-arrow-up-right"></i></div>
+            </div>
+            <div class="floating-chip chip-score"><span>AI score</span><strong>86<span>/100</span></strong><i class="bi bi-stars"></i></div>
+            <div class="floating-chip chip-streak"><i class="bi bi-fire"></i><span><strong>7 day</strong><small>active streak</small></span></div>
+          </div>
         </div>
-        <div id="guestSection">
-          <h1 class="display-3 mb-3 fw-bold">Placement Preparation Portal</h1>
-          <p class="lead mb-4">
-            Your all-in-one platform for quantitative aptitude, multi-language coding practice,
-            and comprehensive interview preparation.
-          </p>
-          <button
-            class="btn btn-primary btn-lg me-2 px-4 shadow-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#loginModal"
-          >
-            Sign In
-          </button>
-          <button
-            class="btn btn-outline-primary btn-lg px-4 shadow-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#registerModal"
-          >
-            Create Account
-          </button>
-        </div>
-      </div>
-    </div>
+      </section>
 
-    <!-- Features Section -->
-    <div class="container my-5">
-      <div class="row text-center g-4">
-        <div class="col-md-4">
-          <div class="feature-card p-4 h-100 rounded-4 shadow-sm">
-            <div class="feature-icon mb-3 fs-1">📚</div>
-            <h3 class="fw-bold">Aptitude</h3>
-            <p class="text-muted">
-              Master quantitative aptitude with chapter-wise practice questions,
-              curated tutorials, and timed mock tests.
-            </p>
-            <a href="aptitude.html" class="btn btn-outline-primary btn-sm mt-2">Explore Aptitude</a>
-          </div>
+      <section class="proof-strip"><div class="container proof-items"><div><strong>01</strong><span>Learn the concept</span></div><div><strong>02</strong><span>Practice with intent</span></div><div><strong>03</strong><span>Measure what changed</span></div><div><strong>04</strong><span>Show up interview-ready</span></div></div></section>
+
+      <section id="platform" class="platform-section container">
+        <div class="section-intro"><div><span class="home-eyebrow">The complete prep stack</span><h2>Everything you need between now and your offer.</h2></div><p>Move from fundamentals to confidence with focused tools for every stage of placement preparation.</p></div>
+        <div class="module-grid">
+          <a class="module-card module-wide module-aptitude" href="aptitude.html"><span class="module-number">01</span><span class="module-icon"><i class="bi bi-calculator"></i></span><div><h3>Aptitude, without the guesswork.</h3><p>Learn chapter by chapter, practice with instant answer checking, and take timed mock tests across difficulty levels.</p><span class="module-link">Explore aptitude <i class="bi bi-arrow-up-right"></i></span></div><span class="module-art"><i class="bi bi-bar-chart-line"></i></span></a>
+          <a class="module-card module-coding" href="coding.html"><span class="module-number">02</span><span class="module-icon"><i class="bi bi-code-slash"></i></span><h3>Build coding fluency.</h3><p>Practice across 10 languages, then move into challenges and difficulty-based mock tests.</p><span class="module-link">Open coding lab <i class="bi bi-arrow-up-right"></i></span></a>
+          <a class="module-card module-interview" href="interview.html"><span class="module-number">03</span><span class="module-icon"><i class="bi bi-mic"></i></span><h3>Sound ready in the room.</h3><p>Work through HR prompts, behavioral structure, and subject-wise technical questions.</p><span class="module-link">Train for interviews <i class="bi bi-arrow-up-right"></i></span></a>
+          <a class="module-card module-resume" href="resume.html"><span class="module-number">04</span><span class="module-icon"><i class="bi bi-file-earmark-check"></i></span><div><h3>Make your resume earn its first look.</h3><p>Get a score out of 100, ATS/readability analysis, strengths, gaps, and specific AI suggestions for improvement.</p><span class="module-link">Review my resume <i class="bi bi-arrow-up-right"></i></span></div><span class="resume-mini-score">86<small>/100</small></span></a>
         </div>
-        <div class="col-md-4">
-          <div class="feature-card p-4 h-100 rounded-4 shadow-sm">
-            <div class="feature-icon mb-3 fs-1">💻</div>
-            <h3 class="fw-bold">Coding</h3>
-            <p class="text-muted">
-              Practice coding across 10 programming languages, solve real challenges,
-              and test your skills with difficulty-based mock tests.
-            </p>
-            <a href="coding.html" class="btn btn-outline-primary btn-sm mt-2">Explore Coding</a>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="feature-card p-4 h-100 rounded-4 shadow-sm">
-            <div class="feature-icon mb-3 fs-1">🎯</div>
-            <h3 class="fw-bold">Interview</h3>
-            <p class="text-muted">
-              Ace campus placements with curated HR interview prompts, behavioral questions,
-              and subject-specific technical Q&A.
-            </p>
-            <a href="interview.html" class="btn btn-outline-primary btn-sm mt-2">Explore Interview</a>
-          </div>
-        </div>
-      </div>
-    </div>
+      </section>
+
+      <section class="workflow-section"><div class="container workflow-layout"><div class="workflow-copy"><span class="home-eyebrow">A system you can stick with</span><h2>Preparation that gets clearer every week.</h2><p>Your dashboard turns scattered practice into a visible path: activity, streaks, achievements, recommendations, and resume readiness in one view.</p><a href="dashboard.html" class="btn workflow-button">See the dashboard <i class="bi bi-arrow-right"></i></a></div><div class="workflow-board"><div class="board-top"><span>your progress / this week</span><i class="bi bi-three-dots"></i></div><div class="board-main"><div class="ring-progress"><span>68<small>%</small></span></div><div><strong>Overall readiness</strong><p>Keep the rhythm going. You are building useful momentum.</p></div></div><div class="board-bars"><div><span><b style="width: 78%"></b></span><label>Aptitude <em>78%</em></label></div><div><span><b style="width: 64%"></b></span><label>Coding <em>64%</em></label></div><div><span><b style="width: 52%"></b></span><label>Interview <em>52%</em></label></div></div><div class="board-bottom"><span><i class="bi bi-lightning-charge-fill"></i> 7 day streak</span><span><i class="bi bi-trophy-fill"></i> 3 achievements</span></div></div></div></section>
+
+      <section class="support-section container"><div class="support-card"><div><span class="home-eyebrow">Your profile, your setup</span><h2>Keep your preparation personal.</h2><p>Save your profile details, skills, college information, profile photo, and resume in one account. Need a hand? Browse FAQs or send a support request from Help.</p></div><div class="support-actions"><a href="profile.html" class="support-link"><i class="bi bi-person-badge"></i><span>Manage profile</span><i class="bi bi-arrow-up-right"></i></a><a href="help.html" class="support-link"><i class="bi bi-life-preserver"></i><span>Visit help desk</span><i class="bi bi-arrow-up-right"></i></a></div></div></section>
+    </main>
 
     <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">

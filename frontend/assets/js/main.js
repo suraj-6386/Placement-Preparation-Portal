@@ -97,6 +97,7 @@ function checkAuth() {
                     <span class="user-name">${firstName}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end user-dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="dashboard.html"><i class="me-2">📊</i>Dashboard</a></li>
                     <li><a class="dropdown-item" href="profile.html"><i class="me-2">👤</i>My Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#" onclick="logout(); return false;"><i class="me-2">🚪</i>Logout</a></li>
@@ -407,6 +408,24 @@ async function fetchAPI(endpoint) {
     } catch (error) {
         console.error('Fetch error:', error);
         return {};
+    }
+}
+
+// Record optional progress events without blocking the current activity.
+async function recordActivity(eventType, category, itemKey, score = null, details = {}) {
+    const token = getAuthToken();
+    if (!token || !itemKey) return;
+    try {
+        await fetch('/api/activity', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ event_type: eventType, category, item_key: String(itemKey), score, details })
+        });
+    } catch (error) {
+        console.debug('Activity tracking unavailable:', error);
     }
 }
 

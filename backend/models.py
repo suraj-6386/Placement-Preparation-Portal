@@ -31,6 +31,9 @@ class User(Base):
     sessions = relationship(
         "SessionModel", back_populates="user", cascade="all, delete-orphan"
     )
+    activity_events = relationship(
+        "ActivityEvent", back_populates="user", cascade="all, delete-orphan"
+    )
 
     def to_dict(self):
         return {
@@ -71,6 +74,35 @@ class SessionModel(Base):
             "token": self.token,
             "user_id": self.user_id,
             "username": self.username,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+        }
+
+
+class ActivityEvent(Base):
+    """User-owned learning events used for progress and recent activity."""
+    __tablename__ = "activity_events"
+
+    id = Column(String(36), primary_key=True, index=True)
+    user_id = Column(
+        String(36), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    event_type = Column(String(50), nullable=False, index=True)
+    category = Column(String(50), nullable=False, index=True)
+    item_key = Column(String(150), nullable=False)
+    score = Column(Integer, nullable=True)
+    details = Column(JSON, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)
+
+    user = relationship("User", back_populates="activity_events")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "event_type": self.event_type,
+            "category": self.category,
+            "item_key": self.item_key,
+            "score": self.score,
+            "details": self.details if isinstance(self.details, dict) else {},
             "created_at": self.created_at.isoformat() if self.created_at else None,
         }
 

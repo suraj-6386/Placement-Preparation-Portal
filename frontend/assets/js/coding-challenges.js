@@ -471,6 +471,17 @@ function validateTestCases(code, testCases) {
     output += '❌ Some tests failed. Please review your code.';
   }
 
+  recordActivity('challenge_attempt', 'coding_challenge', currentProblem?.id || 'unknown', passedTests === totalTests ? 100 : Math.round((passedTests / totalTests) * 100), {
+    title: currentProblem?.title || '',
+    passed_tests: passedTests,
+    total_tests: totalTests
+  });
+  if (passedTests === totalTests && currentProblem?.id) {
+    recordActivity('challenge_completed', 'coding_challenge', currentProblem.id, 100, {
+      title: currentProblem.title || ''
+    });
+  }
+
   return output;
 }
 

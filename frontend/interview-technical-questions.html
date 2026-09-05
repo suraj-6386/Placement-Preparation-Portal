@@ -36,6 +36,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
             <li class="nav-item">
               <a class="nav-link" href="aptitude.html">Aptitude</a>
             </li>
@@ -44,6 +45,9 @@
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="interview.html">Interview</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="resume.html">Resume</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="profile.html">Profile</a>
@@ -147,6 +151,10 @@
       // Get subject from URL parameter
       const urlParams = new URLSearchParams(window.location.search);
       const subject = urlParams.get("subject");
+
+      if (subject && typeof recordActivity === "function") {
+        recordActivity("interview_viewed", "interview", subject);
+      }
 
       if (!subject) {
         window.location.href = "interview.html";

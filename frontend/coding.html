@@ -38,6 +38,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
             <li class="nav-item">
               <a class="nav-link" href="aptitude.html">Aptitude</a>
             </li>
@@ -46,6 +47,9 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="interview.html">Interview</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="resume.html">Resume</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="profile.html">Profile</a>
@@ -576,6 +580,10 @@
 
         const total = currentMockQuestions.length;
         const percentage = ((correct / total) * 100).toFixed(2);
+        recordActivity("mock_completed", "coding_mock", `coding-${Date.now()}`, Math.round(Number(percentage)), {
+          total,
+          correct,
+        });
 
         document.getElementById("mockTest").style.display = "none";
         const resultDiv = document.getElementById("mockResult");

@@ -67,6 +67,14 @@ The **Placement Preparation Portal** is a production-grade web application built
    - Vanilla CSS styling with light and dark mode toggle.
    - Fully responsive design on desktop, tablet, and mobile devices.
 
+8. **Personal Dashboard & Progress Tracking**:
+   - Authenticated progress across profile setup, aptitude, coding, challenges, interviews, and resume readiness.
+   - Recent activity, seven-day momentum, recommendations, and achievement milestones.
+
+9. **Resume Score / AI Review**:
+   - Gemini-powered resume scoring for PDF, DOC, and DOCX uploads.
+   - ATS/readability analysis, strengths, weaknesses, missing sections, and specific suggestions.
+
 ---
 
 ## Technology Stack
@@ -97,6 +105,7 @@ PPP Python/
 │       └── resumes/        # Stored user resume documents
 ├── frontend/
 │   ├── index.html          # Portal home page
+│   ├── dashboard.html      # Authenticated progress dashboard
 │   ├── aptitude.html       # Aptitude module page
 │   ├── coding.html         # Coding practice & challenges page
 │   ├── interview.html      # Interview preparation page
@@ -219,6 +228,12 @@ DATABASE_URL=mysql+pymysql://root:your_mysql_password_here@127.0.0.1:3306/skillp
 UPLOAD_FOLDER_IMAGES=userdata/profile_images
 UPLOAD_FOLDER_RESUMES=userdata/resumes
 
+# Resume Review (server-side only; never add this key to frontend files)
+GEMINI_API_KEY=your-gemini-api-key
+GEMINI_MODEL=gemini-3.6-flash
+RESUME_MAX_FILE_SIZE=5242880
+RESUME_MAX_TEXT_LENGTH=30000
+
 # Google OAuth 2.0 Settings
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
@@ -306,6 +321,8 @@ To set up this project from scratch on an entirely new computer:
 | `POST` | `/api/logout` | Invalidate current session token | No |
 | `GET` | `/api/profile` | Retrieve user profile information | Yes (Token) |
 | `POST` | `/api/profile/update` | Update profile info, photo, and resume | Yes (Token) |
+| `GET` | `/api/dashboard` | Get authenticated progress, KPIs, activity, and recommendations | Yes (Token) |
+| `POST` | `/api/activity` | Record a validated user learning activity | Yes (Token) |
 | `GET` | `/api/aptitude/learn` | Aptitude learning resource links | No |
 | `GET` | `/api/aptitude/practice` | Chapter-wise aptitude practice questions | No |
 | `GET` | `/api/aptitude/mock` | Aptitude mock test question sets | No |

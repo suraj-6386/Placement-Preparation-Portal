@@ -38,7 +38,22 @@ CREATE TABLE IF NOT EXISTS sessions (
     CONSTRAINT fk_session_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 3. Help & Contact Queries Table
+-- 3. User activity events for dashboard progress
+CREATE TABLE IF NOT EXISTS activity_events (
+    id VARCHAR(36) PRIMARY KEY,
+    user_id VARCHAR(36) NOT NULL,
+    event_type VARCHAR(50) NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    item_key VARCHAR(150) NOT NULL,
+    score INT NULL,
+    details JSON NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_activity_user_created (user_id, created_at),
+    INDEX idx_activity_user_type (user_id, event_type),
+    CONSTRAINT fk_activity_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 4. Help & Contact Queries Table
 CREATE TABLE IF NOT EXISTS help_queries (
     id VARCHAR(36) PRIMARY KEY,
     name VARCHAR(150) NOT NULL,

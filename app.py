@@ -1,4 +1,4 @@
-﻿"""
+"""
 Placement Preparation Portal - Single Entry Point
 ==================================================
 Start the complete application with one command:
@@ -10,9 +10,16 @@ The application will be available at http://localhost:8000
 import sys
 import os
 
-# Add the backend directory to Python path so all backend modules can be found
-BACKEND_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "backend")
+# Resolve paths
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+BACKEND_DIR = os.path.join(ROOT_DIR, "backend")
 sys.path.insert(0, BACKEND_DIR)
+
+from dotenv import load_dotenv
+if os.path.exists(os.path.join(ROOT_DIR, ".env")):
+    load_dotenv(os.path.join(ROOT_DIR, ".env"), override=True)
+elif os.path.exists(os.path.join(BACKEND_DIR, ".env")):
+    load_dotenv(os.path.join(BACKEND_DIR, ".env"), override=True)
 
 # Change working directory to backend so relative paths (dataset/, userdata/) resolve correctly
 os.chdir(BACKEND_DIR)
@@ -31,7 +38,7 @@ if __name__ == "__main__":
     uvicorn.run(
         "app:app",
         host="0.0.0.0",
-        port=int(os.environ.get("PORT", 8000)),
+        port=settings.PORT,
         reload=settings.DEBUG,
-        reload_dirs=[BACKEND_DIR] if settings.DEBUG else None,
+        reload_dirs=[BACKEND_DIR, ROOT_DIR] if settings.DEBUG else None,
     )

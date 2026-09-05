@@ -11,11 +11,15 @@ from sqlalchemy.engine import URL, make_url
 BACKEND_DIR = Path(__file__).resolve().parent
 ROOT_DIR = BACKEND_DIR.parent
 
-# Load .env file (prioritize root, fallback to backend)
-if (ROOT_DIR / ".env").exists():
-    load_dotenv(ROOT_DIR / ".env")
-elif (BACKEND_DIR / ".env").exists():
-    load_dotenv(BACKEND_DIR / ".env")
+def load_environment(override: bool = True):
+    """Load .env file, prioritizing project root and falling back to backend folder."""
+    if (ROOT_DIR / ".env").exists():
+        load_dotenv(ROOT_DIR / ".env", override=override)
+    elif (BACKEND_DIR / ".env").exists():
+        load_dotenv(BACKEND_DIR / ".env", override=override)
+
+# Initial load of environment variables with override enabled so .env takes precedence
+load_environment(override=True)
 
 
 class Settings:
@@ -70,6 +74,16 @@ class Settings:
     )
     ALLOWED_EXTENSIONS_IMAGES: set = {"png", "jpg", "jpeg", "gif", "webp"}
     ALLOWED_EXTENSIONS_RESUMES: set = {"pdf", "doc", "docx"}
+
+    # Resume analysis settings
+    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
+    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
+    RESUME_MAX_FILE_SIZE: int = int(os.getenv("RESUME_MAX_FILE_SIZE", str(5 * 1024 * 1024)))
+    RESUME_MAX_TEXT_LENGTH: int = int(os.getenv("RESUME_MAX_TEXT_LENGTH", "30000"))
+
+    def reload_env(self):
+        """Force reload environment variables from .env file."""
+        load_environment(override=True)
 
     @property
     def sync_database_url(self) -> URL:

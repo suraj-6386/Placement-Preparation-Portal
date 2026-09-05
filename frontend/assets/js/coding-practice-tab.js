@@ -419,6 +419,9 @@ function checkCodingPracticeAnswer() {
   const userAnswer = selectedOption.value;
   const correctAnswer = selectedCodingQuestion.answer;
   const isCorrect = userAnswer === correctAnswer;
+  recordActivity('practice_answered', 'coding', selectedCodingQuestion.id, isCorrect ? 100 : 0, {
+    language: currentCodingChapter || ''
+  });
   
   const resultDiv = document.getElementById('codingPracticeResult');
   resultDiv.style.display = 'block';
