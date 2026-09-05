@@ -27,7 +27,7 @@ class Settings:
     APP_NAME: str = os.getenv("APP_NAME", "Placement Preparation Portal")
     APP_ENV: str = os.getenv("APP_ENV", "development")
     DEBUG: bool = os.getenv("DEBUG", "False").lower() in ("true", "1", "yes")
-    HOST: str = os.getenv("HOST", "127.0.0.1")
+    HOST: str = os.getenv("HOST", "0.0.0.0")  # 0.0.0.0 required for Render/Docker
     PORT: int = int(os.getenv("PORT", "8000"))
 
     # Security Settings
@@ -77,7 +77,7 @@ class Settings:
 
     # Resume analysis settings
     GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
-    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
+    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")  # gemini-3.6-flash does not exist
     RESUME_MAX_FILE_SIZE: int = int(os.getenv("RESUME_MAX_FILE_SIZE", str(5 * 1024 * 1024)))
     RESUME_MAX_TEXT_LENGTH: int = int(os.getenv("RESUME_MAX_TEXT_LENGTH", "30000"))
 
@@ -138,8 +138,9 @@ class Settings:
         """
         Extract SSL options for PyMySQL from DATABASE_URL.
         
-        Returns a dict with 'ssl' key containing SSL settings for SQLAlchemy's connect_args.
-        For Aiven (ssl-mode=REQUIRED), returns PyMySQL-compatible SSL options.
+        Returns a dict with SSL settings for SQLAlchemy's connect_args.
+        For Aiven (ssl-mode=REQUIRED), enables TLS without certificate verification
+        using both the legacy ssl dict AND PyMySQL 2.x dedicated ssl_* parameters.
         
         Usage in database.py:
             engine = create_engine(
@@ -160,14 +161,20 @@ class Settings:
                     ssl_mode = str(value).lower()
                     break
 
-        if self.DB_SSL_ENABLED or ssl_mode in {
+        ssl_required = self.DB_SSL_ENABLED or ssl_mode in {
             "required",
             "verify-ca",
             "verify-identity",
-        }:
-            connect_args["ssl"] = {
-                "check_hostname": False,
-            }
+        }
+
+        if ssl_required:
+            # PyMySQL 2.x approach: pass ssl dict + dedicated ssl_* top-level params.
+            # ssl dict with no 'ca' key => hasnoca=True => CERT_NONE (no cert verification).
+            # This is safe for Aiven which uses self-signed certs and requires encryption.
+            connect_args["ssl"] = {"check_hostname": False}
+            # PyMySQL 2.x dedicated parameters (more explicit than the dict approach)
+            connect_args["ssl_verify_cert"] = False
+            connect_args["ssl_verify_identity"] = False
         
         return connect_args
 

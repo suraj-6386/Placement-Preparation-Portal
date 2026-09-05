@@ -10,7 +10,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-from sqlalchemy.exc import SQLAlchemyError
 
 from config import settings
 from database import init_db
@@ -28,13 +27,23 @@ async def lifespan(app: FastAPI):
     Application lifespan context manager:
     Initializes database tables on application startup.
     """
+    import traceback
     # Verify and create MySQL tables if needed
     try:
+        ssl_opts = settings.get_database_ssl_options()
+        ssl_active = bool(ssl_opts.get("ssl") or ssl_opts.get("ssl_verify_cert") is False)
+        print(f"  [INFO] Connecting to database: {settings.database_target}")
+        print(f"  [INFO] SSL/TLS enabled: {ssl_active}")
         init_db()
-    except SQLAlchemyError:
+    except Exception as exc:
+        # Print the full traceback so Render logs show the REAL error, not just 'Database initialization failed'
         print("  [ERROR] Database initialization failed; the application cannot start.")
-        print("  [ERROR] Check the configured MySQL credentials and network access.")
-        raise RuntimeError("Database initialization failed") from None
+        print(f"  [ERROR] Exception type: {type(exc).__name__}")
+        print(f"  [ERROR] Exception detail: {exc}")
+        print("  [ERROR] Full traceback:")
+        traceback.print_exc()
+        print("  [ERROR] Check the configured MySQL credentials, network access, and Aiven IP allowlist.")
+        raise RuntimeError(f"Database initialization failed: {type(exc).__name__}: {exc}") from exc
     else:
         print(f"  [OK] Connected to MySQL database '{settings.database_target}'")
         print("  [OK] Database tables verified/initialized")
@@ -50,10 +59,18 @@ app = FastAPI(
 )
 
 # Configure Cross-Origin Resource Sharing (CORS)
+# In production, allow all origins so the Render HTTPS URL isn't blocked.
+# Set CORS_ORIGINS env var explicitly to restrict to specific domains.
+_cors_origins_env = settings.CORS_ORIGINS
+_default_localhost_only = ["http://localhost:8000", "http://127.0.0.1:8000"]
+_allow_all_origins = (
+    settings.APP_ENV == "production"
+    and _cors_origins_env == _default_localhost_only
+)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
-    allow_credentials=True,
+    allow_origins=["*"] if _allow_all_origins else _cors_origins_env,
+    allow_credentials=not _allow_all_origins,  # credentials require specific origins, not wildcard
     allow_methods=["*"],
     allow_headers=["*"],
 )
