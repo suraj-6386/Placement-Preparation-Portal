@@ -32,7 +32,14 @@ class Settings:
     APP_NAME: str = os.getenv("APP_NAME", "Placement Preparation Portal")
     APP_ENV: str = os.getenv("APP_ENV", "development")
     DEBUG: bool = os.getenv("DEBUG", "False").lower() in ("true", "1", "yes")
-    HOST: str = os.getenv("HOST", "0.0.0.0")  # 0.0.0.0 required for Render/Docker
+    _is_render_runtime: bool = os.getenv("RENDER", "").strip().lower() in (
+        "1", "true", "yes", "on"
+    ) or bool(os.getenv("RENDER_SERVICE_ID", "").strip())
+    HOST: str = (
+        "0.0.0.0"
+        if APP_ENV.lower() == "production" or _is_render_runtime
+        else os.getenv("HOST", "0.0.0.0")
+    )
     PORT: int = int(os.getenv("PORT", "8000"))
 
     # Security Settings

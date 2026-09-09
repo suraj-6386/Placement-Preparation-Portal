@@ -59,18 +59,19 @@ if __name__ == "__main__":
     from config import settings  # noqa: E402
 
     port = int(os.environ.get("PORT", str(settings.PORT)))
+    host = "0.0.0.0" if settings.is_production else settings.HOST
 
     print("=" * 60)
     print("  Placement Preparation Portal")
     print("=" * 60)
-    print(f"  Starting server on http://0.0.0.0:{port}")
+    print(f"  Starting server on http://{host}:{port}")
     print(f"  Open your browser at: http://localhost:{port}")
     print("  Press Ctrl+C to stop the server.")
     print("=" * 60)
 
     uvicorn.run(
-        "app:app",  # This root app.py's 'app' object
-        host=settings.HOST,
+        "app:app" if settings.DEBUG else app,
+        host=host,
         port=port,
         reload=settings.DEBUG,
         reload_dirs=[BACKEND_DIR, ROOT_DIR] if settings.DEBUG else None,

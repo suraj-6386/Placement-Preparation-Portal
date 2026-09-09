@@ -278,6 +278,18 @@ python app.py
 Open your browser and navigate to:
 **[http://localhost:8000](http://localhost:8000)**
 
+### Render Deployment
+
+The Render web service uses the root `app.py` entrypoint and this start command:
+
+```bash
+uvicorn app:app --host 0.0.0.0 --port $PORT
+```
+
+Render supplies `PORT` automatically. Set `APP_ENV=production`, the Aiven
+`DATABASE_URL`, and the Google OAuth variables in the Render environment; do
+not commit production credentials or rely on local `.env` values.
+
 ---
 
 ## How to Run on a New Device
