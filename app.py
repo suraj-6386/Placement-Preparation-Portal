@@ -37,9 +37,9 @@ try:
     env_root = os.path.join(ROOT_DIR, ".env")
     env_backend = os.path.join(BACKEND_DIR, ".env")
     if os.path.exists(env_root):
-        load_dotenv(env_root, override=True)
+        load_dotenv(env_root, override=False)
     elif os.path.exists(env_backend):
-        load_dotenv(env_backend, override=True)
+        load_dotenv(env_backend, override=False)
 except ImportError:
     pass  # python-dotenv not installed; rely on OS environment
 

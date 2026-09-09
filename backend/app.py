@@ -30,22 +30,33 @@ async def lifespan(app: FastAPI):
     import traceback
     # Verify and create MySQL tables if needed
     try:
-        ssl_opts = settings.get_database_ssl_options()
-        ssl_active = bool(ssl_opts.get("ssl") or ssl_opts.get("ssl_verify_cert") is False)
-        print(f"  [INFO] Connecting to database: {settings.database_target}")
-        print(f"  [INFO] SSL/TLS enabled: {ssl_active}")
+        diag = settings.database_diagnostics
+        print(f"  [DB DIAGNOSTICS] Database Host: {diag['host']}")
+        print(f"  [DB DIAGNOSTICS] Database Port: {diag['port']}")
+        print(f"  [DB DIAGNOSTICS] Database Name: {diag['database']}")
+        print(f"  [DB DIAGNOSTICS] SSL/TLS Enabled: {diag['ssl_enabled']}")
         init_db()
     except Exception as exc:
-        # Print the full traceback so Render logs show the REAL error, not just 'Database initialization failed'
+        # Print safe diagnostics without leaking credentials or secrets
         print("  [ERROR] Database initialization failed; the application cannot start.")
         print(f"  [ERROR] Exception type: {type(exc).__name__}")
         print(f"  [ERROR] Exception detail: {exc}")
-        print("  [ERROR] Full traceback:")
+
+        exc_str = str(exc).lower()
+        if "name or service not known" in exc_str or "getaddrinfo failed" in exc_str or "errno -2" in exc_str:
+            print("  [TROUBLESHOOTING] DNS resolution failure: The configured database hostname does not exist in DNS.")
+            print("  [TROUBLESHOOTING] Check your Aiven Console. If the service was recreated or restarted, copy the exact current Service URI into Render's DATABASE_URL.")
+        elif "unknown database" in exc_str or "1049" in exc_str:
+            print("  [TROUBLESHOOTING] Database name mismatch: Aiven MySQL provisions with 'defaultdb'. Ensure DATABASE_URL targets '/defaultdb'.")
+        elif "access denied" in exc_str or "1045" in exc_str:
+            print("  [TROUBLESHOOTING] Authentication failure: Verify the username and password in Render's DATABASE_URL match Aiven console.")
+        elif "ssl" in exc_str or "certificate" in exc_str:
+            print("  [TROUBLESHOOTING] SSL negotiation issue: Ensure SSL options are enabled and required for remote Aiven connections.")
+
         traceback.print_exc()
-        print("  [ERROR] Check the configured MySQL credentials, network access, and Aiven IP allowlist.")
         raise RuntimeError(f"Database initialization failed: {type(exc).__name__}: {exc}") from exc
     else:
-        print(f"  [OK] Connected to MySQL database '{settings.database_target}'")
+        print(f"  [OK] Connected to database: {settings.database_target}")
         print("  [OK] Database tables verified/initialized")
     yield
 

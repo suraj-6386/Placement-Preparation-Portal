@@ -3,266 +3,135 @@ AIVEN MYSQL DATABASE CONFIGURATION GUIDE
 SkillPrep Portal - Render Deployment
 ================================================================================
 
-1. AIVEN CONNECTION DETAILS
+1. AIVEN CONNECTION DETAILS & SERVICE URI
 ================================================================================
-When deploying to Render, use the following Aiven MySQL database details:
+In Aiven MySQL, connection details are provided on the Overview tab of your service.
 
-DB_HOST           = mysql-24602c0f-sg022529-6614.h.aivencloud.com
-DB_PORT           = 10844
-DB_USER           = avnadmin
-DB_NAME           = skillprep_db
-DB_PASSWORD       = <Use the Aiven password from your environment variable>
+CRITICAL:
+- Database Name: Aiven provisions MySQL with `defaultdb` by default.
+  Always use `defaultdb` in Render production.
+- Hostname: The hostname (e.g., mysql-xxxxxx.aivencloud.com) is unique to your active
+  Aiven service. If your service is recreated, the hostname changes. Never guess or
+  reconstruct hostnames. Always copy the active Service URI directly from Aiven Console.
+- Port: Dedicated Aiven port (e.g. 10844 or similar).
+- User: avnadmin
+- SSL: SSL/TLS is REQUIRED by Aiven. The application automatically handles SSL options.
+
+Example Aiven Connection Format:
+  DB_HOST     = <your-current-aiven-hostname>.aivencloud.com
+  DB_PORT     = <your-aiven-port>
+  DB_USER     = avnadmin
+  DB_NAME     = defaultdb
+  DB_PASSWORD = <your-aiven-password>
 
 
-2. ENVIRONMENT VARIABLES FOR AIVEN (Render)
+2. ENVIRONMENT VARIABLES FOR RENDER (Production)
 ================================================================================
-Set these environment variables on Render for your production deployment:
+In your Render Web Service dashboard -> Environment:
 
-DATABASE_URL=mysql+pymysql://avnadmin:<PASSWORD>@mysql-24602c0f-sg022529-6614.h.aivencloud.com:10844/skillprep_db?ssl-mode=REQUIRED&charset=utf8mb4
+Required Environment Variables:
+--------------------------------------------------------------------------------
+DATABASE_URL=mysql+pymysql://avnadmin:<PASSWORD>@<CURRENT_AIVEN_HOST>:<PORT>/defaultdb?ssl-mode=REQUIRED&charset=utf8mb4
 
-Where <PASSWORD> is your Aiven MySQL password (available in Aiven console).
+APP_ENV=production
+--------------------------------------------------------------------------------
+
+Optional / Recommended on Render:
+GOOGLE_REDIRECT_URI=https://<YOUR-RENDER-SERVICE-NAME>.onrender.com/auth/google/callback
+GOOGLE_CLIENT_ID=<your-google-client-id>
+GOOGLE_CLIENT_SECRET=<your-google-client-secret>
+SECRET_KEY=<strong-random-secret-key>
+
+NOTE ON DRIVER SCHEME:
+- Both `mysql://...` and `mysql+pymysql://...` work seamlessly. The application
+  automatically converts `mysql://` to `mysql+pymysql://` if needed.
+- If your password has special characters (@, :, /, %, ?, #, &), ensure they are
+  percent-encoded (e.g. '@' -> '%40').
 
 
-3. ENVIRONMENT VARIABLE DETAILS
+3. WHY DID STARTUP FAIL WITH "[Errno -2] Name or service not known"?
 ================================================================================
-
-DATABASE_URL
-  Purpose: Complete MySQL connection string for Aiven
-  Format: mysql+pymysql://username:password@host:port/database?ssl-mode=REQUIRED&charset=utf8mb4
-  When to use: Always use this for Aiven (Render production)
-  Note: The driver must be mysql+pymysql (NOT mysql://)
-        SSL mode is REQUIRED for Aiven security
-
-DB_HOST
-  Purpose: Database server hostname
-  Value for Aiven: mysql-24602c0f-sg022529-6614.h.aivencloud.com
-  Note: Only used if DATABASE_URL is not set
-
-DB_PORT
-  Purpose: Database server port
-  Value for Aiven: 10844
-  Note: Non-standard port; Aiven requires this
-  Note: Only used if DATABASE_URL is not set
-
-DB_USER
-  Purpose: Database username for authentication
-  Value for Aiven: avnadmin
-  Note: Only used if DATABASE_URL is not set
-
-DB_NAME
-  Purpose: Database name/schema
-  Value for Aiven: skillprep_db
-  Note: Only used if DATABASE_URL is not set
-
-DB_PASSWORD
-  Purpose: Database user password
-  Value for Aiven: <Your Aiven password>
-  SECURITY: Do NOT commit this to version control
-  Note: Only used if DATABASE_URL is not set
-
-DB_SSL_ENABLED
-  Purpose: Enable SSL/TLS when using the individual DB_* settings
-  Value for Aiven: false (ssl-mode in DATABASE_URL is translated by the app)
-  Value for local MySQL: false (unless you enable SSL locally)
+The error `socket.gaierror: [Errno -2] Name or service not known` indicates a DNS
+resolution failure:
+1. The hostname configured in Render was non-existent or no longer registered in DNS.
+   (e.g., the previous test service was terminated, deleted, or recreated).
+2. Fix: Open your Aiven Console, select your active MySQL service, copy the active
+   Service URI, and update `DATABASE_URL` in the Render dashboard.
 
 
-4. AIVEN SSL CONFIGURATION
+4. WHY WAS THERE A DATABASE NAME MISMATCH?
 ================================================================================
-Aiven requires SSL/TLS connections. The DATABASE_URL includes:
-
-  ?ssl-mode=REQUIRED
-
-The application removes this URL-only option before calling PyMySQL and enables
-TLS through the driver's supported `ssl` connection option. This ensures all
-Aiven connections remain encrypted without passing `ssl-mode` to PyMySQL.
-
-The cryptography library (>=42.0.0) in requirements.txt handles SSL certificates.
+Aiven creates a database named `defaultdb` upon service creation.
+The Render configuration had previously pointed to `skillprep_db`.
+When connecting to Aiven, using `skillprep_db` causes MySQL error 1049:
+"Unknown database 'skillprep_db'".
+The application models and table initializations are schema-independent and will
+automatically create all required tables (`users`, `sessions`, `activity_events`, etc.)
+directly inside `defaultdb`.
 
 
-5. CONNECTION PRIORITY (How the application chooses)
+5. ENVIRONMENT VARIABLE PRECEDENCE & PRODUCTION ISOLATION
 ================================================================================
-The application loads database settings in this order:
+- Production Security Guard:
+  When `APP_ENV=production` or running on Render (`RENDER=true`), the application:
+  * REQUIRES `DATABASE_URL` to be explicitly provided.
+  * FORBIDS connections to `127.0.0.1`, `localhost`, or local MySQL credentials.
+  * Will NOT fall back to local database settings.
+  * Loads environment variables with `override=False` so Render dashboard settings
+    always take priority over any local `.env` files.
 
-  1. If DATABASE_URL environment variable is set → Use it (Recommended for Aiven)
-  2. If DATABASE_URL is empty → Build URL from individual parameters:
-     DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME
-
-
-RECOMMENDED APPROACH:
-For Aiven on Render:
-  - Set only DATABASE_URL
-  - Leave DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME unset
-
-For local development:
-  - Set DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME
-  - Leave DATABASE_URL unset
+- Local Development:
+  * Kept completely independent.
+  * Uses local MySQL credentials (`127.0.0.1:3306/skillprep_db`).
+  * If `DATABASE_URL` is omitted, builds local connection URL automatically.
 
 
-6. HOW TO SWITCH TO AIVEN (For Render Deployment)
+6. AIVEN SSL / TLS IMPLEMENTATION DETAILS
 ================================================================================
-Step 1: In Render environment variables, set:
-
-  DATABASE_URL=mysql+pymysql://avnadmin:<PASSWORD>@mysql-24602c0f-sg022529-6614.h.aivencloud.com:10844/skillprep_db?ssl-mode=REQUIRED&charset=utf8mb4
-
-  GOOGLE_REDIRECT_URI=https://YOUR-RENDER-URL.onrender.com/auth/google/callback
-
-Step 2: Replace <PASSWORD> with your actual Aiven password from the Aiven console.
-
-Step 3: Do NOT set these environment variables on Render:
-  - DB_HOST
-  - DB_PORT
-  - DB_USER
-  - DB_PASSWORD
-  - DB_NAME
-
-Step 4: Deploy your application to Render. The application will use DATABASE_URL.
+- Aiven requires TLS encryption on all connections.
+- PyMySQL handles SSL via connect arguments rather than URL query parameters.
+- The application automatically strips `ssl-mode=REQUIRED`, `ssl_mode`, or `ssl`
+  from the connection URL query string (preventing PyMySQL `unexpected keyword argument`
+  errors).
+- It injects PyMySQL-compatible SSL parameters (`ssl={"check_hostname": False}`,
+  `ssl_verify_cert=False`) into SQLAlchemy's `connect_args`. This ensures 100%
+  encrypted transit while avoiding certificate verification issues with Aiven's
+  Project CA in container environments.
 
 
-GOOGLE OAUTH REDIRECT URI
+7. SAFE STARTUP DIAGNOSTICS
 ================================================================================
-LOCAL:
-GOOGLE_REDIRECT_URI=http://localhost:8000/auth/google/callback
+On startup, the FastAPI lifespan outputs sanitized database diagnostics:
+  [DB DIAGNOSTICS] Database Host: <host>
+  [DB DIAGNOSTICS] Database Port: <port>
+  [DB DIAGNOSTICS] Database Name: <database>
+  [DB DIAGNOSTICS] SSL/TLS Enabled: True
 
-RENDER:
-GOOGLE_REDIRECT_URI=https://YOUR-RENDER-URL.onrender.com/auth/google/callback
-
-When switching Local to Render, change GOOGLE_REDIRECT_URI to the Render value,
-set DATABASE_URL to the Aiven URL, and set the Render GOOGLE_CLIENT_ID and
-GOOGLE_CLIENT_SECRET values. When switching Render to Local, restore the local
-GOOGLE_REDIRECT_URI, clear DATABASE_URL, and configure the local DB_* values.
-Register each redirect URI in the matching Google OAuth web client.
-
-Step 5: Verify connection in Render logs:
-  [OK] Connected to MySQL database 'skillprep_db'
-  [OK] Database tables verified/initialized
+Passphrases, tokens, usernames, and complete connection URLs are NEVER logged.
 
 
-7. HOW TO SWITCH BACK TO LOCAL MYSQL
+8. STEP-BY-STEP RENDER DEPLOYMENT CHECKLIST
 ================================================================================
-To revert to your local MySQL development environment:
-
-Step 1: In your .env file (or local environment), set:
-
-  DB_HOST=127.0.0.1
-  DB_PORT=3306
-  DB_USER=online_mysql_user
-  DB_PASSWORD=<your local MySQL password>
-  DB_NAME=skillprep_db
-
-Step 2: Do NOT set DATABASE_URL:
-  (Leave it empty or remove it from .env)
-
-Step 3: Ensure your local MySQL server is running:
-  - Windows: Check MySQL service in Services
-  - macOS: Check brew services list
-  - Linux: Check systemctl status mysql
-
-Step 4: Run your application locally:
-  python app.py
-
-Step 5: Verify connection in terminal output:
-  [OK] Connected to MySQL database 'skillprep_db'
-  [OK] Database tables verified/initialized
-
-
-8. LOCAL MYSQL VALUES (For Reference)
-================================================================================
-These are your local MySQL credentials. Restore them when switching back:
-
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_USER=online_mysql_user
-DB_NAME=skillprep_db
-DB_PASSWORD=<your local MySQL password>
-
-Keep these in your local .env file for development.
-
-
-9. SUMMARY: LOCAL vs RENDER
-================================================================================
-
-LOCAL DEVELOPMENT (Your Machine)
-  DATABASE_URL        : Not set (leave empty)
-  DB_HOST             : 127.0.0.1
-  DB_PORT             : 3306
-  DB_USER             : online_mysql_user
-  DB_NAME             : skillprep_db
-  DB_PASSWORD         : Your local password
-  DB_SSL_ENABLED      : false
-  Connection Type     : Unencrypted (local network, safe)
-
-RENDER PRODUCTION (Aiven)
-  DATABASE_URL        : mysql+pymysql://avnadmin:PASSWORD@mysql-24602c0f-sg022529-6614.h.aivencloud.com:10844/skillprep_db?ssl-mode=REQUIRED&charset=utf8mb4
-  DB_HOST             : Not set (leave empty)
-  DB_PORT             : Not set (leave empty)
-  DB_USER             : Not set (leave empty)
-  DB_PASSWORD         : Not set (leave empty)
-  DB_NAME             : Not set (leave empty)
-  DB_SSL_ENABLED      : false (SSL in DATABASE_URL)
-  Connection Type     : Encrypted with SSL (internet-safe)
-
-
-10. TROUBLESHOOTING
-================================================================================
-
-Connection refused on Render?
-  → Verify DATABASE_URL is set correctly
-  → Check Aiven password in DATABASE_URL
-  → Ensure Aiven instance is running
-  → Check Render logs for connection details
-
-TypeError: Connection.__init__() got an unexpected keyword argument 'ssl-mode'?
-  → This is now fixed in the updated configuration
-  → The application automatically converts ssl-mode=REQUIRED to PyMySQL-compatible SSL options
-  → No code changes needed; just ensure you're using the latest backend/config.py and backend/database.py
-  → The SSL parameter is removed from the URL and passed via connect_args to create_engine()
-
-Local MySQL connection after switching back?
-  → Ensure local MySQL server is running
-  → Verify DB_HOST=127.0.0.1 and DB_PORT=3306
-  → Check local MySQL credentials in .env
-  → Verify DATABASE_URL is NOT set
-
-SSL certificate errors?
-  → Aiven uses self-signed certificates; the application automatically skips verification
-  → Ensure cryptography library (>=42.0.0) is installed
-  → The application uses PyMySQL-compatible SSL options (check_hostname=False)
-  → Verify Aiven instance status in Aiven console
-
-
-11. IMPORTANT NOTES
-================================================================================
-- Do NOT commit passwords to version control
-- Use Render secrets for DATABASE_URL on production
-- Local .env file should only have local values
-- The application automatically selects the correct configuration
-- Existing database models and tables remain unchanged
-- No code logic changes needed; only environment variables
-
-
-12. FILES MODIFIED
-================================================================================
-backend/config.py
-  - Added DB_SSL_ENABLED environment variable
-  - Enhanced sync_database_url property with improved documentation
-  - Now intelligently selects Aiven or local MySQL based on DATABASE_URL
-  - Removes ssl-mode parameter from URL (PyMySQL doesn't support it in URL)
-  - New method: get_database_ssl_options() returns PyMySQL-compatible SSL options
-
-backend/database.py
-  - Updated create_engine() call to use connect_args with SSL options
-  - Automatically handles Aiven SSL requirements via get_database_ssl_options()
-  - SSL is transparent; no password/credentials exposed
-
-No other application files were modified. Existing functionality is preserved.
-
-SSL IMPLEMENTATION DETAILS:
-  - The DATABASE_URL may contain "ssl-mode=REQUIRED" for Aiven
-  - The application removes this parameter (PyMySQL doesn't recognize it)
-  - SSL options are passed via SQLAlchemy's connect_args parameter
-  - For Aiven: Uses check_hostname=False with PyMySQL's SSL connection option
-  - For local MySQL: No SSL options added unless DB_SSL_ENABLED=true
-
+[ ] Step 1: In Aiven Console:
+    - Confirm MySQL service status is green ("Running").
+    - Note the Service URI: `mysql://avnadmin:<PASSWORD>@<HOST>:<PORT>/defaultdb?ssl-mode=REQUIRED`.
+[ ] Step 2: In Render Dashboard:
+    - Navigate to your Web Service -> "Environment".
+    - Set `APP_ENV` = `production`.
+    - Set `DATABASE_URL` = `mysql+pymysql://avnadmin:<PASSWORD>@<HOST>:<PORT>/defaultdb?ssl-mode=REQUIRED&charset=utf8mb4`
+      (Replace <PASSWORD>, <HOST>, and <PORT> with active values from Step 1).
+    - Ensure `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` are NOT set in Render.
+    - Set `GOOGLE_REDIRECT_URI` to your Render URL: `https://<your-app>.onrender.com/auth/google/callback`.
+[ ] Step 3: Deploy:
+    - Trigger Manual Deploy -> "Deploy latest commit".
+[ ] Step 4: Check Logs:
+    - Look for:
+      [DB DIAGNOSTICS] Database Host: <aiven-host>
+      [DB DIAGNOSTICS] Database Port: <port>
+      [DB DIAGNOSTICS] Database Name: defaultdb
+      [DB DIAGNOSTICS] SSL/TLS Enabled: True
+      [OK] Connected to database: <aiven-host>:<port>/defaultdb
+      [OK] Database tables verified/initialized
 
 ================================================================================
 End of Aiven Configuration Guide

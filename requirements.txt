@@ -10,3 +10,4 @@ bcrypt>=4.0.0
 google-auth>=2.20.0
 pypdf>=5.0.0,<6.0.0
 python-docx>=1.1.0,<2.0.0
+certifi>=2024.2.2

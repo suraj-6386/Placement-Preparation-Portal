@@ -11,15 +11,19 @@ from sqlalchemy.engine import URL, make_url
 BACKEND_DIR = Path(__file__).resolve().parent
 ROOT_DIR = BACKEND_DIR.parent
 
-def load_environment(override: bool = True):
-    """Load .env file, prioritizing project root and falling back to backend folder."""
+def load_environment(override: bool = False):
+    """
+    Load .env file, prioritizing project root and falling back to backend folder.
+    Uses override=False so system and container environment variables (e.g., Render)
+    always take precedence over local .env files.
+    """
     if (ROOT_DIR / ".env").exists():
         load_dotenv(ROOT_DIR / ".env", override=override)
     elif (BACKEND_DIR / ".env").exists():
         load_dotenv(BACKEND_DIR / ".env", override=override)
 
-# Initial load of environment variables with override enabled so .env takes precedence
-load_environment(override=True)
+# Initial load of environment variables with override=False so environment variables take precedence
+load_environment(override=False)
 
 
 class Settings:
@@ -39,7 +43,7 @@ class Settings:
         os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "1440")
     )
 
-    # MySQL Database Settings
+    # MySQL Database Settings (Default to local development values)
     DB_HOST: str = os.getenv("DB_HOST", "127.0.0.1")
     DB_PORT: int = int(os.getenv("DB_PORT", "3306"))
     DB_USER: str = os.getenv("DB_USER", "root")
@@ -77,44 +81,89 @@ class Settings:
 
     # Resume analysis settings
     GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
-    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")  # gemini-3.6-flash does not exist
+    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
     RESUME_MAX_FILE_SIZE: int = int(os.getenv("RESUME_MAX_FILE_SIZE", str(5 * 1024 * 1024)))
     RESUME_MAX_TEXT_LENGTH: int = int(os.getenv("RESUME_MAX_TEXT_LENGTH", "30000"))
 
     def reload_env(self):
-        """Force reload environment variables from .env file."""
-        load_environment(override=True)
+        """Reload environment variables without overriding system values."""
+        load_environment(override=False)
+
+    @property
+    def is_production(self) -> bool:
+        """Return True if running in production environment (Render or APP_ENV=production)."""
+        return (
+            self.APP_ENV.lower() == "production"
+            or bool(os.getenv("RENDER"))
+            or bool(os.getenv("RENDER_SERVICE_ID"))
+        )
 
     @property
     def sync_database_url(self) -> URL:
         """
         Construct the SQLAlchemy MySQL connection URL.
         
-        Supports two modes:
-        1. Full DATABASE_URL (for Aiven on Render)
-        2. Individual parameters: DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME (for local MySQL)
-        
-        Returns a clean URL with PyMySQL-compatible parameters.
-        Use get_database_ssl_options() to get SSL options for create_engine().
+        Rules:
+        1. In production (Render or APP_ENV=production):
+           - DATABASE_URL is required.
+           - NEVER connects to 127.0.0.1, localhost, or local MySQL credentials.
+        2. In local development:
+           - Uses DATABASE_URL if set, otherwise builds from DB_HOST, DB_PORT, DB_USER, etc.
+        3. Sanitizes URL query parameters to ensure PyMySQL compatibility:
+           - Translates or strips ssl-mode, ssl_mode, ssl to connect_args.
+           - Normalizes driver to mysql+pymysql.
         """
-        # If DATABASE_URL is provided (recommended for Aiven), use it
-        if self.DATABASE_URL:
-            url = make_url(self.DATABASE_URL)
+        if self.is_production:
+            if not self.DATABASE_URL or not self.DATABASE_URL.strip():
+                raise ValueError(
+                    "CRITICAL CONFIGURATION ERROR: Production environment detected (APP_ENV=production or RENDER), "
+                    "but DATABASE_URL is not set. A valid production database connection string (e.g. Aiven MySQL Service URI) "
+                    "must be configured in Render environment variables."
+                )
+
+            url = make_url(self.DATABASE_URL.strip())
             if not url.drivername.startswith("mysql"):
-                raise ValueError("DATABASE_URL must use a MySQL driver")
+                raise ValueError(
+                    f"CRITICAL CONFIGURATION ERROR: DATABASE_URL must use a MySQL driver, got '{url.drivername}'."
+                )
+
+            host_lower = (url.host or "").lower()
+            if host_lower in ("127.0.0.1", "localhost", "0.0.0.0", "::1"):
+                raise ValueError(
+                    f"CRITICAL CONFIGURATION ERROR: Production DATABASE_URL points to '{host_lower}'. "
+                    "Local database connections are strictly forbidden in production. "
+                    "Configure Render with your remote Aiven MySQL Service URI."
+                )
+
             if url.drivername != "mysql+pymysql":
                 url = url.set(drivername="mysql+pymysql")
 
-            # ssl-mode is a MySQL CLI option, not a PyMySQL connection argument.
+            # Strip query arguments that PyMySQL does not support as URL parameters
             query = {
                 key: value for key, value in url.query.items()
-                if key.lower() != "ssl-mode"
+                if key.lower() not in {"ssl-mode", "ssl_mode", "sslmode", "ssl"}
             }
             if "charset" not in query:
                 query["charset"] = "utf8mb4"
             return url.set(query=query)
 
-        # Otherwise, construct URL from individual parameters (local MySQL)
+        # Local development path:
+        if self.DATABASE_URL and self.DATABASE_URL.strip():
+            url = make_url(self.DATABASE_URL.strip())
+            if not url.drivername.startswith("mysql"):
+                raise ValueError("DATABASE_URL must use a MySQL driver")
+            if url.drivername != "mysql+pymysql":
+                url = url.set(drivername="mysql+pymysql")
+
+            query = {
+                key: value for key, value in url.query.items()
+                if key.lower() not in {"ssl-mode", "ssl_mode", "sslmode", "ssl"}
+            }
+            if "charset" not in query:
+                query["charset"] = "utf8mb4"
+            return url.set(query=query)
+
+        # Build URL from individual parameters for local MySQL
         return URL.create(
             "mysql+pymysql",
             username=self.DB_USER,
@@ -125,58 +174,103 @@ class Settings:
             query={"charset": "utf8mb4"},
         )
 
-    @property
-    def database_target(self) -> str:
-        """Return a log-safe database target without username or password."""
-        url = make_url(self.sync_database_url)
-        host = url.host or "unknown-host"
-        port = f":{url.port}" if url.port else ""
-        database = url.database or "unknown-database"
-        return f"{host}{port}/{database}"
+    def is_database_ssl_required(self) -> bool:
+        """Determine if SSL/TLS is required based on configuration and host."""
+        if self.DB_SSL_ENABLED:
+            return True
+
+        if self.DATABASE_URL and self.DATABASE_URL.strip():
+            try:
+                url = make_url(self.DATABASE_URL.strip())
+                for key, value in url.query.items():
+                    key_lower = key.lower()
+                    val_lower = str(value).lower()
+                    if key_lower in {"ssl-mode", "ssl_mode", "sslmode"}:
+                        if val_lower in {"required", "verify-ca", "verify-identity", "prefer"}:
+                            return True
+                    if key_lower == "ssl" and val_lower in {"true", "1", "yes", "required"}:
+                        return True
+                host_lower = (url.host or "").lower()
+                if host_lower.endswith(".aivencloud.com"):
+                    return True
+            except Exception:
+                pass
+
+        if self.is_production:
+            return True
+
+        return False
 
     def get_database_ssl_options(self) -> dict:
         """
-        Extract SSL options for PyMySQL from DATABASE_URL.
+        Extract SSL options for PyMySQL from configuration and DATABASE_URL.
         
         Returns a dict with SSL settings for SQLAlchemy's connect_args.
-        For Aiven (ssl-mode=REQUIRED), enables TLS without certificate verification
-        using both the legacy ssl dict AND PyMySQL 2.x dedicated ssl_* parameters.
-        
-        Usage in database.py:
-            engine = create_engine(
-                settings.sync_database_url,
-                connect_args=settings.get_database_ssl_options(),
-                pool_pre_ping=True,
-                pool_recycle=3600,
-            )
+        For Aiven (ssl-mode=REQUIRED), enables TLS encryption without certificate verification
+        failures when connecting from container environments without a preloaded Project CA.
         """
         connect_args = {}
-        
-        # Translate the URL's MySQL SSL mode to PyMySQL's supported SSL options.
-        url = make_url(self.DATABASE_URL) if self.DATABASE_URL else None
-        ssl_mode = ""
-        if url:
-            for key, value in url.query.items():
-                if key.lower() == "ssl-mode":
-                    ssl_mode = str(value).lower()
-                    break
 
-        ssl_required = self.DB_SSL_ENABLED or ssl_mode in {
-            "required",
-            "verify-ca",
-            "verify-identity",
+        if self.is_database_ssl_required():
+            ssl_ctx_args = {"check_hostname": False}
+
+            ca_file = os.getenv("DB_SSL_CA", "") or os.getenv("AIVEN_CA_CERT", "")
+            if ca_file and os.path.exists(ca_file):
+                ssl_ctx_args["ca"] = ca_file
+                ssl_ctx_args["check_hostname"] = True
+                connect_args["ssl_verify_cert"] = True
+                connect_args["ssl_verify_identity"] = True
+            else:
+                connect_args["ssl_verify_cert"] = False
+                connect_args["ssl_verify_identity"] = False
+
+            connect_args["ssl"] = ssl_ctx_args
+
+        return connect_args
+
+    @property
+    def database_diagnostics(self) -> dict:
+        """
+        Return safe database diagnostics for startup logging.
+        Strictly excludes usernames, passwords, DATABASE_URL, tokens, and secrets.
+        """
+        try:
+            url = self.sync_database_url
+            host = url.host or "unknown-host"
+            port = url.port or 3306
+            database = url.database or "unknown-database"
+        except Exception:
+            # If sync_database_url raises (e.g. production validation failure), try extracting from raw DATABASE_URL
+            host = "not-configured"
+            port = "not-configured"
+            database = "not-configured"
+            if self.DATABASE_URL and self.DATABASE_URL.strip():
+                try:
+                    raw = make_url(self.DATABASE_URL.strip())
+                    host = raw.host or "unknown-host"
+                    port = raw.port or 3306
+                    database = raw.database or "unknown-database"
+                except Exception:
+                    pass
+            elif not self.is_production:
+                host = self.DB_HOST
+                port = self.DB_PORT
+                database = self.DB_NAME
+
+        return {
+            "host": host,
+            "port": port,
+            "database": database,
+            "ssl_enabled": self.is_database_ssl_required(),
         }
 
-        if ssl_required:
-            # PyMySQL 2.x approach: pass ssl dict + dedicated ssl_* top-level params.
-            # ssl dict with no 'ca' key => hasnoca=True => CERT_NONE (no cert verification).
-            # This is safe for Aiven which uses self-signed certs and requires encryption.
-            connect_args["ssl"] = {"check_hostname": False}
-            # PyMySQL 2.x dedicated parameters (more explicit than the dict approach)
-            connect_args["ssl_verify_cert"] = False
-            connect_args["ssl_verify_identity"] = False
-        
-        return connect_args
+    @property
+    def database_target(self) -> str:
+        """Return a log-safe database target without username or password."""
+        diag = self.database_diagnostics
+        port_part = f":{diag['port']}" if diag.get("port") else ""
+        return f"{diag.get('host', 'unknown')}{port_part}/{diag.get('database', 'unknown')}"
 
 
 settings = Settings()
+
