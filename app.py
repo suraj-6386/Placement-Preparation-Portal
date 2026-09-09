@@ -20,8 +20,9 @@ import os
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 BACKEND_DIR = os.path.join(ROOT_DIR, "backend")
 
-if BACKEND_DIR not in sys.path:
-    sys.path.insert(0, BACKEND_DIR)
+for import_path in (ROOT_DIR, BACKEND_DIR):
+    if import_path not in sys.path:
+        sys.path.insert(0, import_path)
 
 # ---------------------------------------------------------------------------
 # Step 2: Change CWD to backend/ so all relative paths inside backend modules
@@ -46,8 +47,9 @@ except ImportError:
 # ---------------------------------------------------------------------------
 # Step 4: Import the FastAPI app object — MUST be at module level so that
 #         `uvicorn app:app` can import it when used as the Render start command.
+#         Use the qualified module name to avoid importing this root module again.
 # ---------------------------------------------------------------------------
-from app import app  # noqa: F401, E402  (backend/app.py)
+from backend.app import app  # noqa: F401, E402
 
 # ---------------------------------------------------------------------------
 # Step 5: Direct execution entry point (python app.py from repo root)
@@ -68,7 +70,7 @@ if __name__ == "__main__":
 
     uvicorn.run(
         "app:app",  # This root app.py's 'app' object
-        host="0.0.0.0",
+        host=settings.HOST,
         port=port,
         reload=settings.DEBUG,
         reload_dirs=[BACKEND_DIR, ROOT_DIR] if settings.DEBUG else None,
