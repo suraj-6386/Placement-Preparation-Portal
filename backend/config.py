@@ -3,6 +3,7 @@ SkillPrep Portal - Application Configuration
 Loads settings from environment variables or .env file.
 """
 import os
+import ssl
 from pathlib import Path
 from dotenv import load_dotenv
 from sqlalchemy.engine import URL, make_url
@@ -92,10 +93,13 @@ class Settings:
     @property
     def is_production(self) -> bool:
         """Return True if running in production environment (Render or APP_ENV=production)."""
+        render_environment = os.getenv("RENDER", "").strip().lower() in {
+            "1", "true", "yes", "on"
+        }
         return (
             self.APP_ENV.lower() == "production"
-            or bool(os.getenv("RENDER"))
-            or bool(os.getenv("RENDER_SERVICE_ID"))
+            or render_environment
+            or bool(os.getenv("RENDER_SERVICE_ID", "").strip())
         )
 
     @property
@@ -204,29 +208,33 @@ class Settings:
     def get_database_ssl_options(self) -> dict:
         """
         Extract SSL options for PyMySQL from configuration and DATABASE_URL.
-        
-        Returns a dict with SSL settings for SQLAlchemy's connect_args.
-        For Aiven (ssl-mode=REQUIRED), enables TLS encryption without certificate verification
-        failures when connecting from container environments without a preloaded Project CA.
+
+        Production connections require certificate-verified TLS. The CA may be supplied
+        as a Render Secret File path (DB_SSL_CA) or as PEM text (DB_SSL_CA_CERT).
         """
-        connect_args = {}
+        if not self.is_database_ssl_required():
+            return {}
 
-        if self.is_database_ssl_required():
-            ssl_ctx_args = {"check_hostname": False}
+        ca_value = (
+            os.getenv("DB_SSL_CA", "").strip()
+            or os.getenv("DB_SSL_CA_CERT", "").strip()
+            or os.getenv("AIVEN_CA_CERT", "").strip()
+        )
+        if ca_value and os.path.isfile(ca_value):
+            context = ssl.create_default_context(cafile=ca_value)
+        elif "BEGIN CERTIFICATE" in ca_value:
+            context = ssl.create_default_context(cadata=ca_value)
+        elif self.is_production:
+            raise ValueError(
+                "Production Aiven TLS requires DB_SSL_CA to point to the Aiven CA certificate "
+                "or DB_SSL_CA_CERT to contain its PEM contents."
+            )
+        else:
+            context = ssl.create_default_context()
 
-            ca_file = os.getenv("DB_SSL_CA", "") or os.getenv("AIVEN_CA_CERT", "")
-            if ca_file and os.path.exists(ca_file):
-                ssl_ctx_args["ca"] = ca_file
-                ssl_ctx_args["check_hostname"] = True
-                connect_args["ssl_verify_cert"] = True
-                connect_args["ssl_verify_identity"] = True
-            else:
-                connect_args["ssl_verify_cert"] = False
-                connect_args["ssl_verify_identity"] = False
-
-            connect_args["ssl"] = ssl_ctx_args
-
-        return connect_args
+        context.check_hostname = True
+        context.verify_mode = ssl.CERT_REQUIRED
+        return {"ssl": context}
 
     @property
     def database_diagnostics(self) -> dict:

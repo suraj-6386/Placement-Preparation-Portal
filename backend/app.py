@@ -27,7 +27,6 @@ async def lifespan(app: FastAPI):
     Application lifespan context manager:
     Initializes database tables on application startup.
     """
-    import traceback
     # Verify and create MySQL tables if needed
     try:
         diag = settings.database_diagnostics
@@ -40,7 +39,6 @@ async def lifespan(app: FastAPI):
         # Print safe diagnostics without leaking credentials or secrets
         print("  [ERROR] Database initialization failed; the application cannot start.")
         print(f"  [ERROR] Exception type: {type(exc).__name__}")
-        print(f"  [ERROR] Exception detail: {exc}")
 
         exc_str = str(exc).lower()
         if "name or service not known" in exc_str or "getaddrinfo failed" in exc_str or "errno -2" in exc_str:
@@ -53,8 +51,9 @@ async def lifespan(app: FastAPI):
         elif "ssl" in exc_str or "certificate" in exc_str:
             print("  [TROUBLESHOOTING] SSL negotiation issue: Ensure SSL options are enabled and required for remote Aiven connections.")
 
-        traceback.print_exc()
-        raise RuntimeError(f"Database initialization failed: {type(exc).__name__}: {exc}") from exc
+        raise RuntimeError(
+            f"Database initialization failed: {type(exc).__name__}"
+        ) from None
     else:
         print(f"  [OK] Connected to database: {settings.database_target}")
         print("  [OK] Database tables verified/initialized")

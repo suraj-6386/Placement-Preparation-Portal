@@ -2,7 +2,7 @@
 SkillPrep Portal - Database Connection & Session Management
 Uses SQLAlchemy ORM with PyMySQL driver for MySQL.
 """
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import declarative_base, sessionmaker
 from config import settings
 
@@ -43,4 +43,6 @@ def init_db():
     Safe to run repeatedly; only creates tables if they do not exist.
     """
     import models  # noqa: F401
-    Base.metadata.create_all(bind=engine)
+    with engine.connect() as connection:
+        connection.execute(text("SELECT 1"))
+        Base.metadata.create_all(bind=connection)

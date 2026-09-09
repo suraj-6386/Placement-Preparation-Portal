@@ -1,0 +1,108 @@
+SKILLPREP PORTAL - AIVEN + RENDER DATABASE FIX GUIDE
+====================================================
+
+This guide contains the manual checks that cannot be performed safely from the source code alone.
+Do not paste passwords, API keys, or a complete DATABASE_URL into tickets, logs, or this file.
+
+WHAT THE CODE NOW DOES AUTOMATICALLY
+------------------------------------
+- Uses DATABASE_URL as the production database configuration.
+- Loads Render environment variables without allowing a local .env file to override them.
+- Refuses to start in production without DATABASE_URL.
+- Refuses localhost, 127.0.0.1, 0.0.0.0, and ::1 as production database hosts.
+- Normalizes a MySQL URL to the PyMySQL SQLAlchemy driver.
+- Uses TLS for Aiven and requires a CA-verified certificate in production.
+- Accepts the CA as a Render Secret File path in DB_SSL_CA or PEM text in DB_SSL_CA_CERT.
+- Tests SELECT 1 before SQLAlchemy creates the model tables.
+- Logs only database host, port, database name, and SSL status as diagnostics.
+- Binds the web server to 0.0.0.0 and Render's PORT through render.yaml.
+
+A. AIVEN CHECKS
+---------------
+[ ] Sign in to the Aiven Console and open the correct MySQL service.
+[ ] Confirm the service status is Running/Available, not Rebuilding, Powering off, or Error.
+[ ] Open the service Overview or Connection Information panel.
+[ ] Copy the current Service URI exactly as displayed. Never reconstruct the hostname and never reuse a URI from an old service.
+[ ] Verify each current value from that screen: hostname, port, database name, username, and password.
+[ ] Do not assume the database is named defaultdb or skillprep_db. Use the database name currently supplied by this service.
+[ ] Download the current Aiven CA certificate from the service's CA/SSL/Connection Information area if Aiven requires a project CA.
+[ ] Verify the database exists. Use Aiven's SQL console or a MySQL client with the current service credentials and run:
+    SELECT DATABASE();
+    SHOW DATABASES;
+[ ] Confirm the selected database name matches the database name in the Render DATABASE_URL path.
+[ ] Rotate the old password immediately because the previous local password was exposed in the local .env file. In Aiven, open the service user/password or connection credentials control, generate a new password, save it, and update Render only with the new secret.
+[ ] Check Aiven networking/access controls. Confirm the service is not paused, the plan allows external connections, and any IP allowlist, VPC, or firewall rule permits Render outbound connections. Do not restrict access to a changing Render IP unless your plan supports an appropriate network setup.
+
+B. RENDER CHECKS
+----------------
+Required environment-variable NAMES:
+[ ] APP_ENV
+[ ] DATABASE_URL
+[ ] DB_SSL_CA or DB_SSL_CA_CERT (required for production certificate verification)
+
+Recommended application variables, as applicable:
+[ ] SECRET_KEY
+[ ] CORS_ORIGINS
+[ ] GOOGLE_CLIENT_ID
+[ ] GOOGLE_CLIENT_SECRET
+[ ] GOOGLE_REDIRECT_URI
+
+[ ] Set APP_ENV=production.
+[ ] Set DATABASE_URL to the exact current Aiven Service URI, with the MySQL/PyMySQL scheme. If the password contains @, :, /, %, ?, #, or &, percent-encode it before placing it in the URL.
+[ ] Use the Aiven hostname, port, username, and database name copied from the current Aiven service. Do not type a guessed hostname or database name.
+[ ] Configure DB_SSL_CA as a Render Secret File path containing the downloaded Aiven CA, or DB_SSL_CA_CERT as the CA PEM text. Never commit the certificate or a password to the repository.
+[ ] Remove or replace old production values for DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, and DB_NAME. DATABASE_URL is the production source of truth; leaving stale individual variables can cause operator confusion.
+[ ] Confirm production is not using 127.0.0.1, localhost, local MySQL port 3306, or local root credentials anywhere in Render's environment.
+[ ] Save the environment changes. Open the service Events/Environment view and confirm the new values are present without exposing secrets in screenshots or logs.
+[ ] Trigger a manual redeploy after changing environment variables. A restart/redeploy is required for this application because settings are loaded at process startup.
+[ ] Confirm the service start command is: uvicorn app:app --host 0.0.0.0 --port $PORT
+[ ] Confirm Render is deploying from the repository root and uses requirements.txt for the build.
+
+C. SSL CHECKS
+-------------
+[ ] Keep SSL/TLS enabled. Do not remove ssl-mode=REQUIRED from the Aiven URI if Aiven includes it.
+[ ] Confirm the Aiven CA certificate came from the current Aiven service, not a copied certificate from another service.
+[ ] Configure DB_SSL_CA to the mounted Secret File path, or DB_SSL_CA_CERT to the complete PEM certificate contents.
+[ ] Do not set DB_SSL_CA to a directory, a non-existent path, or a filename that is not mounted in Render.
+[ ] The application converts the CA into a certificate-verifying TLS context and checks the Aiven hostname. It does not disable SSL or certificate verification in production.
+
+D. DATABASE CHECKS
+------------------
+[ ] Verify the production database name in Aiven and in the DATABASE_URL path. The name may differ from both defaultdb and skillprep_db.
+[ ] After deployment, check Render logs for the sanitized host, port, database name, SSL/TLS Enabled: True, SELECT 1 success, and table initialization success.
+[ ] Verify tables with Aiven SQL or a MySQL client:
+    USE <current-database-name>;
+    SHOW TABLES;
+[ ] Expected application tables include users, sessions, activity_events, help_queries, faqs, interview_questions, learning_resources, practice_questions, mock_tests, and coding_challenges.
+[ ] No separate migration command is required for the current project: startup imports the models, tests the connection, and runs SQLAlchemy metadata.create_all().
+[ ] If the database already contains tables, take a backup before any schema changes. create_all creates missing tables but does not migrate changed columns.
+[ ] Test registration, login, logout, profile/dashboard access, and at least one database-backed feature after deployment.
+
+E. FINAL DEPLOYMENT CHECKLIST
+-----------------------------
+[ ] Aiven service running
+[ ] Current Aiven hostname copied from Connection Information
+[ ] Current Aiven port copied
+[ ] Correct database name verified
+[ ] Current Aiven username verified
+[ ] Password rotated after exposure
+[ ] Render DATABASE_URL updated with the exact current URI
+[ ] Password characters URL-encoded where necessary
+[ ] SSL/TLS remains enabled
+[ ] Current Aiven CA configured through DB_SSL_CA or DB_SSL_CA_CERT
+[ ] No localhost database settings in production
+[ ] No local root credentials in production
+[ ] Render environment variables saved
+[ ] Manual redeploy completed
+[ ] Render logs show sanitized DB diagnostics and successful connection
+[ ] Application starts successfully
+[ ] Render detects the web port
+[ ] Login/registration and database-dependent features tested
+
+MANUAL VS AUTOMATIC SUMMARY
+----------------------------
+AI/code changes: production URL validation, local/production precedence, verified TLS handling, connection-before-create_all, safe diagnostics, and Render's bind/port start command.
+
+You must do manually in Aiven: confirm service status, copy the current connection details, verify the database, download the current CA, rotate the exposed password, and check networking/access settings.
+
+You must do manually in Render: set APP_ENV and the exact DATABASE_URL, configure the CA variable/Secret File, remove stale local variables, save changes, redeploy, and verify logs and application behavior.
