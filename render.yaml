@@ -18,5 +18,5 @@ services:
         sync: false
       - key: GOOGLE_CLIENT_SECRET
         sync: false
-      - key: GOOGLE_REDIRECT_URI
+      - key: BASE_URL
         sync: false

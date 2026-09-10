@@ -73,13 +73,11 @@ class Settings:
     # Google OAuth Settings
     GOOGLE_CLIENT_ID: str = os.getenv("GOOGLE_CLIENT_ID", "")
     GOOGLE_CLIENT_SECRET: str = os.getenv("GOOGLE_CLIENT_SECRET", "")
-    _local_google_redirect_uri = "http://localhost:8000/auth/google/callback"
-    _render_external_url = os.getenv("RENDER_EXTERNAL_URL", "").strip().rstrip("/")
-    GOOGLE_REDIRECT_URI: str = os.getenv("GOOGLE_REDIRECT_URI") or (
-        f"{_render_external_url}/auth/google/callback"
-        if _render_external_url
-        else _local_google_redirect_uri
+    BASE_URL: str = (
+        os.getenv("BASE_URL", "http://localhost:8000").strip().rstrip("/")
+        or "http://localhost:8000"
     )
+    GOOGLE_REDIRECT_URI: str = f"{BASE_URL}/auth/google/callback"
 
     # File Upload Settings
     UPLOAD_FOLDER_IMAGES: str = os.getenv(

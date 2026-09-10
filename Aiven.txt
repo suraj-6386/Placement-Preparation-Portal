@@ -31,7 +31,7 @@ DATABASE_URL=mysql+pymysql://avnadmin:<PASSWORD>@<CURRENT_AIVEN_HOST>:<PORT>/<DA
 APP_ENV=production
 
 Optional / Recommended on Render:
-GOOGLE_REDIRECT_URI=https://<YOUR-RENDER-SERVICE-NAME>.onrender.com/auth/google/callback
+BASE_URL=https://<YOUR-RENDER-SERVICE-NAME>.onrender.com
 GOOGLE_CLIENT_ID=<your-google-client-id>
 GOOGLE_CLIENT_SECRET=<your-google-client-secret>
 SECRET_KEY=<strong-random-secret-key>
@@ -109,7 +109,7 @@ Passphrases, tokens, usernames, and complete connection URLs are NEVER logged.
     - Set `DATABASE_URL` to the exact current Aiven URI, using its current database name and `ssl-mode=REQUIRED`.
       (Replace <PASSWORD>, <HOST>, and <PORT> with active values from Step 1).
     - Ensure `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` are NOT set in Render.
-    - Set `GOOGLE_REDIRECT_URI` to your Render URL: `https://<your-app>.onrender.com/auth/google/callback`.
+    - Set `BASE_URL` to your Render URL: `https://<your-app>.onrender.com`.
 [ ] Step 3: Deploy:
     - Trigger Manual Deploy -> "Deploy latest commit".
 [ ] Step 4: Check Logs:

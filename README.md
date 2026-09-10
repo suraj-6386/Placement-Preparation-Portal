@@ -235,9 +235,9 @@ RESUME_MAX_FILE_SIZE=5242880
 RESUME_MAX_TEXT_LENGTH=30000
 
 # Google OAuth 2.0 Settings
+BASE_URL=http://localhost:8000
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
-GOOGLE_REDIRECT_URI=
 ```
 
 > **Note:** Update `DB_PASSWORD` to match your local MySQL root password.
@@ -253,15 +253,15 @@ To enable live Google Sign-In:
 4. Navigate to **Credentials > Create Credentials > OAuth client ID**.
 5. Select **Web application**.
 6. Set **Authorized JavaScript origins**:
-   - `http://localhost:8000`
+   - The value of `BASE_URL` (for example, `http://localhost:8000` locally)
 7. Set **Authorized redirect URIs**:
-   - `http://localhost:8000/auth/google/callback`
+   - The value of `BASE_URL` followed by `/auth/google/callback`
 8. Copy the generated **Client ID** and **Client Secret**.
 9. Paste into `.env`:
    ```env
+   BASE_URL=http://localhost:8000
    GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
    GOOGLE_CLIENT_SECRET=your-google-client-secret
-   GOOGLE_REDIRECT_URI=http://localhost:8000/auth/google/callback
    ```
 10. Click the "Continue with Google" button on the portal to sign in.
 
@@ -286,9 +286,10 @@ The Render web service uses the root `app.py` entrypoint and this start command:
 uvicorn app:app --host 0.0.0.0 --port $PORT
 ```
 
-Render supplies `PORT` automatically. Set `APP_ENV=production`, the Aiven
-`DATABASE_URL`, and the Google OAuth variables in the Render environment; do
-not commit production credentials or rely on local `.env` values.
+Render supplies `PORT` automatically. Set `APP_ENV=production`, `BASE_URL` to
+your Render service URL (for example, `https://your-app.onrender.com`), the
+Aiven `DATABASE_URL`, and the Google OAuth variables in the Render environment;
+do not commit production credentials or rely on local `.env` values.
 
 ---
 

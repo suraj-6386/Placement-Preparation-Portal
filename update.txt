@@ -173,10 +173,10 @@ Step 3.4: Create / Update OAuth 2.0 Web Client Credentials
   - Name: "Placement Preparation Portal Client".
 
   - Authorized JavaScript origins (EXACT VALUE):
-      http://localhost:8000
+      The value of BASE_URL (for example, http://localhost:8000 locally)
 
   - Authorized redirect URIs (EXACT VALUE):
-      http://localhost:8000/auth/google/callback
+      {BASE_URL}/auth/google/callback
 
   - Click "Save" / "Create".
 
@@ -216,9 +216,9 @@ UPLOAD_FOLDER_IMAGES=userdata/profile_images
 UPLOAD_FOLDER_RESUMES=userdata/resumes
 
 # Google OAuth 2.0 Settings
+BASE_URL=http://localhost:8000
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
-GOOGLE_REDIRECT_URI=
 
 ================================================================================
 5. COMMANDS TO RUN ON A NEW DEVICE

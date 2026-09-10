@@ -45,9 +45,10 @@ Recommended application variables, as applicable:
 [ ] CORS_ORIGINS
 [ ] GOOGLE_CLIENT_ID
 [ ] GOOGLE_CLIENT_SECRET
-[ ] GOOGLE_REDIRECT_URI
+[ ] BASE_URL
 
 [ ] Set APP_ENV=production.
+[ ] Set BASE_URL to the public Render URL, such as https://<your-app>.onrender.com.
 [ ] Set DATABASE_URL to the exact current Aiven Service URI, with the MySQL/PyMySQL scheme. If the password contains @, :, /, %, ?, #, or &, percent-encode it before placing it in the URL.
 [ ] Use the Aiven hostname, port, username, and database name copied from the current Aiven service. Do not type a guessed hostname or database name.
 [ ] Configure DB_SSL_CA as a Render Secret File path containing the downloaded Aiven CA, or DB_SSL_CA_CERT as the CA PEM text. Never commit the certificate or a password to the repository.

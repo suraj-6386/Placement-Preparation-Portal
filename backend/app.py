@@ -88,8 +88,7 @@ app.add_middleware(
 # Register REST API router
 app.include_router(api_router)
 
-# Root-level Google OAuth routes to strictly match registered redirect URI:
-# http://localhost:8000/auth/google/callback
+# Root-level Google OAuth routes to strictly match the configured redirect URI.
 from typing import Optional
 from fastapi import Depends
 from sqlalchemy.orm import Session
