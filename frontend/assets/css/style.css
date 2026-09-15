@@ -134,6 +134,22 @@ body {
     transition: all 0.3s ease;
 }
 
+#authNav .dropdown {
+    position: relative;
+}
+
+#authNav .user-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    z-index: 2000;
+}
+
+#authNav .user-dropdown-menu.is-open {
+    display: block;
+}
+
 .user-dropdown:hover {
     background: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
@@ -1580,8 +1596,17 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
 
 .navbar {
     min-height: 72px;
+    position: relative;
+    z-index: 3000;
+    overflow: visible;
     background: linear-gradient(105deg, #123d43 0%, #0f766e 62%, #0b625d 100%) !important;
     box-shadow: 0 8px 24px rgba(13, 55, 59, 0.18);
+}
+
+.navbar-collapse,
+.navbar-nav,
+#authNav {
+    overflow: visible;
 }
 
 .navbar-brand {
@@ -1671,6 +1696,12 @@ footer { margin-top: auto; padding: 24px 16px !important; background: #123d43 !i
 #toastContainer { max-width: min(420px, calc(100vw - 24px)); }
 
 @media (max-width: 991.98px) {
+    #authNav .user-dropdown-menu {
+        bottom: calc(100% + 0.5rem);
+        top: auto;
+        right: 0;
+    }
+
     .navbar-nav { padding-top: 10px; }
     .navbar-nav .nav-item { width: 100%; }
     .navbar-nav .nav-link, .navbar-nav #authNav > * { display: block; width: 100%; }

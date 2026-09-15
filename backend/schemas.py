@@ -26,6 +26,19 @@ class UserLoginRequest(BaseModel):
     password: str
 
 
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+
+class VerificationEmailRequest(BaseModel):
+    email: EmailStr
+
+
+class ResetPasswordRequest(BaseModel):
+    token: str
+    password: str
+
+
 class GoogleAuthRequest(BaseModel):
     credential: str  # Google JWT ID token
 

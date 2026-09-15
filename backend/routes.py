@@ -12,6 +12,8 @@ import time
 import urllib.parse
 import urllib.request
 import urllib.error
+import hashlib
+import logging
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Optional, Any, List
@@ -33,6 +35,7 @@ from models import (
     MockTest,
     CodingChallenge,
     ActivityEvent,
+    PasswordResetToken,
 )
 from schemas import (
     UserRegisterRequest,
@@ -47,6 +50,9 @@ from schemas import (
     HelpQueryResponse,
     ActivityCreate,
     InterviewAIRequest,
+    ForgotPasswordRequest,
+    VerificationEmailRequest,
+    ResetPasswordRequest,
 )
 from auth import (
     hash_password,
@@ -59,6 +65,8 @@ from auth import (
 )
 
 router = APIRouter(prefix="/api", tags=["API"])
+
+logger = logging.getLogger(__name__)
 
 BACKEND_DIR = Path(__file__).resolve().parent
 DATASET_DIR = BACKEND_DIR / "dataset"
@@ -142,6 +150,209 @@ def _read_json_file(filename: str, default: Any = None) -> Any:
 # Authentication Endpoints
 # ============================================================================
 
+PASSWORD_RESET_MESSAGE = (
+    "If an account exists for that email, we have sent a password reset link."
+)
+EMAIL_VERIFICATION_MESSAGE = (
+    "If the email belongs to an unverified account, we have sent a verification link."
+)
+
+
+def _hash_reset_token(token: str) -> str:
+    """Hash a reset token before it is stored so the raw token is never in MySQL."""
+    return hashlib.sha256(token.encode("utf-8")).hexdigest()
+
+
+def _send_password_reset_email(email: str, reset_url: str) -> None:
+    """Send a reset email through Resend without exposing credentials to clients."""
+    import resend
+
+    resend.api_key = settings.RESEND_API_KEY
+    resend.Emails.send(
+        {
+            "from": settings.RESEND_FROM_EMAIL,
+            "to": [email],
+            "subject": "Reset your SkillPrep Portal password",
+            "html": (
+                "<p>We received a request to reset your SkillPrep Portal password.</p>"
+                f'<p><a href="{html.escape(reset_url, quote=True)}">Reset your password</a></p>'
+                "<p>This link expires in 30 minutes and can only be used once.</p>"
+                "<p>If you did not request this, you can safely ignore this email.</p>"
+            ),
+        }
+    )
+
+
+def _send_verification_email(email: str, verify_url: str) -> None:
+    """Send an email verification link through the existing Resend integration."""
+    import resend
+
+    resend.api_key = settings.RESEND_API_KEY
+    resend.Emails.send(
+        {
+            "from": settings.RESEND_FROM_EMAIL,
+            "to": [email],
+            "subject": "Verify your SkillPrep Portal email",
+            "html": (
+                "<p>Thanks for creating a SkillPrep Portal account.</p>"
+                f'<p><a href="{html.escape(verify_url, quote=True)}" '
+                'style="display:inline-block;padding:12px 20px;background:#4f46e5;'
+                'color:#ffffff;text-decoration:none;border-radius:6px;">Verify Email</a></p>'
+                "<p>This link expires in 30 minutes and can only be used once.</p>"
+            ),
+        }
+    )
+
+
+def _issue_verification_token(user: User, db: Session) -> None:
+    """Create and deliver one active verification token for a password account."""
+    raw_token = secrets.token_urlsafe(32)
+    verification_token = PasswordResetToken(
+        user_id=user.id,
+        token_hash=_hash_reset_token(raw_token),
+        expires_at=datetime.utcnow() + timedelta(minutes=30),
+        purpose="email_verification",
+    )
+    db.query(PasswordResetToken).filter(
+        PasswordResetToken.user_id == user.id,
+        PasswordResetToken.purpose == "email_verification",
+        PasswordResetToken.used_at.is_(None),
+    ).delete(synchronize_session=False)
+    db.add(verification_token)
+    db.commit()
+    verify_url = (
+        f"{settings.APP_BASE_URL}/verify-email.html?token="
+        f"{urllib.parse.quote(raw_token)}"
+    )
+    try:
+        _send_verification_email(user.email, verify_url)
+    except Exception:
+        db.delete(verification_token)
+        db.commit()
+        logger.exception("Email verification delivery failed")
+
+
+@router.post("/auth/forgot-password", response_model=BaseResponse)
+def forgot_password(req: ForgotPasswordRequest, db: Session = Depends(get_db)):
+    """Issue a short-lived reset link without revealing whether an email exists."""
+    user = db.query(User).filter(User.email == str(req.email).lower().strip()).first()
+    if user and settings.RESEND_API_KEY and settings.APP_BASE_URL:
+        raw_token = secrets.token_urlsafe(32)
+        reset_token = PasswordResetToken(
+            user_id=user.id,
+            token_hash=_hash_reset_token(raw_token),
+            expires_at=datetime.utcnow() + timedelta(minutes=30),
+            purpose="password_reset",
+        )
+        db.query(PasswordResetToken).filter(
+            PasswordResetToken.user_id == user.id,
+            PasswordResetToken.purpose == "password_reset",
+            PasswordResetToken.used_at.is_(None),
+        ).delete(synchronize_session=False)
+        db.add(reset_token)
+        db.commit()
+        reset_url = f"{settings.APP_BASE_URL}/reset-password.html?token={urllib.parse.quote(raw_token)}"
+        try:
+            _send_password_reset_email(user.email, reset_url)
+        except Exception:
+            db.delete(reset_token)
+            db.commit()
+            logger.exception("Password reset email delivery failed")
+    elif user and not settings.RESEND_API_KEY:
+        logger.error("Password reset requested but RESEND_API_KEY is not configured")
+
+    return {"success": True, "message": PASSWORD_RESET_MESSAGE}
+
+
+@router.post("/auth/reset-password", response_model=BaseResponse)
+def reset_password(req: ResetPasswordRequest, db: Session = Depends(get_db)):
+    """Validate and consume a reset token, then replace the bcrypt password hash."""
+    if len(req.password) < 8:
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={"success": False, "message": "Password must be at least 8 characters"},
+        )
+    if not req.token or len(req.token) > 200:
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={"success": False, "message": "Invalid or expired reset link"},
+        )
+
+    reset_token = (
+        db.query(PasswordResetToken)
+        .filter(PasswordResetToken.token_hash == _hash_reset_token(req.token))
+        .filter(PasswordResetToken.purpose == "password_reset")
+        .with_for_update()
+        .first()
+    )
+    if (
+        not reset_token
+        or reset_token.used_at is not None
+        or reset_token.expires_at <= datetime.utcnow()
+        or not reset_token.user
+    ):
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={"success": False, "message": "Invalid or expired reset link"},
+        )
+
+    reset_token.user.password = hash_password(req.password)
+    reset_token.used_at = datetime.utcnow()
+    db.query(PasswordResetToken).filter(
+        PasswordResetToken.user_id == reset_token.user_id,
+        PasswordResetToken.id != reset_token.id,
+        PasswordResetToken.purpose == "password_reset",
+        PasswordResetToken.used_at.is_(None),
+    ).update({PasswordResetToken.used_at: datetime.utcnow()}, synchronize_session=False)
+    db.query(SessionModel).filter(SessionModel.user_id == reset_token.user_id).delete(
+        synchronize_session=False
+    )
+    db.commit()
+    return {"success": True, "message": "Password reset successful. Please sign in."}
+
+
+@router.get("/auth/verify-email", response_model=BaseResponse)
+def verify_email(token: str = Query(""), db: Session = Depends(get_db)):
+    """Consume a valid verification token and mark the password account verified."""
+    verification_token = (
+        db.query(PasswordResetToken)
+        .filter(PasswordResetToken.token_hash == _hash_reset_token(token))
+        .filter(PasswordResetToken.purpose == "email_verification")
+        .with_for_update()
+        .first()
+    )
+    if (
+        not token
+        or not verification_token
+        or verification_token.used_at is not None
+        or verification_token.expires_at <= datetime.utcnow()
+        or not verification_token.user
+    ):
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={"success": False, "message": "Invalid or expired verification link"},
+        )
+
+    verification_token.user.email_verified = True
+    verification_token.used_at = datetime.utcnow()
+    db.commit()
+    return {"success": True, "message": "Email verified successfully. You can now sign in."}
+
+
+@router.post("/auth/resend-verification", response_model=BaseResponse)
+def resend_verification(req: VerificationEmailRequest, db: Session = Depends(get_db)):
+    """Resend verification without revealing whether an account exists."""
+    user = db.query(User).filter(User.email == str(req.email).lower().strip()).first()
+    if (
+        user
+        and user.auth_provider != "google"
+        and not user.email_verified
+        and settings.RESEND_API_KEY
+        and settings.APP_BASE_URL
+    ):
+        _issue_verification_token(user, db)
+    return {"success": True, "message": EMAIL_VERIFICATION_MESSAGE}
+
 @router.post("/register", response_model=BaseResponse)
 def register(req: UserRegisterRequest, db: Session = Depends(get_db)):
     """
@@ -179,6 +390,8 @@ def register(req: UserRegisterRequest, db: Session = Depends(get_db)):
         email=email,
         username=username,
         password=hash_password(req.password),
+        email_verified=False,
+        auth_provider="password",
         phone=req.phone or "",
         college=req.college or "",
         course=req.course or "",
@@ -196,6 +409,11 @@ def register(req: UserRegisterRequest, db: Session = Depends(get_db)):
             content={"success": False, "message": "Username or email already exists"},
         )
     db.refresh(new_user)
+
+    if settings.RESEND_API_KEY and settings.APP_BASE_URL:
+        _issue_verification_token(new_user, db)
+    else:
+        logger.error("Email verification requested but Resend configuration is incomplete")
 
     return {"success": True, "message": "Registration successful"}
 
@@ -217,6 +435,15 @@ def login(req: UserLoginRequest, db: Session = Depends(get_db)):
         return JSONResponse(
             status_code=status.HTTP_401_UNAUTHORIZED,
             content={"success": False, "message": "Invalid username or password"},
+        )
+
+    if user.auth_provider != "google" and not user.email_verified:
+        return JSONResponse(
+            status_code=status.HTTP_403_FORBIDDEN,
+            content={
+                "success": False,
+                "message": "Please verify your email before logging in.",
+            },
         )
 
     # Generate session token and store in MySQL sessions table
@@ -294,6 +521,8 @@ def google_auth(req: GoogleAuthRequest, db: Session = Depends(get_db)):
             email=email,
             username=username,
             password=hash_password(random_pwd),
+            email_verified=True,
+            auth_provider="google",
             phone="",
             college="",
             course="",
@@ -304,6 +533,10 @@ def google_auth(req: GoogleAuthRequest, db: Session = Depends(get_db)):
         db.add(user)
         db.commit()
         db.refresh(user)
+    elif user.auth_provider != "google" or not user.email_verified:
+        user.auth_provider = "google"
+        user.email_verified = True
+        db.commit()
 
     # Issue session token
     token = generate_session_token()

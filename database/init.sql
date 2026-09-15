@@ -15,6 +15,8 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(150) NOT NULL UNIQUE,
     username VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    email_verified BOOLEAN NOT NULL DEFAULT FALSE,
+    auth_provider VARCHAR(20) NOT NULL DEFAULT 'password',
     phone VARCHAR(50) DEFAULT '',
     college VARCHAR(200) DEFAULT '',
     course VARCHAR(150) DEFAULT '',
@@ -36,6 +38,21 @@ CREATE TABLE IF NOT EXISTS sessions (
     INDEX idx_session_token (token),
     INDEX idx_session_username (username),
     CONSTRAINT fk_session_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 3. Single-use password reset tokens (only SHA-256 token hashes are stored)
+CREATE TABLE IF NOT EXISTS password_reset_tokens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id VARCHAR(36) NOT NULL,
+    token_hash CHAR(64) NOT NULL UNIQUE,
+    expires_at DATETIME NOT NULL,
+    used_at DATETIME NULL,
+    purpose VARCHAR(30) NOT NULL DEFAULT 'password_reset',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_reset_user (user_id),
+    INDEX idx_reset_expires (expires_at),
+    INDEX idx_reset_purpose (purpose),
+    CONSTRAINT fk_reset_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 3. User activity events for dashboard progress

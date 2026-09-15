@@ -79,6 +79,16 @@ class Settings:
     )
     GOOGLE_REDIRECT_URI: str = f"{BASE_URL}/auth/google/callback"
 
+    # Password reset email settings
+    RESEND_API_KEY: str = os.getenv("RESEND_API_KEY", "").strip()
+    RESEND_FROM_EMAIL: str = os.getenv(
+        "RESEND_FROM_EMAIL", "SkillPrep Portal <onboarding@resend.dev>"
+    ).strip()
+    APP_BASE_URL: str = (
+        os.getenv("APP_BASE_URL", "http://127.0.0.1:8000").strip().rstrip("/")
+        or "http://127.0.0.1:8000"
+    )
+
     # File Upload Settings
     UPLOAD_FOLDER_IMAGES: str = os.getenv(
         "UPLOAD_FOLDER_IMAGES", "userdata/profile_images"

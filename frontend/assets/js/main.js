@@ -92,11 +92,11 @@ function checkAuth() {
         const firstName = userName.split(' ')[0];
         authNav.innerHTML = `
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle user-dropdown" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="nav-link dropdown-toggle user-dropdown" type="button" id="navbarDropdown" aria-expanded="false" onclick="toggleUserMenu(event)">
                     <span class="user-avatar">👋</span>
                     <span class="user-name">${firstName}</span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end user-dropdown-menu" aria-labelledby="navbarDropdown">
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end user-dropdown-menu" id="userDropdownMenu" aria-labelledby="navbarDropdown" hidden>
                     <li><a class="dropdown-item" href="dashboard.html"><i class="me-2">📊</i>Dashboard</a></li>
                     <li><a class="dropdown-item" href="profile.html"><i class="me-2">👤</i>My Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
@@ -122,6 +122,31 @@ function checkAuth() {
         `;
     }
 }
+
+function toggleUserMenu(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const button = document.getElementById('navbarDropdown');
+    const menu = document.getElementById('userDropdownMenu');
+    if (!button || !menu) return;
+
+    const isOpen = !menu.hidden;
+    menu.hidden = isOpen;
+    menu.classList.toggle('is-open', !isOpen);
+    button.setAttribute('aria-expanded', String(!isOpen));
+}
+
+document.addEventListener('click', (event) => {
+    const authNav = document.getElementById('authNav');
+    const menu = document.getElementById('userDropdownMenu');
+    const button = document.getElementById('navbarDropdown');
+    if (!authNav || !menu || !button || authNav.contains(event.target)) return;
+
+    menu.hidden = true;
+    menu.classList.remove('is-open');
+    button.setAttribute('aria-expanded', 'false');
+});
 
 // ============================================================================
 // Google OAuth Sign-In Integration
@@ -244,9 +269,11 @@ function initializeAuthForms() {
             const usernameInput = document.getElementById('loginUsername');
             const passwordInput = document.getElementById('loginPassword');
             const errorDiv = document.getElementById('loginError');
+            const resendLink = document.getElementById('resendVerificationLink');
             
             const username = usernameInput ? usernameInput.value.trim() : "";
             const password = passwordInput ? passwordInput.value : "";
+            if (resendLink) resendLink.classList.add('d-none');
             
             if (!username || !password) {
                 if (errorDiv) {
@@ -280,6 +307,9 @@ function initializeAuthForms() {
                     if (errorDiv) {
                         errorDiv.textContent = data.message || 'Invalid username or password';
                         errorDiv.classList.remove('d-none');
+                    }
+                    if (resendLink && response.status === 403) {
+                        resendLink.classList.remove('d-none');
                     }
                 }
             } catch (error) {
@@ -334,7 +364,7 @@ function initializeAuthForms() {
                 
                 if (result.success) {
                     if (successDiv) {
-                        successDiv.textContent = 'Registration successful! Opening login...';
+                        successDiv.textContent = 'Registration successful! Check your email to verify your account before logging in.';
                         successDiv.classList.remove('d-none');
                     }
                     if (errorDiv) errorDiv.classList.add('d-none');

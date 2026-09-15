@@ -3,7 +3,7 @@ SkillPrep Portal - SQLAlchemy Database Models
 Maps application entities to MySQL tables.
 """
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, JSON
+from sqlalchemy import Boolean, Column, Integer, String, Text, DateTime, ForeignKey, JSON
 from sqlalchemy.orm import relationship
 from database import Base
 
@@ -25,6 +25,8 @@ class User(Base):
     skills = Column(Text, default="")
     photo = Column(String(255), default="")
     resume = Column(String(255), default="")
+    email_verified = Column(Boolean, nullable=False, default=False)
+    auth_provider = Column(String(20), nullable=False, default="password")
     created_at = Column(DateTime, default=datetime.utcnow)
 
     # Relationships
@@ -76,6 +78,23 @@ class SessionModel(Base):
             "username": self.username,
             "created_at": self.created_at.isoformat() if self.created_at else None,
         }
+
+
+class PasswordResetToken(Base):
+    """Single-use, hashed password reset tokens stored in MySQL."""
+    __tablename__ = "password_reset_tokens"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(
+        String(36), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    token_hash = Column(String(64), unique=True, nullable=False, index=True)
+    expires_at = Column(DateTime, nullable=False, index=True)
+    used_at = Column(DateTime, nullable=True)
+    purpose = Column(String(30), nullable=False, default="password_reset", index=True)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+
+    user = relationship("User")
 
 
 class ActivityEvent(Base):

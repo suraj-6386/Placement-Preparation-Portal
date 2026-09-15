@@ -38,6 +38,7 @@ The **Placement Preparation Portal** is a production-grade web application built
    - Password hashing using native **bcrypt** (salt rounds = 12).
    - Session tokens generated with cryptographically secure random bytes (`secrets.token_hex(32)`) stored in the MySQL `sessions` table.
    - **Google Sign-In**: Integrated with Google Identity Services (GIS) and backend ID token verification using `google-auth`.
+   - **Forgot Password**: Single-use, 30-minute reset tokens are hashed in MySQL and delivered through Resend.
    - Safe session invalidation upon logout.
 
 2. **User Profile Management**:
