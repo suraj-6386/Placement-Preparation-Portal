@@ -262,6 +262,23 @@ const passwordRequirementsMessage = 'Password must be at least 8 characters and 
 function isStrongPassword(password) {
     return password.length >= 8 && /[A-Z]/.test(password) && /[a-z]/.test(password) && /\d/.test(password) && /[^A-Za-z0-9]/.test(password);
 }
+function initializePasswordFields() {
+    document.querySelectorAll('[data-password-toggle]').forEach((toggle) => {
+        const input = document.getElementById(toggle.dataset.passwordToggle);
+        if (!input || toggle.dataset.initialized) return;
+        toggle.dataset.initialized = 'true';
+        toggle.addEventListener('click', () => {
+            const isHidden = input.type === 'password';
+            input.type = isHidden ? 'text' : 'password';
+            toggle.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+            toggle.title = isHidden ? 'Hide password' : 'Show password';
+        });
+        input.addEventListener('input', () => {
+            const requirements = input.closest('.mb-3, .col-md-6, .password-card')?.querySelector('.password-requirements-live');
+            if (requirements) requirements.classList.toggle('is-visible', input.value.length > 0);
+        });
+    });
+}
 function setDeliveryNote(element) {
     const existing = element.nextElementSibling;
     if (existing && existing.dataset.deliveryNote === 'true') existing.remove();
@@ -273,6 +290,7 @@ function setDeliveryNote(element) {
 }
 
 function initializeAuthForms() {
+    initializePasswordFields();
     // Login Form Handler
     const loginForm = document.getElementById('loginForm');
     if (loginForm && !loginForm.dataset.initialized) {

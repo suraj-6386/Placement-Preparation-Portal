@@ -29,6 +29,17 @@ function isStrongPassword(password) {
     return password.length >= 8 && /[A-Z]/.test(password) && /[a-z]/.test(password) && /\d/.test(password) && /[^A-Za-z0-9]/.test(password);
 }
 
+document.querySelectorAll('[data-password-toggle]').forEach((toggle) => {
+    const input = document.getElementById(toggle.dataset.passwordToggle);
+    if (!input) return;
+    toggle.addEventListener('click', () => {
+        const isHidden = input.type === 'password';
+        input.type = isHidden ? 'text' : 'password';
+        toggle.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+        toggle.title = isHidden ? 'Hide password' : 'Show password';
+    });
+});
+
 const forgotForm = document.getElementById('forgotPasswordForm');
 if (forgotForm) {
     forgotForm.addEventListener('submit', async (event) => {

@@ -26,13 +26,17 @@
           </div>
           <div class="mb-3">
             <label class="form-label small fw-semibold">Password</label>
-            <input
-              type="password"
-              class="form-control form-control-lg fs-6 rounded-3"
-              id="loginPassword"
-              placeholder="Enter your password"
-              required
-            />
+            <div class="password-input-wrapper">
+              <input
+                type="password"
+                class="form-control form-control-lg fs-6 rounded-3"
+                id="loginPassword"
+                placeholder="Enter your password"
+                required
+              />
+              <button type="button" class="password-toggle" data-password-toggle="loginPassword" aria-label="Show password" title="Show password">&#128065;</button>
+            </div>
+            <div class="password-requirements password-requirements-live">At least 8 characters, including uppercase, lowercase, number, and special character.</div>
           </div>
           <div class="text-end mb-3">
             <a href="forgot-password.html" class="small fw-semibold text-primary">Forgot password?</a>
@@ -107,13 +111,16 @@
             </div>
             <div class="col-md-6">
               <label class="form-label small fw-semibold">Password *</label>
-              <input
-                type="password"
-                class="form-control rounded-3"
-                id="regPassword"
-                placeholder="Create a strong password"
-                required
-              />
+              <div class="password-input-wrapper">
+                <input
+                  type="password"
+                  class="form-control rounded-3"
+                  id="regPassword"
+                  placeholder="Create a strong password"
+                  required
+                />
+                <button type="button" class="password-toggle" data-password-toggle="regPassword" aria-label="Show password" title="Show password">&#128065;</button>
+              </div>
               <div class="password-requirements">At least 8 characters, including uppercase, lowercase, number, and special character.</div>
             </div>
             <div class="col-md-6">
