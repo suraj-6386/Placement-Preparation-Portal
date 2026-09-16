@@ -168,11 +168,42 @@ def _hash_reset_token(token: str) -> str:
 
 
 def _email_delivery_configured() -> bool:
-    """Return whether all required server-side mail settings are present."""
-    return bool(
-        settings.RESEND_API_KEY
-        and settings.RESEND_FROM_EMAIL
-        and settings.APP_BASE_URL
+    """Return whether mail settings and the production link base are valid."""
+    if not settings.RESEND_API_KEY or not settings.RESEND_FROM_EMAIL:
+        return False
+    if not settings.APP_BASE_URL:
+        return False
+    if settings.is_production:
+        parsed_url = urllib.parse.urlparse(settings.APP_BASE_URL)
+        return parsed_url.scheme == "https" and parsed_url.hostname not in {
+            "localhost",
+            "127.0.0.1",
+            "0.0.0.0",
+            "::1",
+        }
+    return True
+
+
+def _email_layout(title: str, message: str, cta_label: str, cta_url: str, footer: str) -> str:
+    """Build a compact, responsive email body with one primary action."""
+    safe_url = html.escape(cta_url, quote=True)
+    return (
+        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
+        f'<title>{html.escape(title)}</title></head>'
+        '<body style="margin:0;background:#f4f6f8;color:#1f2933;font-family:Arial,sans-serif;line-height:1.5;">'
+        '<div style="padding:24px 12px;"><div style="max-width:560px;margin:0 auto;background:#ffffff;'
+        'border:1px solid #e2e8f0;border-radius:8px;padding:28px 24px;">'
+        '<p style="margin:0 0 20px;font-size:18px;font-weight:700;color:#172b4d;">'
+        'Placement Preparation Portal</p>'
+        f'<h1 style="margin:0 0 16px;font-size:24px;line-height:1.25;color:#172b4d;">{html.escape(title)}</h1>'
+        f'<p style="margin:0 0 22px;">{html.escape(message)}</p>'
+        f'<p style="margin:0 0 22px;"><a href="{safe_url}" style="display:inline-block;'
+        'background:#1769aa;color:#ffffff;padding:12px 20px;border-radius:6px;text-decoration:none;'
+        f'font-weight:700;">{html.escape(cta_label)}</a></p>'
+        f'<p style="margin:0 0 20px;color:#52606d;font-size:14px;">{html.escape(footer)}</p>'
+        '<p style="margin:0;color:#52606d;font-size:14px;">Regards,<br>Placement Preparation Portal<br>Suraj Gupta</p>'
+        '</div></div></body></html>'
     )
 
 
@@ -185,12 +216,20 @@ def _send_password_reset_email(email: str, reset_url: str) -> None:
         {
             "from": settings.RESEND_FROM_EMAIL,
             "to": [email],
-            "subject": "Reset your Placement Preparation Portal password",
-            "html": (
-                "<p>We received a request to reset your Placement Preparation Portal password.</p>"
-                f'<p><a href="{html.escape(reset_url, quote=True)}">Reset your password</a></p>'
-                "<p>This link expires in 30 minutes and can only be used once.</p>"
-                "<p>If you did not request this, you can safely ignore this email.</p>"
+            "subject": "Reset your password",
+            "html": _email_layout(
+                "Reset your password",
+                "We received a request to reset the password for your Placement Preparation Portal account.",
+                "Reset password",
+                reset_url,
+                "This link expires in 30 minutes and can be used once. If you did not request this, no action is needed.",
+            ),
+            "text": (
+                "Reset your password\n\n"
+                "We received a request to reset the password for your Placement Preparation Portal account.\n\n"
+                f"Reset password: {reset_url}\n\n"
+                "This link expires in 30 minutes and can be used once. If you did not request this, no action is needed.\n\n"
+                "Regards,\nPlacement Preparation Portal\nSuraj Gupta"
             ),
         }
     )
@@ -209,13 +248,20 @@ def _send_verification_email(email: str, verify_url: str) -> None:
         {
             "from": settings.RESEND_FROM_EMAIL,
             "to": [email],
-            "subject": "Verify your Placement Preparation Portal email",
-            "html": (
-                "<p>Thanks for creating a Placement Preparation Portal account.</p>"
-                f'<p><a href="{html.escape(verify_url, quote=True)}" '
-                'style="display:inline-block;padding:12px 20px;background:#4f46e5;'
-                'color:#ffffff;text-decoration:none;border-radius:6px;">Verify Email</a></p>'
-                "<p>This link expires in 30 minutes and can only be used once.</p>"
+            "subject": "Verify your email",
+            "html": _email_layout(
+                "Verify your email",
+                "Use the button below to verify the email address for your Placement Preparation Portal account.",
+                "Verify email",
+                verify_url,
+                "This link expires in 30 minutes and can be used once.",
+            ),
+            "text": (
+                "Verify your email\n\n"
+                "Use the link below to verify the email address for your Placement Preparation Portal account.\n\n"
+                f"Verify email: {verify_url}\n\n"
+                "This link expires in 30 minutes and can be used once.\n\n"
+                "Regards,\nPlacement Preparation Portal\nSuraj Gupta"
             ),
         }
     )

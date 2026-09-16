@@ -1,62 +1,36 @@
 # Latest Task Handoff
 
+## Responsive UI audit completed
+- Audited all 13 frontend routes at 320px, 375px, 430px, 768px, 1024px, 1440px, and 1920px viewport widths.
+- Audited shared navigation, mobile menu, login/register modals, forms, cards, tabs, tables, password pages, dark mode, and generated content containers.
+- No document-level horizontal overflow or viewport-escaping visible elements remained after the fixes.
+
 ## Changes made
-- Resend email delivery now requires a provider response containing an email ID before the API reports success.
-- Verification-email failures are no longer swallowed: registration and resend verification return an error response when delivery fails.
-- Forgot Password returns an error when Resend is unavailable, the account does not exist, or Resend rejects the message. Reset tokens are removed when delivery fails.
-- Added safe Render startup diagnostics for Resend configuration presence, sender presence, and `APP_BASE_URL`; secrets are never logged.
-- Updated frontend handlers to show success only for successful API responses.
-- Added shared responsive protections for auth modals, mobile navbar layout, long labels/messages, media, and vertically scrolling modal bodies. Existing page-specific responsive styles remain in place.
+- Fixed the root modal overlap issue in `frontend/assets/css/style.css`: the navbar previously used `z-index: 3000`, above Bootstrap modals. It now uses Bootstrap-compatible layering (`navbar: 1030`, backdrop: `1050`, modal: `1055`).
+- Made the collapsed navbar layout predictable on mobile and tablet by allowing the menu to occupy a full-width row.
+- Preserved modal centering and internal vertical scrolling for long registration forms. The dialog remains inside the viewport on 320px phones and larger sizes.
+- Fixed the coding tab strip on narrow phones. `Learn` and `Practice` share the first row, while `Coding Challenges` occupies a full-width second row instead of extending beyond the viewport.
+- Bumped the coding stylesheet query version so the responsive fix is not hidden by browser cache.
+- No backend, authentication, token, API route, database, or application functionality was changed.
 
-## Files created/modified
-- Created: `chatgpt.txt`
-- Modified: `backend/routes.py`
-- Modified: `backend/app.py`
-- Modified: `frontend/assets/js/main.js`
-- Modified: `frontend/assets/js/password-reset.js`
-- Modified: `frontend/assets/css/style.css`
+## Files modified in this UI task
+- `frontend/assets/css/style.css`
+- `frontend/assets/css/coding-challenges.css`
+- `frontend/coding.html`
+- `chatgpt.txt`
 
-## Database changes
-No new database migration was added in this task. The existing email-verification and password-reset schema is still required:
-- `users.email_verified`
-- `users.auth_provider`
-- `password_reset_tokens` with the foreign key to `users(id)`
+## Browser testing performed
+- Started the local app with Uvicorn at `http://127.0.0.1:8000`.
+- Opened and tested every frontend route at all requested viewport sizes.
+- Opened the mobile menu and verified Login/Register controls are usable.
+- Opened login and registration modals on shared-navbar pages at 320px.
+- Confirmed modal dialogs remain inside the viewport, scroll internally when needed, and render above the navbar/backdrop correctly.
+- Confirmed the coding tabs wrap at 320px with no document overflow.
+- Confirmed dark mode at 375px with the login modal open and readable.
+- Backend import check passed.
+- CSS diagnostics reported no errors.
 
-Run the existing additive SQL in `resend.txt` against Aiven/MySQL if those columns/table are not already present. Do not delete existing data.
-
-## Environment/configuration changes
-Required locally and on Render:
-- `RESEND_API_KEY`
-- `RESEND_FROM_EMAIL`
-- `APP_BASE_URL`
-
-Use the local application URL for local testing, for example `http://127.0.0.1:8000`. On Render, set `APP_BASE_URL` to the exact public HTTPS Render URL, without a trailing slash. `render.yaml` declares these variables as non-synchronized values, so their values must be entered in the Render dashboard.
-
-## Manual steps I must do
-1. In Resend, confirm the API key is active and belongs to the intended account.
-2. For production recipients, use `Placement Preparation Portal <noreply@mail.surajgupta.me>` after confirming the `mail.surajgupta.me` domain remains verified in Resend.
-3. Enter the real values in the Render service Environment settings, then redeploy or restart the service.
-4. Confirm the Aiven database migration from `resend.txt` has been applied.
-5. Never commit `.env` or put API keys, passwords, or other secrets in this file.
-
-## Render/Aiven/Resend requirements
-- Render must use the production `DATABASE_URL` for the Aiven MySQL service and the correct SSL settings.
-- Render logs should show `EMAIL DIAGNOSTICS` with `api_key=True`, `from=True`, and the expected public `APP_BASE_URL`.
-- A successful send logs only the Resend email ID. A failed send logs the exception and request type without logging the API key.
-- Resend must accept the sender address and recipient. A valid API key alone is not enough if the sender domain is unverified or the test sender restrictions apply.
-- Check Resend delivery/activity logs and spam/quarantine folders after a provider-accepted send.
-
-## Testing steps
-1. Restart the local app after setting environment variables.
-2. Register a new password account and confirm the API/UI reports success only when Resend accepts the verification email.
-3. Click the verification link and confirm login is then allowed.
-4. Use Forgot Password for an existing account and confirm the reset email is accepted and the token resets the password.
-5. Test missing/invalid Resend configuration and confirm the UI shows an error instead of success.
-6. Test Resend Verification for an unverified account and confirm the same success/error behavior.
-7. Inspect the home page and auth modals at approximately 320px, 375px, 768px, 1024px, 1440px, and 1920px widths. Confirm no body-level horizontal scrolling, modal overlap, clipped fields, or unusable touch controls.
-8. Run backend compilation and JavaScript syntax checks.
-
-## Remaining issues/warnings
-- Resend, Render, and Aiven are external services; their dashboard values and delivery logs must be checked manually. This workspace cannot change or verify those accounts.
-- Forgot Password now favors truthful delivery status over account-enumeration protection, so unknown addresses receive an explicit failure response.
-- No automated end-to-end email delivery test was added because it would require real provider credentials and a real recipient.
+## Remaining issues/manual checks
+- Browser console showed external resource 404 responses during local page checks. These are outside the layout changes and should be identified in the browser Network panel if they affect production assets.
+- Real-device testing on physical iPhone and Android hardware is still recommended for keyboard behavior, safe-area insets, and touch scrolling.
+- The local Uvicorn process used for this audit should be stopped when no longer needed.

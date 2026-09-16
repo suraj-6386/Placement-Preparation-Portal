@@ -1546,7 +1546,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 }
 
 /* ==========================================================
-   SkillPrep UI System
+    Placement Preparation Portal UI System
    ========================================================== */
 :root {
     --primary-color: #0f766e;
@@ -1597,7 +1597,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
 .navbar {
     min-height: 72px;
     position: relative;
-    z-index: 3000;
+    z-index: 1030;
     overflow: visible;
     background: linear-gradient(105deg, #123d43 0%, #0f766e 62%, #0b625d 100%) !important;
     box-shadow: 0 8px 24px rgba(13, 55, 59, 0.18);
@@ -1681,6 +1681,8 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
 .nav-tabs .nav-link.active { border-bottom: 3px solid var(--primary-color); color: var(--primary-color); }
 
 .modal-dialog { width: auto; max-width: min(720px, calc(100% - 24px)); }
+.modal { z-index: 1055; }
+.modal-backdrop { z-index: 1050; }
 .modal-content { border-radius: 10px; border: 1px solid var(--border-color); }
 .modal-header { background: linear-gradient(110deg, #123d43, #0f766e); padding: 20px clamp(20px, 4vw, 34px); }
 .modal-body { padding: clamp(20px, 4vw, 34px); }
@@ -1702,6 +1704,8 @@ footer { margin-top: auto; padding: 24px 16px !important; background: #123d43 !i
         right: 0;
     }
 
+    .navbar .container-fluid { flex-wrap: wrap; }
+    .navbar-collapse { flex-basis: 100%; }
     .navbar-nav { padding-top: 10px; }
     .navbar-nav .nav-item { width: 100%; }
     .navbar-nav .nav-link, .navbar-nav #authNav > * { display: block; width: 100%; }

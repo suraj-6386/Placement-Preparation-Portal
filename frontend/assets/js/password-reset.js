@@ -6,6 +6,22 @@ function setMessage(element, message) {
 function hideMessage(element) {
     element.classList.add('d-none');
     element.textContent = '';
+    const warning = element.nextElementSibling;
+    if (warning && warning.dataset.deliveryWarning === 'true') {
+        warning.remove();
+    }
+}
+
+function setDeliveryWarning(element) {
+    const existingWarning = element.nextElementSibling;
+    if (existingWarning && existingWarning.dataset.deliveryWarning === 'true') {
+        existingWarning.remove();
+    }
+    const warning = document.createElement('div');
+    warning.className = 'small text-danger mt-1';
+    warning.dataset.deliveryWarning = 'true';
+    warning.textContent = "Please check your Spam/Junk folder if you don't find the email in your inbox.";
+    element.insertAdjacentElement('afterend', warning);
 }
 
 const forgotForm = document.getElementById('forgotPasswordForm');
@@ -34,6 +50,7 @@ if (forgotForm) {
             const data = await response.json();
             if (!response.ok || !data.success) throw new Error(data.detail || data.message || 'Unable to send reset link.');
             setMessage(success, data.message);
+            setDeliveryWarning(success);
             forgotForm.reset();
         } catch (requestError) {
             setMessage(error, requestError.message || 'Unable to send reset link. Please try again.');
@@ -135,6 +152,7 @@ if (resendVerificationForm) {
             const data = await response.json();
             if (!response.ok || !data.success) throw new Error(data.detail || data.message || 'Unable to send verification email.');
             setMessage(success, data.message);
+            setDeliveryWarning(success);
             resendVerificationForm.reset();
         } catch (requestError) {
             setMessage(error, requestError.message || 'Unable to send verification email. Please try again.');
