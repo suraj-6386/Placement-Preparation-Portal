@@ -22,6 +22,7 @@ class UserRegisterRequest(BaseModel):
 
 
 class UserLoginRequest(BaseModel):
+    # Kept as username for API compatibility; accepts username or email.
     username: str
     password: str
 

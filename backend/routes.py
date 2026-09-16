@@ -156,6 +156,10 @@ PASSWORD_RESET_MESSAGE = (
 EMAIL_VERIFICATION_MESSAGE = (
     "If the email belongs to an unverified account, we have sent a verification link."
 )
+PASSWORD_REQUIREMENTS_MESSAGE = (
+    "Password must be at least 8 characters and include an uppercase letter, "
+    "a lowercase letter, a number, and a special character."
+)
 
 
 class EmailDeliveryError(RuntimeError):
@@ -165,6 +169,25 @@ class EmailDeliveryError(RuntimeError):
 def _hash_reset_token(token: str) -> str:
     """Hash a reset token before it is stored so the raw token is never in MySQL."""
     return hashlib.sha256(token.encode("utf-8")).hexdigest()
+
+
+def _password_is_valid(password: str) -> bool:
+    """Apply the same password policy to registration and password reset."""
+    return bool(
+        len(password) >= 8
+        and re.search(r"[A-Z]", password)
+        and re.search(r"[a-z]", password)
+        and re.search(r"\d", password)
+        and re.search(r"[^A-Za-z0-9]", password)
+    )
+
+
+def _mask_email(email: str) -> str:
+    """Mask the local part while leaving the domain recognizable."""
+    local, separator, domain = email.partition("@")
+    if not separator or len(local) <= 2:
+        return f"{local[:1]}***@{domain}" if separator else "***"
+    return f"{local[:2]}{'*' * 6}{local[-1]}@{domain}"
 
 
 def _email_delivery_configured() -> bool:
@@ -184,7 +207,7 @@ def _email_delivery_configured() -> bool:
     return True
 
 
-def _email_layout(title: str, message: str, cta_label: str, cta_url: str, footer: str) -> str:
+def _email_layout(username: str, title: str, message: str, cta_label: str, cta_url: str, footer: str) -> str:
     """Build a compact, responsive email body with one primary action."""
     safe_url = html.escape(cta_url, quote=True)
     return (
@@ -197,6 +220,7 @@ def _email_layout(title: str, message: str, cta_label: str, cta_url: str, footer
         '<p style="margin:0 0 20px;font-size:18px;font-weight:700;color:#172b4d;">'
         'Placement Preparation Portal</p>'
         f'<h1 style="margin:0 0 16px;font-size:24px;line-height:1.25;color:#172b4d;">{html.escape(title)}</h1>'
+        f'<p style="margin:0 0 12px;">Hello {html.escape(username)},</p>'
         f'<p style="margin:0 0 22px;">{html.escape(message)}</p>'
         f'<p style="margin:0 0 22px;"><a href="{safe_url}" style="display:inline-block;'
         'background:#1769aa;color:#ffffff;padding:12px 20px;border-radius:6px;text-decoration:none;'
@@ -207,7 +231,7 @@ def _email_layout(title: str, message: str, cta_label: str, cta_url: str, footer
     )
 
 
-def _send_password_reset_email(email: str, reset_url: str) -> None:
+def _send_password_reset_email(email: str, username: str, reset_url: str) -> None:
     """Send a reset email through Resend without exposing credentials to clients."""
     import resend
 
@@ -218,15 +242,16 @@ def _send_password_reset_email(email: str, reset_url: str) -> None:
             "to": [email],
             "subject": "Reset your password",
             "html": _email_layout(
+                username,
                 "Reset your password",
-                "We received a request to reset the password for your Placement Preparation Portal account.",
+                f"We received a request to reset the password for your Placement Preparation Portal account (username: {username}).",
                 "Reset password",
                 reset_url,
                 "This link expires in 30 minutes and can be used once. If you did not request this, no action is needed.",
             ),
             "text": (
                 "Reset your password\n\n"
-                "We received a request to reset the password for your Placement Preparation Portal account.\n\n"
+                f"Hello {username},\n\nWe received a request to reset the password for your Placement Preparation Portal account (username: {username}).\n\n"
                 f"Reset password: {reset_url}\n\n"
                 "This link expires in 30 minutes and can be used once. If you did not request this, no action is needed.\n\n"
                 "Regards,\nPlacement Preparation Portal\nSuraj Gupta"
@@ -239,7 +264,7 @@ def _send_password_reset_email(email: str, reset_url: str) -> None:
     logger.info("Resend accepted password reset email id=%s", email_id)
 
 
-def _send_verification_email(email: str, verify_url: str) -> None:
+def _send_verification_email(email: str, username: str, verify_url: str) -> None:
     """Send an email verification link through the existing Resend integration."""
     import resend
 
@@ -250,15 +275,16 @@ def _send_verification_email(email: str, verify_url: str) -> None:
             "to": [email],
             "subject": "Verify your email",
             "html": _email_layout(
+                username,
                 "Verify your email",
-                "Use the button below to verify the email address for your Placement Preparation Portal account.",
+                f"Use the button below to verify the email address for your Placement Preparation Portal account (username: {username}).",
                 "Verify email",
                 verify_url,
                 "This link expires in 30 minutes and can be used once.",
             ),
             "text": (
                 "Verify your email\n\n"
-                "Use the link below to verify the email address for your Placement Preparation Portal account.\n\n"
+                f"Hello {username},\n\nUse the link below to verify the email address for your Placement Preparation Portal account (username: {username}).\n\n"
                 f"Verify email: {verify_url}\n\n"
                 "This link expires in 30 minutes and can be used once.\n\n"
                 "Regards,\nPlacement Preparation Portal\nSuraj Gupta"
@@ -292,7 +318,7 @@ def _issue_verification_token(user: User, db: Session) -> bool:
         f"{urllib.parse.quote(raw_token)}"
     )
     try:
-        _send_verification_email(user.email, verify_url)
+        _send_verification_email(user.email, user.username, verify_url)
     except Exception as exc:
         db.delete(verification_token)
         db.commit()
@@ -338,7 +364,7 @@ def forgot_password(req: ForgotPasswordRequest, db: Session = Depends(get_db)):
     db.commit()
     reset_url = f"{settings.APP_BASE_URL}/reset-password.html?token={urllib.parse.quote(raw_token)}"
     try:
-        _send_password_reset_email(user.email, reset_url)
+        _send_password_reset_email(user.email, user.username, reset_url)
     except Exception as exc:
         db.delete(reset_token)
         db.commit()
@@ -348,16 +374,19 @@ def forgot_password(req: ForgotPasswordRequest, db: Session = Depends(get_db)):
             content={"success": False, "message": "Unable to send the password reset email."},
         )
 
-    return {"success": True, "message": PASSWORD_RESET_MESSAGE}
+    return {
+        "success": True,
+        "message": f"Email sent to {_mask_email(user.email)}. {PASSWORD_RESET_MESSAGE}",
+    }
 
 
 @router.post("/auth/reset-password", response_model=BaseResponse)
 def reset_password(req: ResetPasswordRequest, db: Session = Depends(get_db)):
     """Validate and consume a reset token, then replace the bcrypt password hash."""
-    if len(req.password) < 8:
+    if not _password_is_valid(req.password):
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,
-            content={"success": False, "message": "Password must be at least 8 characters"},
+            content={"success": False, "message": PASSWORD_REQUIREMENTS_MESSAGE},
         )
     if not req.token or len(req.token) > 200:
         return JSONResponse(
@@ -451,7 +480,10 @@ def resend_verification(req: VerificationEmailRequest, db: Session = Depends(get
             status_code=status.HTTP_502_BAD_GATEWAY,
             content={"success": False, "message": "Unable to send the verification email."},
         )
-    return {"success": True, "message": EMAIL_VERIFICATION_MESSAGE}
+    return {
+        "success": True,
+        "message": f"Email sent to {_mask_email(user.email)}. {EMAIL_VERIFICATION_MESSAGE}",
+    }
 
 @router.post("/register", response_model=BaseResponse)
 def register(req: UserRegisterRequest, db: Session = Depends(get_db)):
@@ -464,6 +496,11 @@ def register(req: UserRegisterRequest, db: Session = Depends(get_db)):
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,
             content={"success": False, "message": "All required fields must be provided"},
+        )
+    if not _password_is_valid(req.password):
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={"success": False, "message": PASSWORD_REQUIREMENTS_MESSAGE},
         )
 
     username = req.username.strip()
@@ -527,7 +564,10 @@ def register(req: UserRegisterRequest, db: Session = Depends(get_db)):
             content={"success": False, "message": "Account created, but we could not send the verification email."},
         )
 
-    return {"success": True, "message": "Registration successful"}
+    return {
+        "success": True,
+        "message": f"Registration successful. Email sent to {_mask_email(new_user.email)}.",
+    }
 
 
 @router.post("/login", response_model=AuthResponse)
@@ -536,13 +576,16 @@ def login(req: UserLoginRequest, db: Session = Depends(get_db)):
     Authenticate user with username and password.
     Creates a new session token in MySQL and returns user info.
     """
-    if not req.username or not req.password:
+    identifier = req.username.strip()
+    if not identifier or not req.password:
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,
             content={"success": False, "message": "Username and password required"},
         )
 
-    user = db.query(User).filter(User.username == req.username.strip()).first()
+    user = db.query(User).filter(
+        (User.username == identifier) | (User.email == identifier.lower())
+    ).first()
     if not user or not verify_password(req.password, user.password):
         return JSONResponse(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -676,7 +719,7 @@ def google_login_redirect():
             """
             <html><body style="font-family:sans-serif;padding:3rem;text-align:center;">
             <h2 style="color:#ef4444;">Google Client ID Not Configured</h2>
-            <p>Please enter your <code>GOOGLE_CLIENT_ID</code> in <code>.env</code> as described in <code>update.txt</code>.</p>
+            <p>Please enter your <code>GOOGLE_CLIENT_ID</code> in <code>.env</code> as described in <code>README.md</code>.</p>
             <a href="/" style="display:inline-block;padding:8px 16px;background:#4f46e5;color:#fff;text-decoration:none;border-radius:6px;margin-top:1rem;">Back to Home</a>
             </body></html>
             """,

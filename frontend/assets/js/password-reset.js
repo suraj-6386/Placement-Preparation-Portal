@@ -18,10 +18,15 @@ function setDeliveryWarning(element) {
         existingWarning.remove();
     }
     const warning = document.createElement('div');
-    warning.className = 'small text-danger mt-1';
+    warning.className = 'delivery-note small mt-1';
     warning.dataset.deliveryWarning = 'true';
     warning.textContent = "Please check your Spam/Junk folder if you don't find the email in your inbox.";
     element.insertAdjacentElement('afterend', warning);
+}
+
+const passwordRequirementsMessage = 'Password must be at least 8 characters and include an uppercase letter, a lowercase letter, a number, and a special character.';
+function isStrongPassword(password) {
+    return password.length >= 8 && /[A-Z]/.test(password) && /[a-z]/.test(password) && /\d/.test(password) && /[^A-Za-z0-9]/.test(password);
 }
 
 const forgotForm = document.getElementById('forgotPasswordForm');
@@ -77,8 +82,8 @@ if (resetForm) {
             setMessage(error, 'This reset link is invalid or expired.');
             return;
         }
-        if (password.length < 8) {
-            setMessage(error, 'Password must be at least 8 characters.');
+        if (!isStrongPassword(password)) {
+            setMessage(error, passwordRequirementsMessage);
             return;
         }
         if (password !== confirmation) {

@@ -258,6 +258,20 @@ async function fetchGoogleClientId() {
 // ============================================================================
 // Initialize Authentication Forms
 // ============================================================================
+const passwordRequirementsMessage = 'Password must be at least 8 characters and include an uppercase letter, a lowercase letter, a number, and a special character.';
+function isStrongPassword(password) {
+    return password.length >= 8 && /[A-Z]/.test(password) && /[a-z]/.test(password) && /\d/.test(password) && /[^A-Za-z0-9]/.test(password);
+}
+function setDeliveryNote(element) {
+    const existing = element.nextElementSibling;
+    if (existing && existing.dataset.deliveryNote === 'true') existing.remove();
+    const note = document.createElement('div');
+    note.className = 'delivery-note small mt-1';
+    note.dataset.deliveryNote = 'true';
+    note.textContent = "Please check your Spam/Junk folder if you don't find the email in your inbox.";
+    element.insertAdjacentElement('afterend', note);
+}
+
 function initializeAuthForms() {
     // Login Form Handler
     const loginForm = document.getElementById('loginForm');
@@ -277,7 +291,7 @@ function initializeAuthForms() {
             
             if (!username || !password) {
                 if (errorDiv) {
-                    errorDiv.textContent = 'Please enter both username and password.';
+                    errorDiv.textContent = 'Please enter your email or username and password.';
                     errorDiv.classList.remove('d-none');
                 }
                 return;
@@ -350,6 +364,13 @@ function initializeAuthForms() {
                 }
                 return;
             }
+            if (!isStrongPassword(data.password)) {
+                if (errorDiv) {
+                    errorDiv.textContent = passwordRequirementsMessage;
+                    errorDiv.classList.remove('d-none');
+                }
+                return;
+            }
 
             try {
                 showLoading();
@@ -366,6 +387,7 @@ function initializeAuthForms() {
                     if (successDiv) {
                         successDiv.textContent = 'Registration successful! Check your email to verify your account before logging in.';
                         successDiv.classList.remove('d-none');
+                        setDeliveryNote(successDiv);
                     }
                     if (errorDiv) errorDiv.classList.add('d-none');
                     
