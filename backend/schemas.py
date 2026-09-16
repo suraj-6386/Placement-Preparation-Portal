@@ -1,5 +1,5 @@
 """
-SkillPrep Portal - Pydantic Request & Response Schemas
+Placement Preparation Portal - Pydantic Request & Response Schemas
 Provides validation and serialization for REST APIs.
 """
 from typing import Any, Dict, Optional, List

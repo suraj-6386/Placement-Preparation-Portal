@@ -1,5 +1,5 @@
 """
-SkillPrep Portal - Database Connection & Session Management
+Placement Preparation Portal - Database Connection & Session Management
 Uses SQLAlchemy ORM with PyMySQL driver for MySQL.
 """
 from sqlalchemy import create_engine, inspect, text

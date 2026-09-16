@@ -1725,6 +1725,32 @@ footer { margin-top: auto; padding: 24px 16px !important; background: #123d43 !i
     .profile-photo-preview { width: min(200px, 60vw) !important; height: min(200px, 60vw) !important; }
 }
 
+/* Keep shared layouts usable on narrow screens and with long user content. */
+img, svg, video, canvas { max-width: 100%; }
+.row > *, .card, .card-body, .modal-content, .modal-body, .navbar-brand { min-width: 0; }
+.modal-dialog { margin-inline: auto; }
+.modal-dialog-centered { min-height: calc(100% - 1.5rem); }
+.modal-content { max-height: calc(100vh - 1.5rem); overflow: hidden; }
+.modal-body { overflow-y: auto; }
+.modal-title, .form-label, .alert, .btn, .navbar-brand { overflow-wrap: anywhere; }
+
+@media (max-width: 575.98px) {
+    .navbar { min-height: 64px; }
+    .navbar .container, .navbar .container-fluid { align-items: flex-start; }
+    .navbar-brand { max-width: calc(100% - 56px); padding-right: 8px; }
+    .navbar-collapse { width: 100%; }
+    .modal-dialog, .modal-lg { max-width: calc(100% - 16px); }
+    .modal-dialog-centered { min-height: calc(100% - 1rem); }
+    .modal-content { max-height: calc(100vh - 1rem); }
+    .modal-header { gap: 12px; }
+    .modal-header .btn-close { flex: 0 0 auto; }
+    .modal-body { padding: 16px !important; }
+    .modal-body .row { --bs-gutter-x: 0.75rem; }
+    .modal-body .form-control { font-size: 1rem; }
+    .auth-divider { gap: 4px; }
+    .auth-divider span { padding-inline: 8px !important; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }

@@ -1,5 +1,5 @@
 """
-SkillPrep Portal - Authentication & Security Utilities
+Placement Preparation Portal - Authentication & Security Utilities
 Handles password hashing, token generation, Google OAuth verification,
 and current user dependency injection.
 """

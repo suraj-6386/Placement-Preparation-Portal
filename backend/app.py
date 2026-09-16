@@ -29,6 +29,12 @@ async def lifespan(app: FastAPI):
     """
     # Verify and create MySQL tables if needed
     try:
+        print(
+            "  [EMAIL DIAGNOSTICS] Resend configured: "
+            f"api_key={bool(settings.RESEND_API_KEY)}, "
+            f"from={bool(settings.RESEND_FROM_EMAIL)}, "
+            f"app_base_url={settings.APP_BASE_URL}"
+        )
         diag = settings.database_diagnostics
         print(f"  [DB DIAGNOSTICS] Database Host: {diag['host']}")
         print(f"  [DB DIAGNOSTICS] Database Port: {diag['port']}")

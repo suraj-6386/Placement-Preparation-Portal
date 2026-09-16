@@ -1,6 +1,6 @@
 ================================================================================
 AIVEN MYSQL DATABASE CONFIGURATION GUIDE
-SkillPrep Portal - Render Deployment
+Placement Preparation Portal - Render Deployment
 ================================================================================
 
 1. AIVEN CONNECTION DETAILS & SERVICE URI

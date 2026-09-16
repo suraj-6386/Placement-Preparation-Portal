@@ -362,7 +362,7 @@ function initializeAuthForms() {
                 const result = await response.json();
                 hideLoading();
                 
-                if (result.success) {
+                if (response.ok && result.success) {
                     if (successDiv) {
                         successDiv.textContent = 'Registration successful! Check your email to verify your account before logging in.';
                         successDiv.classList.remove('d-none');

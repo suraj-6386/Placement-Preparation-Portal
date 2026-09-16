@@ -1,4 +1,4 @@
-SKILLPREP PORTAL - AIVEN + RENDER DATABASE FIX GUIDE
+PLACEMENT PREPARATION PORTAL - AIVEN + RENDER DATABASE FIX GUIDE
 ====================================================
 
 This guide contains the manual checks that cannot be performed safely from the source code alone.

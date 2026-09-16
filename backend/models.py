@@ -1,5 +1,5 @@
 """
-SkillPrep Portal - SQLAlchemy Database Models
+Placement Preparation Portal - SQLAlchemy Database Models
 Maps application entities to MySQL tables.
 """
 from datetime import datetime

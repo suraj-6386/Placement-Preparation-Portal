@@ -1,5 +1,5 @@
 """
-SkillPrep Portal - REST API Endpoints
+Placement Preparation Portal - REST API Endpoints
 Implements authentication, user profiles, aptitude, coding, interview, and help routes.
 """
 import os
@@ -158,9 +158,22 @@ EMAIL_VERIFICATION_MESSAGE = (
 )
 
 
+class EmailDeliveryError(RuntimeError):
+    """Raised when Resend does not accept an email for delivery."""
+
+
 def _hash_reset_token(token: str) -> str:
     """Hash a reset token before it is stored so the raw token is never in MySQL."""
     return hashlib.sha256(token.encode("utf-8")).hexdigest()
+
+
+def _email_delivery_configured() -> bool:
+    """Return whether all required server-side mail settings are present."""
+    return bool(
+        settings.RESEND_API_KEY
+        and settings.RESEND_FROM_EMAIL
+        and settings.APP_BASE_URL
+    )
 
 
 def _send_password_reset_email(email: str, reset_url: str) -> None:
@@ -168,19 +181,23 @@ def _send_password_reset_email(email: str, reset_url: str) -> None:
     import resend
 
     resend.api_key = settings.RESEND_API_KEY
-    resend.Emails.send(
+    response = resend.Emails.send(
         {
             "from": settings.RESEND_FROM_EMAIL,
             "to": [email],
-            "subject": "Reset your SkillPrep Portal password",
+            "subject": "Reset your Placement Preparation Portal password",
             "html": (
-                "<p>We received a request to reset your SkillPrep Portal password.</p>"
+                "<p>We received a request to reset your Placement Preparation Portal password.</p>"
                 f'<p><a href="{html.escape(reset_url, quote=True)}">Reset your password</a></p>'
                 "<p>This link expires in 30 minutes and can only be used once.</p>"
                 "<p>If you did not request this, you can safely ignore this email.</p>"
             ),
         }
     )
+    email_id = response.get("id") if isinstance(response, dict) else getattr(response, "id", None)
+    if not email_id:
+        raise EmailDeliveryError("Resend returned no email id for password reset")
+    logger.info("Resend accepted password reset email id=%s", email_id)
 
 
 def _send_verification_email(email: str, verify_url: str) -> None:
@@ -188,13 +205,13 @@ def _send_verification_email(email: str, verify_url: str) -> None:
     import resend
 
     resend.api_key = settings.RESEND_API_KEY
-    resend.Emails.send(
+    response = resend.Emails.send(
         {
             "from": settings.RESEND_FROM_EMAIL,
             "to": [email],
-            "subject": "Verify your SkillPrep Portal email",
+            "subject": "Verify your Placement Preparation Portal email",
             "html": (
-                "<p>Thanks for creating a SkillPrep Portal account.</p>"
+                "<p>Thanks for creating a Placement Preparation Portal account.</p>"
                 f'<p><a href="{html.escape(verify_url, quote=True)}" '
                 'style="display:inline-block;padding:12px 20px;background:#4f46e5;'
                 'color:#ffffff;text-decoration:none;border-radius:6px;">Verify Email</a></p>'
@@ -202,9 +219,13 @@ def _send_verification_email(email: str, verify_url: str) -> None:
             ),
         }
     )
+    email_id = response.get("id") if isinstance(response, dict) else getattr(response, "id", None)
+    if not email_id:
+        raise EmailDeliveryError("Resend returned no email id for verification")
+    logger.info("Resend accepted verification email id=%s", email_id)
 
 
-def _issue_verification_token(user: User, db: Session) -> None:
+def _issue_verification_token(user: User, db: Session) -> bool:
     """Create and deliver one active verification token for a password account."""
     raw_token = secrets.token_urlsafe(32)
     verification_token = PasswordResetToken(
@@ -226,40 +247,60 @@ def _issue_verification_token(user: User, db: Session) -> None:
     )
     try:
         _send_verification_email(user.email, verify_url)
-    except Exception:
+    except Exception as exc:
         db.delete(verification_token)
         db.commit()
-        logger.exception("Email verification delivery failed")
+        logger.exception("Email verification delivery failed for user_id=%s: %s", user.id, exc)
+        return False
+    return True
 
 
 @router.post("/auth/forgot-password", response_model=BaseResponse)
 def forgot_password(req: ForgotPasswordRequest, db: Session = Depends(get_db)):
-    """Issue a short-lived reset link without revealing whether an email exists."""
+    """Issue a short-lived reset link and report whether delivery succeeded."""
     user = db.query(User).filter(User.email == str(req.email).lower().strip()).first()
-    if user and settings.RESEND_API_KEY and settings.APP_BASE_URL:
-        raw_token = secrets.token_urlsafe(32)
-        reset_token = PasswordResetToken(
-            user_id=user.id,
-            token_hash=_hash_reset_token(raw_token),
-            expires_at=datetime.utcnow() + timedelta(minutes=30),
-            purpose="password_reset",
+    if not _email_delivery_configured():
+        logger.error(
+            "Password reset email unavailable: RESEND_API_KEY configured=%s, RESEND_FROM_EMAIL configured=%s, APP_BASE_URL configured=%s",
+            bool(settings.RESEND_API_KEY),
+            bool(settings.RESEND_FROM_EMAIL),
+            bool(settings.APP_BASE_URL),
         )
-        db.query(PasswordResetToken).filter(
-            PasswordResetToken.user_id == user.id,
-            PasswordResetToken.purpose == "password_reset",
-            PasswordResetToken.used_at.is_(None),
-        ).delete(synchronize_session=False)
-        db.add(reset_token)
+        return JSONResponse(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            content={"success": False, "message": "Email delivery is temporarily unavailable."},
+        )
+    if not user:
+        return JSONResponse(
+            status_code=status.HTTP_404_NOT_FOUND,
+            content={"success": False, "message": "No account was found for that email address."},
+        )
+
+    raw_token = secrets.token_urlsafe(32)
+    reset_token = PasswordResetToken(
+        user_id=user.id,
+        token_hash=_hash_reset_token(raw_token),
+        expires_at=datetime.utcnow() + timedelta(minutes=30),
+        purpose="password_reset",
+    )
+    db.query(PasswordResetToken).filter(
+        PasswordResetToken.user_id == user.id,
+        PasswordResetToken.purpose == "password_reset",
+        PasswordResetToken.used_at.is_(None),
+    ).delete(synchronize_session=False)
+    db.add(reset_token)
+    db.commit()
+    reset_url = f"{settings.APP_BASE_URL}/reset-password.html?token={urllib.parse.quote(raw_token)}"
+    try:
+        _send_password_reset_email(user.email, reset_url)
+    except Exception as exc:
+        db.delete(reset_token)
         db.commit()
-        reset_url = f"{settings.APP_BASE_URL}/reset-password.html?token={urllib.parse.quote(raw_token)}"
-        try:
-            _send_password_reset_email(user.email, reset_url)
-        except Exception:
-            db.delete(reset_token)
-            db.commit()
-            logger.exception("Password reset email delivery failed")
-    elif user and not settings.RESEND_API_KEY:
-        logger.error("Password reset requested but RESEND_API_KEY is not configured")
+        logger.exception("Password reset email delivery failed for user_id=%s: %s", user.id, exc)
+        return JSONResponse(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            content={"success": False, "message": "Unable to send the password reset email."},
+        )
 
     return {"success": True, "message": PASSWORD_RESET_MESSAGE}
 
@@ -343,14 +384,27 @@ def verify_email(token: str = Query(""), db: Session = Depends(get_db)):
 def resend_verification(req: VerificationEmailRequest, db: Session = Depends(get_db)):
     """Resend verification without revealing whether an account exists."""
     user = db.query(User).filter(User.email == str(req.email).lower().strip()).first()
-    if (
-        user
-        and user.auth_provider != "google"
-        and not user.email_verified
-        and settings.RESEND_API_KEY
-        and settings.APP_BASE_URL
-    ):
-        _issue_verification_token(user, db)
+    if not _email_delivery_configured():
+        logger.error(
+            "Verification email unavailable: RESEND_API_KEY configured=%s, RESEND_FROM_EMAIL configured=%s, APP_BASE_URL configured=%s",
+            bool(settings.RESEND_API_KEY),
+            bool(settings.RESEND_FROM_EMAIL),
+            bool(settings.APP_BASE_URL),
+        )
+        return JSONResponse(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            content={"success": False, "message": "Email delivery is temporarily unavailable."},
+        )
+    if not user or user.auth_provider == "google" or user.email_verified:
+        return JSONResponse(
+            status_code=status.HTTP_404_NOT_FOUND,
+            content={"success": False, "message": "No unverified password account was found for that email address."},
+        )
+    if not _issue_verification_token(user, db):
+        return JSONResponse(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            content={"success": False, "message": "Unable to send the verification email."},
+        )
     return {"success": True, "message": EMAIL_VERIFICATION_MESSAGE}
 
 @router.post("/register", response_model=BaseResponse)
@@ -410,10 +464,22 @@ def register(req: UserRegisterRequest, db: Session = Depends(get_db)):
         )
     db.refresh(new_user)
 
-    if settings.RESEND_API_KEY and settings.APP_BASE_URL:
-        _issue_verification_token(new_user, db)
-    else:
-        logger.error("Email verification requested but Resend configuration is incomplete")
+    if not _email_delivery_configured():
+        logger.error(
+            "Registration email unavailable: RESEND_API_KEY configured=%s, RESEND_FROM_EMAIL configured=%s, APP_BASE_URL configured=%s",
+            bool(settings.RESEND_API_KEY),
+            bool(settings.RESEND_FROM_EMAIL),
+            bool(settings.APP_BASE_URL),
+        )
+        return JSONResponse(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            content={"success": False, "message": "Account created, but email delivery is not configured."},
+        )
+    if not _issue_verification_token(new_user, db):
+        return JSONResponse(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            content={"success": False, "message": "Account created, but we could not send the verification email."},
+        )
 
     return {"success": True, "message": "Registration successful"}
 

@@ -1,11 +1,11 @@
 [ ] Local .env
 RESEND_API_KEY=<your Resend API key>
-RESEND_FROM_EMAIL=SkillPrep Portal <onboarding@resend.dev>
+RESEND_FROM_EMAIL=Placement Preparation Portal <noreply@mail.surajgupta.me>
 APP_BASE_URL=http://127.0.0.1:8000
 
 [ ] Render Environment Variables
 RESEND_API_KEY=<your Resend API key>
-RESEND_FROM_EMAIL=SkillPrep Portal <onboarding@resend.dev>
+RESEND_FROM_EMAIL=Placement Preparation Portal <noreply@mail.surajgupta.me>
 APP_BASE_URL=https://<actual-render-url>
 APP_BASE_URL must use the actual Render URL in production.
 
@@ -30,7 +30,7 @@ CREATE TABLE password_reset_tokens (
 [ ] Resend Dashboard
 [ ] Create or use a Resend account.
 [ ] Generate an API key; put it in local .env and Render Environment Variables.
-[ ] Configure RESEND_FROM_EMAIL as SkillPrep Portal <onboarding@resend.dev>.
+[ ] Configure RESEND_FROM_EMAIL as Placement Preparation Portal <noreply@mail.surajgupta.me>.
 [ ] Complete Resend sender/domain verification if required for intended recipients or production sending.
 
 [ ] Restart and test

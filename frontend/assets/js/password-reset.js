@@ -32,7 +32,7 @@ if (forgotForm) {
                 body: JSON.stringify({ email })
             });
             const data = await response.json();
-            if (!response.ok) throw new Error(data.detail || data.message || 'Unable to send reset link.');
+            if (!response.ok || !data.success) throw new Error(data.detail || data.message || 'Unable to send reset link.');
             setMessage(success, data.message);
             forgotForm.reset();
         } catch (requestError) {
@@ -133,7 +133,7 @@ if (resendVerificationForm) {
                 body: JSON.stringify({ email })
             });
             const data = await response.json();
-            if (!response.ok) throw new Error(data.detail || data.message || 'Unable to send verification email.');
+            if (!response.ok || !data.success) throw new Error(data.detail || data.message || 'Unable to send verification email.');
             setMessage(success, data.message);
             resendVerificationForm.reset();
         } catch (requestError) {

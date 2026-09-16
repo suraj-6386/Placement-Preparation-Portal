@@ -1,5 +1,5 @@
 """
-SkillPrep Portal - Application Configuration
+Placement Preparation Portal - Application Configuration
 Loads settings from environment variables or .env file.
 """
 import os
@@ -82,7 +82,7 @@ class Settings:
     # Password reset email settings
     RESEND_API_KEY: str = os.getenv("RESEND_API_KEY", "").strip()
     RESEND_FROM_EMAIL: str = os.getenv(
-        "RESEND_FROM_EMAIL", "SkillPrep Portal <onboarding@resend.dev>"
+        "RESEND_FROM_EMAIL", "Placement Preparation Portal <noreply@mail.surajgupta.me>"
     ).strip()
     APP_BASE_URL: str = (
         os.getenv("APP_BASE_URL", "http://127.0.0.1:8000").strip().rstrip("/")
